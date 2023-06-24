@@ -67,7 +67,7 @@ Route::post('/save-banner-categories-en', 'Backend\BannerController@save_banner_
 Route::get('/list-banner-categories', 'Backend\BannerController@list_banner_categories');
 Route::get('/edit-banner-categories/{id}', 'Backend\BannerController@edit_banner_categories');
 Route::post('/update-banner-categories/{id}', 'Backend\BannerController@update_banner_categories');
-Route::post('/update-banner-categories-en/{id}', 'Backend\BannerController@update_banner_categories-en');
+Route::post('/update-banner-categories-en/{id}', 'Backend\BannerController@update_banner_categories_en');
 Route::get('/delete-banner-categories/{id}', 'Backend\BannerController@delete_banner_categories');
 
 //Slider

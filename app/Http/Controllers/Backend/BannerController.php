@@ -39,6 +39,7 @@ class BannerController extends Controller
         return view('admin_pages.banner.add_banner_categories')->with(compact('banner_categories'));
     }
 
+    
     public function save_banner_categories(Request $request){
         $data = $request->all();
         $banner_categories = new Banner_categories();
@@ -258,9 +259,9 @@ class BannerController extends Controller
         $data['content'] = $request->content2;
         $data['seo_name'] = $request->seo_name2;
         $data['tags2'] = $request->tags2;
-        $data['meta_title2'] = $request->meta_title2;
-        $data['meta_desc2'] = $request->meta_desc2;
-        $data['meta_keyword2'] = $request->meta_keyword2;
+        $data['meta_title'] = $request->meta_title2;
+        $data['meta_desc'] = $request->meta_desc2;
+        $data['meta_keyword'] = $request->meta_keyword2;
         DB::table('multi_languages')->where('object_id',$id)->where('lang_code', 'en')->update($data);
         Toastr::success('Cập nhật danh mục thành công','Thành công');
 
