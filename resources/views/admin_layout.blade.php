@@ -30,7 +30,7 @@
 
     <!-- Custom Theme Style -->
     <link href="{{asset('public/backend/css/custom.min.css')}}" rel="stylesheet">
-
+    <link href="{{asset('public/backend/css/style.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
   </head>
 
@@ -98,22 +98,22 @@
                   </li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Quản lý banner, slider <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> Quản lý banner<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a><i class="fa fa-sliders"></i> Quản lý banner <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{URL::to('/add-banner')}}">Thêm banner</a></li>
                       <li><a href="{{URL::to('/list-banner')}}">Danh sách banner</a></li>
-                      <li><a href="{{URL::to('/add-category-banner')}}">Thêm danh mục</a></li>
-                      <li><a href="{{URL::to('/list-category-banner')}}">Danh sách danh mục</a></li>
+                      <li><a href="{{URL::to('/add-banner-categories')}}">Thêm danh mục</a></li>
+                      <li><a href="{{URL::to('/list-banner-categories')}}">Danh sách danh mục</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-sliders"></i> Quản lý slider <span class="fa fa-chevron-down"></span></a>
+                  <!-- <li><a><i class="fa fa-sliders"></i> Quản lý slider <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{URL::to('/add-slider')}}">Thêm slider</a></li>
                       <li><a href="{{URL::to('/list-slider')}}">Danh sách slider</a></li>
                     </ul>
-                  </li>
+                  </li> -->
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> Quản lý users <span class="fa fa-chevron-down"></span></a>
@@ -297,6 +297,24 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{asset('public/backend/js/custom.min.js')}}"></script>
+    <script src="{{asset('public/backend/ckeditor4/ckeditor.js')}}"></script>
+    <!-- <script src="{{asset('public/backend/ckeditor5/ckeditor.js')}}"></script> -->
+    <script type="text/javascript">
+      CKEDITOR.replace('ckeditor1');
+      CKEDITOR.replace('ckeditor2');
+      CKEDITOR.replace('ckeditor3');
+      CKEDITOR.replace('ckeditor4');
+      CKEDITOR.replace('ckeditor5');
+      CKEDITOR.replace('ckeditor6');
+
+      // ClassicEditor.create(document.getElementById('ckeditor1'));
+      // ClassicEditor.create(document.getElementById('ckeditor2'));
+      // ClassicEditor
+      //   .create( document.querySelector( '#ckeditor1' ), document.querySelector( '#ckeditor2' ) )
+      //   .catch( error => {
+      //       console.error( error );
+      //   } );
+    </script>
 
     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
   {!! Toastr::message() !!}

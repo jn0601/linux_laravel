@@ -59,8 +59,16 @@ Route::get('/list-post', 'Backend\PostController@list_post');//->middleware('aut
 //Banner
 Route::get('/add-banner', 'Backend\BannerController@add_banner');//->middleware('auth');
 Route::get('/list-banner', 'Backend\BannerController@list_banner');//->middleware('auth');
-Route::get('/add-category-banner', 'Backend\BannerController@add_category_banner');
-Route::get('/list-category-banner', 'Backend\BannerController@list_category_banner');
+Route::get('/add-banner-categories', 'Backend\BannerController@add_banner_categories');
+Route::post('/save-banner-categories', 'Backend\BannerController@save_banner_categories');
+Route::post('/save-banner-categories-vn-update/{id}', 'Backend\BannerController@save_banner_categories_vn_update');
+Route::post('/save-banner-categories-en-update/{id}', 'Backend\BannerController@save_banner_categories_en_update');
+Route::post('/save-banner-categories-en', 'Backend\BannerController@save_banner_categories_en');
+Route::get('/list-banner-categories', 'Backend\BannerController@list_banner_categories');
+Route::get('/edit-banner-categories/{id}', 'Backend\BannerController@edit_banner_categories');
+Route::post('/update-banner-categories/{id}', 'Backend\BannerController@update_banner_categories');
+Route::post('/update-banner-categories-en/{id}', 'Backend\BannerController@update_banner_categories-en');
+Route::get('/delete-banner-categories/{id}', 'Backend\BannerController@delete_banner_categories');
 
 //Slider
 Route::get('/add-slider', 'Backend\SliderController@add_slider');//->middleware('auth');

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Banner_categories extends Model
 {
+    public $timestamps = false; //set time to false
     // $fillable là các biến có thể update 
     protected $fillable = [
     	'name', 'desc', 'content','display_order'
