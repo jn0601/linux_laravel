@@ -22,6 +22,8 @@ class AdminController extends Controller
     //     }
     // }
 
+    
+
     public function index()
     {
         //$this->AuthLogin();

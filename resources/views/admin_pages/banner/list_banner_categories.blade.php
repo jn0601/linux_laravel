@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="clearfix"></div>
 
     <div class="row">
@@ -28,16 +28,19 @@
           <div class="x_title">
             <h2>Danh sách danh mục</h2>
             <ul class="nav navbar-right panel_toolbox">
-                <!-- <a href="#" class="btn btn-success"> Lưu</a>
+              <!-- <a href="#" class="btn btn-success"> Lưu</a>
               <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Xoá</a> -->
+              <a href="#" class="btn btn-success"> Lưu </a>
+              <a href="{{URL::to('/add-banner-categories')}}" class="btn btn-primary"> Thêm danh mục </a>
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
+                    class="fa fa-wrench"></i></a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Settings 1</a>
-                    <a class="dropdown-item" href="#">Settings 2</a>
-                  </div>
+                  <a class="dropdown-item" href="#">Settings 1</a>
+                  <a class="dropdown-item" href="#">Settings 2</a>
+                </div>
               </li>
               <!-- <li><a class="close-link"><i class="fa fa-close"></i></a> -->
               </li>
@@ -52,7 +55,7 @@
             <table class="list_banner_categories table table-striped projects bulk_action">
               <thead>
                 <tr>
-                    <th style="width: 20%;">Số thứ tự</th>
+                  <th style="width: 20%;">Số thứ tự</th>
                   <th>Tên danh mục</th>
                   <!-- <th>Mô tả</th> -->
                   <!-- <th>
@@ -63,62 +66,46 @@
                 </tr>
               </thead>
               <tbody>
-              @foreach($list_banner_categories as $key => $cate_pro)
+                @foreach($list_banner_categories as $key => $banner_cate)
                 <tr>
-                <td>
-                <div class=" display_order col-md-6 col-sm-6" style="width: 80px;">
-                    <input class="form-control" name="name" data-validate-words="2" 
-                    name="display_order" value="{{$cate_pro->display_order}}" />
-                </div>
+                  <td>
+                    <div class=" display_order col-md-6 col-sm-6" style="width: 80px;">
+                      <input class="form-control" name="name" data-validate-words="2" name="display_order"
+                        value="{{$banner_cate->display_order}}" />
+                    </div>
                   </td>
                   <td>
-                    <a>{{ $cate_pro->name }}</a>
+                    <a>{{ $banner_cate->name }}</a>
                     <br />
                     <!-- <small>Created 01.01.2015</small> -->
                   </td>
-                  <!-- <td>
-                    <ul class="list-inline">
-                      <li>
-                        <img src="{{asset('public/backend/images/user.png')}}" class="avatar" alt="Avatar">
-                      </li>
-                      <li>
-                        <img src="{{asset('public/backend/images/user.png')}}" class="avatar" alt="Avatar">
-                      </li>
-                      <li>
-                        <img src="{{asset('public/backend/images/user.png')}}" class="avatar" alt="Avatar">
-                      </li>
-                      <li>
-                        <img src="{{asset('public/backend/images/user.png')}}" class="avatar" alt="Avatar">
-                      </li>
-                    </ul>
-                    <a>{{ $cate_pro->desc }}</a>
-                  </td> -->
-                  <!-- <td>
-                    <div class="checkbox">
-                    <input type="hidden" value="{{ $cate_pro->id }}">
-						<input type="checkbox" class="flat" name="table_records">
-					</div>
-                  </td> -->
+
                   <td>
                     <!-- <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a> -->
-                    <a href="{{URL::to('/edit-banner-categories/'.$cate_pro->id)}}" class="btn btn-info btn-xs btn-sm"><i class="fa fa-pencil"></i> Sửa</a>
+                    <a href="{{URL::to('/edit-banner-categories/'.$banner_cate->id)}}"
+                      class="btn btn-info btn-xs btn-sm"><i class="fa fa-pencil"></i> Sửa</a>
                     <a onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này ko?')"
-                     href="{{URL::to('/delete-banner-categories/'.$cate_pro->id)}}" class="btn btn-danger btn-xs btn-sm"><i class="fa fa-trash-o"></i> Xoá</a>
+                      href="{{URL::to('/delete-banner-categories/'.$banner_cate->id)}}"
+                      class="btn btn-danger btn-xs btn-sm"><i class="fa fa-trash-o"></i> Xoá</a>
                   </td>
                 </tr>
-                
-              @endforeach
+
+                @endforeach
               </tbody>
             </table>
             <!-- end project list -->
 
           </div>
-          
+
         </div>
       </div>
     </div>
   </div>
   {!!$list_banner_categories->links()!!}
+
+
+</div>
+
 </div>
 
 @endsection

@@ -8,6 +8,10 @@
  */
 
 define('LARAVEL_START', microtime(true));
+session_start();
+// session(['mutil' => '1']);
+// $data = $request->session()->all();
+
 
 /*
 |--------------------------------------------------------------------------

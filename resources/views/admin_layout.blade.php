@@ -33,7 +33,7 @@
     <link href="{{asset('public/backend/css/style.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
   </head>
-
+  {{ $session = 'rtggddgdg' }}
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
