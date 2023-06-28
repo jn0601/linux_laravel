@@ -5,7 +5,7 @@
   <div class="">
     <div class="page-title">
       <div class="title_left">
-        <h3>Danh sách <small>Banner</small></h3>
+        <h3>Danh sách <small>Danh mục</small></h3>
       </div>
 
       <div class="title_right">
@@ -26,12 +26,12 @@
       <div class="col-md-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Danh sách banner</h2>
+            <h2>Danh sách danh mục sản phẩm</h2>
             <ul class="nav navbar-right panel_toolbox">
               <!-- <a href="#" class="btn btn-success"> Lưu</a>
               <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Xoá</a> -->
               <a href="#" class="btn btn-success"> Lưu </a>
-              <a href="{{URL::to('/add-banners')}}" class="btn btn-primary"> Thêm banner </a>
+              <a href="{{URL::to('/add-product-categories')}}" class="btn btn-primary"> Thêm danh mục </a>
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
               <li class="dropdown">
@@ -56,62 +56,88 @@
               <thead>
                 <tr>
                   <th style="width: 14%;">Số thứ tự</th>
-                  <th>Tên banner</th>
+                  <th>Tên danh mục</th>
                   <th>Hình ảnh</th>
-                  <th>Danh mục</th>
-                  <!-- <th>Mô tả</th> -->
-                  <!-- <th>
-                    <input type="checkbox" id="check-all" class="flat">
-                  </th> -->
+                  <th>Danh mục cha</th>
+                  <th>Tiêu biểu</th>
                   <th>Hoạt động</th>
+                  <th>Hiển thị</th>
                   <th>Chỉnh sửa </th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($list_banners as $key => $banner)
+                @foreach($list_product_cate as $key => $product_category)
                 <tr>
                   <td>
                     <div class=" display_order col-md-6 col-sm-6" style="width: 80px;">
                       <input class="form-control" name="name" data-validate-words="2" name="display_order"
-                        value="{{$banner->display_order}}" />
+                        value="{{$product_category->display_order}}" />
                     </div>
                   </td>
                   <td>
-                    <a>{{ $banner->name }}</a>
+                    <a>{{ $product_category->name }}</a>
                     <br />
                     <!-- <small>Created 01.01.2015</small> -->
                   </td>
                   <td>
-                    <img src="public/backend/uploads/banners/{{ $banner->image }}" height="120" width="300">
+                    <img src="public/backend/uploads/product_categories/{{ $product_category->image }}" height="120"
+                      width="200">
                   </td>
                   <td class="project_progress">
-                    @if($banner->category_id == 0)
+                    @if($product_category->parent_id == 0)
                     <span style="color: red"> -----------</span>
                     @else
-                    @foreach($banner_cate as $key => $cate_banner)
-                    @if($cate_banner->id == $banner->category_id)
-                    <span style="color: green">{{$cate_banner->name}}
-                    </span>
-                    @endif
-                    @endforeach
+                      @foreach($product_cate as $key => $sub_cate)
+                        @if($sub_cate->id == $product_category->parent_id)
+                          <span style="color: green">{{$sub_cate->name}}
+                          </span>
+                        @else
+                          @foreach($product_sub_cate as $key => $sub_cate2)
+                            @if($sub_cate2->id == $product_category->parent_id)
+                              <span style="color: blue">{{$sub_cate2->name}}
+                              </span>
+                            @endif
+                          @endforeach
+                        @endif
+                      @endforeach
                     @endif
                   </td>
                   <td><span class="text-ellipsis">
-                      <?php if ($banner->status == 1) { ?>
-                      <a href="{{URL::to('/unactive-banners/'.$banner->id)}}"><span
+                      <?php if ($product_category->representative == 1) { ?>
+                      <a href="{{URL::to('/unactive-representative/'.$product_category->id)}}"><span
                           class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
                       <?php } else { ?>
-                      <a href="{{URL::to('/active-banners/'.$banner->id)}}"><span
+                      <a href="{{URL::to('/active-representative/'.$product_category->id)}}"><span
+                          class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
+                      <?php } ?>
+                    </span>
+                  </td>
+                  <td><span class="text-ellipsis">
+                      <?php if ($product_category->status == 1) { ?>
+                      <a href="{{URL::to('/unactive-status/'.$product_category->id)}}"><span class="fa fa-toggle-on"
+                          style="font-size: 25px;"></span></a>
+                      <?php } else { ?>
+                      <a href="{{URL::to('/active-status/'.$product_category->id)}}"><span class="fa fa-toggle-off"
+                          style="font-size: 25px;"></span></a>
+                      <?php } ?>
+                    </span>
+                  </td>
+                  <td><span class="text-ellipsis">
+                      <?php if ($product_category->display_menu == 1) { ?>
+                      <a href="{{URL::to('/unactive-display-menu/'.$product_category->id)}}"><span
+                          class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
+                      <?php } else { ?>
+                      <a href="{{URL::to('/active-display-menu/'.$product_category->id)}}"><span
                           class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
                       <?php } ?>
                     </span>
                   </td>
                   <td>
                     <!-- <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a> -->
-                    <a href="{{URL::to('/edit-banners/'.$banner->id)}}" class="btn btn-info btn-xs btn-sm"><i
-                        class="fa fa-pencil"></i> Sửa</a>
+                    <a href="{{URL::to('/edit-product-categories/'.$product_category->id)}}"
+                      class="btn btn-info btn-xs btn-sm"><i class="fa fa-pencil"></i> Sửa</a>
                     <a onclick="return confirm('Bạn có chắc chắn muốn xóa banner này ko?')"
-                      href="{{URL::to('/delete-banners/'.$banner->id)}}"
+                      href="{{URL::to('/delete-product-categories/'.$product_category->id)}}"
                       class="btn btn-danger btn-xs btn-sm"><i class="fa fa-trash-o"></i> Xoá</a>
                   </td>
                 </tr>
@@ -127,7 +153,7 @@
       </div>
     </div>
   </div>
-  {!!$list_banners->links()!!}
+  {!!$list_product_cate->links()!!}
 
 
 </div>

@@ -44,17 +44,26 @@ Route::get('/404', 'Backend\AdminController@error');
 Route::get('/add-menu', 'Backend\MainMenuController@add_menu');//->middleware('auth');
 Route::get('/list-menu', 'Backend\MainMenuController@list_menu');//->middleware('auth');
 
-//Category
-Route::get('/add-category', 'Backend\CategoryController@add_category');//->middleware('auth');
-Route::get('/list-category', 'Backend\CategoryController@list_category');//->middleware('auth');
-
 //Product
-Route::get('/add-product', 'Backend\ProductController@add_product');//->middleware('auth');
-Route::get('/list-product', 'Backend\ProductController@list_product');//->middleware('auth');
+Route::get('/add-product-categories', 'Backend\ProductController@add_product_categories');//->middleware('auth');
+Route::get('/list-product-categories', 'Backend\ProductController@list_product_categories');//->middleware('auth');
+Route::get('/edit-product-categories/{id}', 'Backend\ProductController@edit_product_categories');
+Route::post('/update-product-categories/{id}', 'Backend\ProductController@update_product_categories');
+Route::post('/save-product-categories', 'Backend\ProductController@save_product_categories');
+Route::get('/delete-product-categories/{id}', 'Backend\ProductController@delete_product_categories');
+Route::get('/unactive-representative/{id}', 'Backend\ProductController@unactive_representative');//->middleware('auth');;
+Route::get('/active-representative/{id}', 'Backend\ProductController@active_representative');//->middleware('auth');
+Route::get('/unactive-status/{id}', 'Backend\ProductController@unactive_status');//->middleware('auth');;
+Route::get('/active-status/{id}', 'Backend\ProductController@active_status');//->middleware('auth');
+Route::get('/unactive-display-menu/{id}', 'Backend\ProductController@unactive_display_menu');//->middleware('auth');;
+Route::get('/active-display-menu/{id}', 'Backend\ProductController@active_display_menu');//->middleware('auth');
 
-//Post
-Route::get('/add-post', 'Backend\PostController@add_post');//->middleware('auth');
-Route::get('/list-post', 'Backend\PostController@list_post');//->middleware('auth');
+Route::get('/add-products', 'Backend\ProductController@add_products');//->middleware('auth');
+Route::get('/list-products', 'Backend\ProductController@list_products');//->middleware('auth');
+
+//News
+Route::get('/add-news', 'Backend\PostController@add_post');//->middleware('auth');
+Route::get('/list-news', 'Backend\PostController@list_post');//->middleware('auth');
 
 //Banner
 Route::get('/add-banners', 'Backend\BannerController@add_banners');//->middleware('auth');
@@ -62,15 +71,15 @@ Route::get('/list-banners', 'Backend\BannerController@list_banners');//->middlew
 Route::get('/add-banner-categories', 'Backend\BannerController@add_banner_categories');
 Route::post('/save-banner-categories', 'Backend\BannerController@save_banner_categories');
 Route::post('/save-banners', 'Backend\BannerController@save_banners');
-Route::post('/save-banner-categories-vn-update/{id}', 'Backend\BannerController@save_banner_categories_vn_update');
-Route::post('/save-banner-categories-en-update/{id}', 'Backend\BannerController@save_banner_categories_en_update');
-Route::post('/save-banner-categories-en', 'Backend\BannerController@save_banner_categories_en');
+//Route::post('/save-banner-categories-vn-update/{id}', 'Backend\BannerController@save_banner_categories_vn_update');
+//Route::post('/save-banner-categories-en-update/{id}', 'Backend\BannerController@save_banner_categories_en_update');
+//Route::post('/save-banner-categories-en', 'Backend\BannerController@save_banner_categories_en');
 Route::get('/list-banner-categories', 'Backend\BannerController@list_banner_categories');
 Route::get('/edit-banner-categories/{id}', 'Backend\BannerController@edit_banner_categories');
 Route::get('/edit-banners/{id}', 'Backend\BannerController@edit_banners');
 Route::post('/update-banner-categories/{id}', 'Backend\BannerController@update_banner_categories');
 Route::post('/update-banners/{id}', 'Backend\BannerController@update_banners');
-Route::post('/update-banner-categories-en/{id}', 'Backend\BannerController@update_banner_categories_en');
+//Route::post('/update-banner-categories-en/{id}', 'Backend\BannerController@update_banner_categories_en');
 Route::get('/delete-banner-categories/{id}', 'Backend\BannerController@delete_banner_categories');
 Route::get('/delete-banners/{id}', 'Backend\BannerController@delete_banners');
 Route::get('/unactive-banners/{id}', 'Backend\BannerController@unactive_banners');//->middleware('auth');;

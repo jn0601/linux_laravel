@@ -143,10 +143,11 @@ class BannerController extends Controller
         }
     }
 
+    // trang update
     public function edit_banners($id)
     {
         $banner = Banners::orderBy('id', 'desc')->get();
-        $banner_cate = DB::table('banner_categories')->orderby('id', 'desc')->get();
+        $banner_cate = Banner_categories::orderby('id', 'desc')->get();
         $edit_banners = Banners::where('id', $id)->get();
         //$edit_banner_categories_lang = Multi_languages::where('object_id',$id)->get();
         $edit_banners_vn = Multi_languages::where('object_id', $id)->where('lang_code', 'vn')->get();

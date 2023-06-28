@@ -21,10 +21,10 @@ class PostController extends Controller
     // }
     public function add_post(){
         //$this->AuthLogin();
-        return view('admin_pages.post.add_post');
+        return view('admin_pages.news.add_post');
     }
     public function list_post(){
         //$this->AuthLogin();
-        return view('admin_pages.post.list_post');
+        return view('admin_pages.news.list_post');
     }
 }

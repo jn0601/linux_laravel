@@ -82,18 +82,18 @@
                     <ul class="nav child_menu">
                     <li><a><i class="fa fa-gamepad"></i> Quản lý sản phẩm <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{URL::to('/add-product')}}">Thêm sản phẩm</a></li>
-                      <li><a href="{{URL::to('/list-product')}}">Danh sách sản phẩm</a></li>
-                      <li><a href="{{URL::to('/add-category')}}">Thêm danh mục</a></li>
-                      <li><a href="{{URL::to('/list-category')}}">Danh sách danh mục</a></li>
+                      <li><a href="{{URL::to('/add-products')}}">Thêm sản phẩm</a></li>
+                      <li><a href="{{URL::to('/list-products')}}">Danh sách sản phẩm</a></li>
+                      <li><a href="{{URL::to('/add-product-categories')}}">Thêm danh mục</a></li>
+                      <li><a href="{{URL::to('/list-product-categories')}}">Danh sách danh mục</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-newspaper-o"></i> Quản lý tin tức <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{URL::to('/add-post')}}">Thêm tin tức</a></li>
-                      <li><a href="{{URL::to('/list-post')}}">Danh sách tin tức</a></li>
-                      <li><a href="{{URL::to('/add-category')}}">Thêm danh mục</a></li>
-                      <li><a href="{{URL::to('/list-category')}}">Danh sách danh mục</a></li>
+                      <li><a href="{{URL::to('/add-news')}}">Thêm tin tức</a></li>
+                      <li><a href="{{URL::to('/list-news')}}">Danh sách tin tức</a></li>
+                      <li><a href="{{URL::to('/add-news-categories')}}">Thêm danh mục</a></li>
+                      <li><a href="{{URL::to('/list-news-categories')}}">Danh sách danh mục</a></li>
                     </ul>
                   </li>
                     </ul>

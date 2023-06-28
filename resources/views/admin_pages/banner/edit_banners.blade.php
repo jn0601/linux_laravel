@@ -178,8 +178,8 @@
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn danh mục
-												cha</label>
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn danh
+												mục</label>
 											<div class="col-md-10 col-sm-10 ">
 												<select name="category_id" class="form-control">
 													@if($edit_value->category_id == 0)
@@ -197,24 +197,24 @@
 													@endforeach
 													<option value="0">Không có danh mục</option>
 													@endif
-													
+
 													<!-- <option value="0">Không có danh mục</option> -->
-													
+
 												</select>
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align ">Kiểu hiển
-												thị</label>
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Kiểu hoạt
+												động</label>
 											<div class="col-md-10 col-sm-10 ">
 												<select name="status" class="form-control">
 													@if($edit_value->status == 1){
-													<option value="3">Ẩn</option>
-													<option selected value="1">Hiện</option>
+													<option value="3">Không hoạt động</option>
+													<option selected value="1">Hoạt động</option>
 													}
 													@else{
-													<option selected value="3">Ẩn</option>
-													<option value="1">Hiện</option>
+													<option selected value="3">Không hoạt động</option>
+													<option value="1">Hoạt động</option>
 													}
 													@endif
 												</select>

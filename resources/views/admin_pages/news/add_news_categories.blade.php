@@ -5,7 +5,7 @@
 	<div class="">
 		<div class="page-title">
 			<div class="title_left">
-				<h3>Thêm banner</h3>
+				<h3>Thêm danh mục</h3>
 			</div>
 
 			<div class="title_right">
@@ -25,9 +25,9 @@
 			<div class="col-md-12 col-sm-12  ">
 				<div class="x_panel">
 					<div class="x_title">
-						<h2><i class="fa fa-bars"></i> Banner </h2>
+						<h2><i class="fa fa-bars"></i> Danh mục <small>sản phẩm</small></h2>
 						<ul class="nav navbar-right panel_toolbox">
-							<a href="{{URL::to('/list-banners')}}" class="btn btn-primary"> Quay lại </a>
+							<a href="{{URL::to('/list-product-categories')}}" class="btn btn-primary"> Quay lại </a>
 							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 							</li>
 							<li class="dropdown">
@@ -45,7 +45,8 @@
 					</div>
 
 					<div class="x_content">
-						<form class="" enctype="multipart/form-data" action="{{URL::to('/save-banners')}}" method="post" novalidate>
+						<form class="" enctype="multipart/form-data" action="{{URL::to('/save-product-categories')}}"
+							method="post" novalidate>
 							<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 								<li class="nav-item">
 									<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
@@ -87,12 +88,12 @@
 							</p> -->
 										<span class="section">Thông tin chi tiết</span>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align">Tên banner<span
-													class="required">*</span></label>
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Tên danh
+												mục<span class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
 												<input class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="name"
-													placeholder="vd: Banner trang chủ" required="required" />
+													data-validate-words="2" name="name" placeholder="vd: CPU AMD"
+													required="required" />
 											</div>
 										</div>
 										<div class="field item form-group">
@@ -112,11 +113,19 @@
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align">Link<span
+											<label class="col-form-label col-md-2 col-sm-2  label-align">root_id<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
 												<input class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="link" required="required" />
+													data-validate-words="2" name="root_id" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Level<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="level" required="required" />
 											</div>
 										</div>
 										<div class="field item form-group">
@@ -168,18 +177,39 @@
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn danh mục cha</label>
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn danh mục
+												cha</label>
 											<div class="col-md-10 col-sm-10 ">
 												<select name="category_id" class="form-control">
-													<option value="0">Không có danh mục</option>
-													@foreach($banner_categories as $key => $val)
-													<option value="{{$val->id}}">{{$val->name}}</option>
+													<option value="0">Danh mục cha</option>
+													@foreach($list_product_cate as $key => $product_category)
+														@if($product_category->parent_id == 0)
+															<option style="color:red;" value="{{$product_category->id}}">Cấp 1. {{$product_category->name}}</option>
+														@else
+															@foreach($product_cate as $key => $sub_cate)
+																@if($sub_cate->id == $product_category->parent_id)
+																	<option style="color:green;" value="{{$product_category->id}}">Cấp 2. {{$product_category->name}}</option>
+																
+																@endif
+															@endforeach
+														@endif
 													@endforeach
 												</select>
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align ">Kiểu hoạt động</label>
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Tiêu
+												biểu</label>
+											<div class="col-md-10 col-sm-10 ">
+												<select name="status" class="form-control">
+													<option value="0">Không</option>
+													<option value="1">Có</option>
+												</select>
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Kiểu hoạt
+												động</label>
 											<div class="col-md-10 col-sm-10 ">
 												<select name="status" class="form-control">
 													<option value="3">Không hoạt động</option>
@@ -187,27 +217,26 @@
 												</select>
 											</div>
 										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Kiểu hiển
+												thị</label>
+											<div class="col-md-10 col-sm-10 ">
+												<select name="status" class="form-control">
+													<option value="0">Ẩn</option>
+													<option value="1">Hiện</option>
+												</select>
+											</div>
+										</div>
 
 										<div class="ln_solid"></div>
-										<!-- <div class="form-group">
-											<div class="col-md-6 offset-md-3">
-												<button type='submit' name="save_banner_categories"
-													class="btn btn-primary">Thêm</button>
-												<button type='reset' class="btn btn-success">Tạo lại</button>
-											</div>
-										</div> -->
-										<!-- </form> -->
 									</div>
 								</div>
 								<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 									<div class="x_content">
-										<!-- <form class="" action="{{URL::to('/save-banners-en')}}" method="post"
-										novalidate> -->
-										<!-- {{ csrf_field() }} -->
-										<!-- <p>For alternative validation library <code>parsleyJS</code> check out in the <a href="form.html">form page</a></p> -->
+										
 										<span class="section">Details</span>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align">Banner
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Category
 												Name<span class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
 												<input class="form-control" data-validate-length-range="6"
@@ -232,22 +261,7 @@
 													required="required" name='content2'></textarea>
 											</div>
 										</div>
-										<!-- <div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align">Link<span
-													class="required">*</span></label>
-											<div class="col-md-10 col-sm-10">
-												<input class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="links" required="required" />
-											</div>
-										</div> -->
-										<!-- <div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align">Image<span
-													class="required">*</span></label>
-											<div class="col-md-10 col-sm-10">
-												<input type="file" class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="img2" required="required" />
-											</div>
-										</div> -->
+
 										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Seo name<span
 													class="required">*</span></label>
@@ -288,25 +302,8 @@
 													data-validate-words="2" name="meta_keyword2" required="required" />
 											</div>
 										</div>
-										<!-- <div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align ">Status</label>
-											<div class="col-md-10 col-sm-10 ">
-												<select name="status" class="form-control">
-													<option value="3">Hide</option>
-													<option value="1">Show</option>
-												</select>
-											</div>
-										</div> -->
 
 										<div class="ln_solid"></div>
-										<!-- <div class="form-group">
-											<div class="col-md-6 offset-md-3">
-												<button type='submit' name="save_banner_categories_2"
-													class="btn btn-primary">Add</button>
-												<button type='reset' class="btn btn-success">Reset</button>
-											</div>
-										</div> -->
-										<!-- </form> -->
 									</div>
 								</div>
 							</div>
