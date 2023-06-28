@@ -10,13 +10,13 @@ class Multi_languages extends Model
     
     // $fillable là các biến có thể update 
     protected $fillable = [
-    	'object_id', 'lang_code',
+    	'type', 'object_id', 'lang_code',
         'name', 'desc', 'content', 'seo_name',
         'tags', 'meta_title', 'meta_desc', 'meta_keyword'
     ];
-    protected $attributes = [
-        'type' => '4'
-    ];
+    // protected $attributes = [
+    //     'type' => '4'
+    // ];
     protected $primaryKey = 'id';
  	protected $table = 'multi_languages';
 }

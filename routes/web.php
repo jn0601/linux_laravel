@@ -57,18 +57,24 @@ Route::get('/add-post', 'Backend\PostController@add_post');//->middleware('auth'
 Route::get('/list-post', 'Backend\PostController@list_post');//->middleware('auth');
 
 //Banner
-Route::get('/add-banner', 'Backend\BannerController@add_banner');//->middleware('auth');
-Route::get('/list-banner', 'Backend\BannerController@list_banner');//->middleware('auth');
+Route::get('/add-banners', 'Backend\BannerController@add_banners');//->middleware('auth');
+Route::get('/list-banners', 'Backend\BannerController@list_banners');//->middleware('auth');
 Route::get('/add-banner-categories', 'Backend\BannerController@add_banner_categories');
 Route::post('/save-banner-categories', 'Backend\BannerController@save_banner_categories');
+Route::post('/save-banners', 'Backend\BannerController@save_banners');
 Route::post('/save-banner-categories-vn-update/{id}', 'Backend\BannerController@save_banner_categories_vn_update');
 Route::post('/save-banner-categories-en-update/{id}', 'Backend\BannerController@save_banner_categories_en_update');
 Route::post('/save-banner-categories-en', 'Backend\BannerController@save_banner_categories_en');
 Route::get('/list-banner-categories', 'Backend\BannerController@list_banner_categories');
 Route::get('/edit-banner-categories/{id}', 'Backend\BannerController@edit_banner_categories');
+Route::get('/edit-banners/{id}', 'Backend\BannerController@edit_banners');
 Route::post('/update-banner-categories/{id}', 'Backend\BannerController@update_banner_categories');
+Route::post('/update-banners/{id}', 'Backend\BannerController@update_banners');
 Route::post('/update-banner-categories-en/{id}', 'Backend\BannerController@update_banner_categories_en');
 Route::get('/delete-banner-categories/{id}', 'Backend\BannerController@delete_banner_categories');
+Route::get('/delete-banners/{id}', 'Backend\BannerController@delete_banners');
+Route::get('/unactive-banners/{id}', 'Backend\BannerController@unactive_banners');//->middleware('auth');;
+Route::get('/active-banners/{id}', 'Backend\BannerController@active_banners');//->middleware('auth');
 
 //Slider
 Route::get('/add-slider', 'Backend\SliderController@add_slider');//->middleware('auth');

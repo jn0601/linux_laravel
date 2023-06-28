@@ -33,7 +33,7 @@
     <link href="{{asset('public/backend/css/style.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
   </head>
-  {{ $session = 'rtggddgdg' }}
+  
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
@@ -100,12 +100,12 @@
                   </li>
                   <li><a><i class="fa fa-table"></i> Quản lý banner<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a><i class="fa fa-sliders"></i> Quản lý banner <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="{{URL::to('/add-banner')}}">Thêm banner</a></li>
-                      <li><a href="{{URL::to('/list-banner')}}">Danh sách banner</a></li>
+                      <li><a href="{{URL::to('/add-banners')}}">Thêm banner</a></li>
+                      <li><a href="{{URL::to('/list-banners')}}">Danh sách banner</a></li>
                       <li><a href="{{URL::to('/add-banner-categories')}}">Thêm danh mục</a></li>
                       <li><a href="{{URL::to('/list-banner-categories')}}">Danh sách danh mục</a></li>
+                    <ul class="nav child_menu">
+                      
                     </ul>
                   </li>
                   <!-- <li><a><i class="fa fa-sliders"></i> Quản lý slider <span class="fa fa-chevron-down"></span></a>
