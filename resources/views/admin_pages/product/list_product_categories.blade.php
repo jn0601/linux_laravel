@@ -56,8 +56,8 @@
               <thead>
                 <tr>
                   <th style="width: 14%;">Số thứ tự</th>
-                  <th>Tên danh mục</th>
                   <th>Hình ảnh</th>
+                  <th>Tên danh mục</th>
                   <th>Danh mục cha</th>
                   <th>Tiêu biểu</th>
                   <th>Hoạt động</th>
@@ -69,37 +69,44 @@
                 @foreach($list_product_cate as $key => $product_category)
                 <tr>
                   <td>
-                    <div class=" display_order col-md-6 col-sm-6" style="width: 80px;">
+                    <div class=" display_order col-md-8 col-sm-8" style="max-width: 70px; width: 70px; padding: 0;">
                       <input class="form-control" name="name" data-validate-words="2" name="display_order"
                         value="{{$product_category->display_order}}" />
                     </div>
+                  </td>
+                  <td>
+                    <img src="public/backend/uploads/product_categories/{{ $product_category->image }}" height="auto"
+                      width="80">
                   </td>
                   <td>
                     <a>{{ $product_category->name }}</a>
                     <br />
                     <!-- <small>Created 01.01.2015</small> -->
                   </td>
-                  <td>
-                    <img src="public/backend/uploads/product_categories/{{ $product_category->image }}" height="120"
-                      width="200">
-                  </td>
+                  
                   <td class="project_progress">
+                    <!-- level 1 -->
                     @if($product_category->parent_id == 0)
                     <span style="color: red"> -----------</span>
+                    <!-- level 2 or 3 -->
                     @else
-                      @foreach($product_cate as $key => $sub_cate)
-                        @if($sub_cate->id == $product_category->parent_id)
-                          <span style="color: green">{{$sub_cate->name}}
-                          </span>
-                        @else
+                      <!-- level 2 -->
+                      @if($product_category->level == 2)
+                        @foreach($product_cate as $key => $sub_cate)
+                          @if($sub_cate->id == $product_category->parent_id)
+                            <span style="color: green">{{$sub_cate->name}}
+                            </span>
+                          @endif
+                        @endforeach
+                      <!-- level 3 -->
+                      @else
                           @foreach($product_sub_cate as $key => $sub_cate2)
                             @if($sub_cate2->id == $product_category->parent_id)
                               <span style="color: blue">{{$sub_cate2->name}}
                               </span>
                             @endif
                           @endforeach
-                        @endif
-                      @endforeach
+                      @endif
                     @endif
                   </td>
                   <td><span class="text-ellipsis">
@@ -136,7 +143,7 @@
                     <!-- <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a> -->
                     <a href="{{URL::to('/edit-product-categories/'.$product_category->id)}}"
                       class="btn btn-info btn-xs btn-sm"><i class="fa fa-pencil"></i> Sửa</a>
-                    <a onclick="return confirm('Bạn có chắc chắn muốn xóa banner này ko?')"
+                    <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
                       href="{{URL::to('/delete-product-categories/'.$product_category->id)}}"
                       class="btn btn-danger btn-xs btn-sm"><i class="fa fa-trash-o"></i> Xoá</a>
                   </td>
@@ -151,13 +158,10 @@
 
         </div>
       </div>
+      {!!$list_product_cate->links()!!}
     </div>
   </div>
-  {!!$list_product_cate->links()!!}
-
-
 </div>
-
 </div>
 
 @endsection

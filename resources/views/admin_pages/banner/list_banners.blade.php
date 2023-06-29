@@ -110,7 +110,7 @@
                     <!-- <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a> -->
                     <a href="{{URL::to('/edit-banners/'.$banner->id)}}" class="btn btn-info btn-xs btn-sm"><i
                         class="fa fa-pencil"></i> Sửa</a>
-                    <a onclick="return confirm('Bạn có chắc chắn muốn xóa banner này ko?')"
+                    <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
                       href="{{URL::to('/delete-banners/'.$banner->id)}}"
                       class="btn btn-danger btn-xs btn-sm"><i class="fa fa-trash-o"></i> Xoá</a>
                   </td>

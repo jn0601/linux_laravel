@@ -51,12 +51,19 @@ Route::get('/edit-product-categories/{id}', 'Backend\ProductController@edit_prod
 Route::post('/update-product-categories/{id}', 'Backend\ProductController@update_product_categories');
 Route::post('/save-product-categories', 'Backend\ProductController@save_product_categories');
 Route::get('/delete-product-categories/{id}', 'Backend\ProductController@delete_product_categories');
+
 Route::get('/unactive-representative/{id}', 'Backend\ProductController@unactive_representative');//->middleware('auth');;
 Route::get('/active-representative/{id}', 'Backend\ProductController@active_representative');//->middleware('auth');
 Route::get('/unactive-status/{id}', 'Backend\ProductController@unactive_status');//->middleware('auth');;
 Route::get('/active-status/{id}', 'Backend\ProductController@active_status');//->middleware('auth');
 Route::get('/unactive-display-menu/{id}', 'Backend\ProductController@unactive_display_menu');//->middleware('auth');;
 Route::get('/active-display-menu/{id}', 'Backend\ProductController@active_display_menu');//->middleware('auth');
+
+Route::get('/unactive-product-status/{id}', 'Backend\ProductController@unactive_product_status');//->middleware('auth');;
+Route::get('/active-product-status/{id}', 'Backend\ProductController@active_product_status');//->middleware('auth');
+Route::get('/unactive-product-display-menu/{id}', 'Backend\ProductController@unactive_product_display_menu');//->middleware('auth');;
+Route::get('/active-product-display-menu/{id}', 'Backend\ProductController@active_product_display_menu');
+
 
 Route::get('/add-products', 'Backend\ProductController@add_products');//->middleware('auth');
 Route::get('/list-products', 'Backend\ProductController@list_products');//->middleware('auth');

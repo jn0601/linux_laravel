@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Session;
 class BannerController extends Controller
 {
     //type mặc định là 4
-
+    private $type_banner = 4;
 
     // public function AuthLogin()
     // {
@@ -108,7 +108,7 @@ class BannerController extends Controller
             $banners->save();
 
             // save vào bảng phụ tiếng Việt
-            $banners_vn->type = "4";
+            $banners_vn->type = $this->type_banner;
             $banners_vn->object_id = $banners->id;
             $banners_vn->lang_code = "vn";
             $banners_vn->name = $data['name'];
@@ -122,7 +122,7 @@ class BannerController extends Controller
             $banners_vn->save();
 
             // save vào bảng phụ tiếng Anh
-            $banners_en->type = "4";
+            $banners_en->type = $this->type_banner;
             $banners_en->object_id = $banners->id;
             $banners_en->lang_code = "en";
             $banners_en->name = ($data_en['name2'] ? $data_en['name2'] : '');
@@ -150,8 +150,8 @@ class BannerController extends Controller
         $banner_cate = Banner_categories::orderby('id', 'desc')->get();
         $edit_banners = Banners::where('id', $id)->get();
         //$edit_banner_categories_lang = Multi_languages::where('object_id',$id)->get();
-        $edit_banners_vn = Multi_languages::where('object_id', $id)->where('lang_code', 'vn')->get();
-        $edit_banners_en = Multi_languages::where('object_id', $id)->where('lang_code', 'en')->get();
+        $edit_banners_vn = Multi_languages::where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_banner)->get();
+        $edit_banners_en = Multi_languages::where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_banner)->get();
         //$view_banner_categories  = view('admin_pages.banner.edit_banner_categories')->with('edit_banner_categories',$edit_banner_categories)->with('edit_banner_categories_lang',$edit_banner_categories_lang)->with('category',$category);
         $view_banners = view('admin_pages.banner.edit_banners')->with('banner_cate', $banner_cate)->with('edit_banners', $edit_banners)->with('edit_banners_vn', $edit_banners_vn)->with('edit_banners_en', $edit_banners_en)->with('banner', $banner);
         return view('admin_layout')->with('admin_pages.banner.edit_banners', $view_banners);
@@ -203,7 +203,7 @@ class BannerController extends Controller
         $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '' );
         $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '' );
         DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->update($data_en);
-        Toastr::success('Cập nhật danh mục thành công', 'Thành công');
+        Toastr::success('Cập nhật thành công', 'Thành công');
 
         // Session::put('message','Cập nhật danh mục sản phẩm thành công');
         return Redirect::to('list-banners');
@@ -385,7 +385,7 @@ class BannerController extends Controller
         Toastr::success('Xóa danh mục thành công', 'Thành công');
 
         // Session::put('message','Xóa danh mục sản phẩm thành công');
-        return Redirect::to('list-banner-categories');
+        return redirect()->back();
     }
 
     public function unactive_banners($id)

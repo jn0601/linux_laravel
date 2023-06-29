@@ -112,22 +112,23 @@
 													required="required" name='content'></textarea>
 											</div>
 										</div>
-										<div class="field item form-group">
+										<!-- <div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align">root_id<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
 												<input class="form-control" data-validate-length-range="6"
 													data-validate-words="2" name="root_id" required="required" />
 											</div>
-										</div>
-										<div class="field item form-group">
+										</div> -->
+										
+										<!-- <div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Level<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
 												<input class="form-control" data-validate-length-range="6"
 													data-validate-words="2" name="level" required="required" />
 											</div>
-										</div>
+										</div> -->
 										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Hình ảnh<span
 													class="required">*</span></label>
@@ -176,23 +177,21 @@
 													data-validate-words="2" name="meta_keyword" required="required" />
 											</div>
 										</div>
+										<input type="hidden" class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="root_id" required="required" />
 										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn danh mục
 												cha</label>
 											<div class="col-md-10 col-sm-10 ">
-												<select name="category_id" class="form-control">
+												<select name="parent_id" class="select2_group form-control">
 													<option value="0">Danh mục cha</option>
-													@foreach($list_product_cate as $key => $product_category)
-														@if($product_category->parent_id == 0)
-															<option style="color:red;" value="{{$product_category->id}}">Cấp 1. {{$product_category->name}}</option>
-														@else
-															@foreach($product_cate as $key => $sub_cate)
-																@if($sub_cate->id == $product_category->parent_id)
-																	<option style="color:green;" value="{{$product_category->id}}">Cấp 2. {{$product_category->name}}</option>
-																
-																@endif
-															@endforeach
-														@endif
+													<optgroup label="Danh mục cấp 1"></optgroup>
+													@foreach($product_cate as $key => $product_category)
+														<option style="color:red;" value="{{$product_category->id}}">Cấp 1. {{$product_category->name}}</option>
+													@endforeach
+													<optgroup label="Danh mục cấp 2"></optgroup>
+													@foreach($product_sub_cate as $key => $sub_cate)
+														<option style="color:green;" value="{{$sub_cate->id}}">Cấp 2. {{$sub_cate->name}}</option>
 													@endforeach
 												</select>
 											</div>
@@ -201,7 +200,7 @@
 											<label class="col-form-label col-md-2 col-sm-2  label-align ">Tiêu
 												biểu</label>
 											<div class="col-md-10 col-sm-10 ">
-												<select name="status" class="form-control">
+												<select name="representative" class="form-control">
 													<option value="0">Không</option>
 													<option value="1">Có</option>
 												</select>
@@ -221,7 +220,7 @@
 											<label class="col-form-label col-md-2 col-sm-2  label-align ">Kiểu hiển
 												thị</label>
 											<div class="col-md-10 col-sm-10 ">
-												<select name="status" class="form-control">
+												<select name="display_menu" class="form-control">
 													<option value="0">Ẩn</option>
 													<option value="1">Hiện</option>
 												</select>

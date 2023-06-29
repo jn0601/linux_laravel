@@ -5,7 +5,7 @@
 	<div class="">
 		<div class="page-title">
 			<div class="title_left">
-				<h3>Form Validation</h3>
+				<h3>Thêm sản phẩm</h3>
 			</div>
 
 			<div class="title_right">
@@ -22,15 +22,17 @@
 		<div class="clearfix"></div>
 
 		<div class="row">
-			<div class="col-md-12 col-sm-12">
+			<div class="col-md-12 col-sm-12  ">
 				<div class="x_panel">
 					<div class="x_title">
-						<h2>Form validation <small>sub title</small></h2>
+						<h2><i class="fa fa-bars"></i> Sản phẩm </h2>
 						<ul class="nav navbar-right panel_toolbox">
+							<a href="{{URL::to('/list-products')}}" class="btn btn-primary"> Quay lại </a>
 							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 							</li>
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-expanded="false"><i class="fa fa-wrench"></i></a>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 									<a class="dropdown-item" href="#">Settings 1</a>
 									<a class="dropdown-item" href="#">Settings 2</a>
@@ -41,81 +43,279 @@
 						</ul>
 						<div class="clearfix"></div>
 					</div>
+
 					<div class="x_content">
-						<form class="" action="" method="post" novalidate>
-							<p>For alternative validation library <code>parsleyJS</code> check out in the <a href="form.html">form page</a>
-							</p>
-							<span class="section">Personal Info</span>
-							<div class="field item form-group">
-								<label class="col-form-label col-md-3 col-sm-3  label-align">Name<span class="required">*</span></label>
-								<div class="col-md-6 col-sm-6">
-									<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="ex. John f. Kennedy" required="required" />
+						<form class="" enctype="multipart/form-data" action="{{URL::to('/save-products')}}"
+							method="post" novalidate>
+							<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+										aria-controls="home" aria-selected="true">Tiếng Việt</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+										aria-controls="profile" aria-selected="false">Tiếng Anh</a>
+								</li>
+								<!-- <li class="nav-item">
+							<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+						</li> -->
+							</ul>
+
+							{{ csrf_field() }}
+							<div class="tab-content" id="myTabContent">
+								@if ($errors->any())
+								<div class="alert alert-danger">
+									<ul>
+										@foreach ($errors->all() as $error)
+										<li>{{ $error }}</li>
+										@endforeach
+									</ul>
 								</div>
-							</div>
-							<div class="field item form-group">
-								<label class="col-form-label col-md-3 col-sm-3  label-align">Occupation<span class="required">*</span></label>
-								<div class="col-md-6 col-sm-6">
-									<input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div>
-							</div>
-							<div class="field item form-group">
-								<label class="col-form-label col-md-3 col-sm-3  label-align">email<span class="required">*</span></label>
-								<div class="col-md-6 col-sm-6">
-									<input class="form-control" name="email" class='email' required="required" type="email" /></div>
-							</div>
-							<div class="field item form-group">
-								<label class="col-form-label col-md-3 col-sm-3  label-align">Confirm email address<span class="required">*</span></label>
-								<div class="col-md-6 col-sm-6">
-									<input class="form-control" type="email" class='email' name="confirm_email" data-validate-linked='email' required='required' /></div>
-							</div>
-							<div class="field item form-group">
-								<label class="col-form-label col-md-3 col-sm-3  label-align">Number <span class="required">*</span></label>
-								<div class="col-md-6 col-sm-6">
-									<input class="form-control" type="number" class='number' name="number" data-validate-minmax="10,100" required='required'></div>
-							</div>
-							<div class="field item form-group">
-								<label class="col-form-label col-md-3 col-sm-3  label-align">Date<span class="required">*</span></label>
-								<div class="col-md-6 col-sm-6">
-									<input class="form-control" class='date' type="date" name="date" required='required'></div>
-							</div>
-							<div class="field item form-group">
-								<label class="col-form-label col-md-3 col-sm-3  label-align">Time<span class="required">*</span></label>
-								<div class="col-md-6 col-sm-6">
-									<input class="form-control" class='time' type="time" name="time" required='required'></div>
-							</div>
-							
-							<div class="field item form-group">
-								<label class="col-form-label col-md-3 col-sm-3  label-align">Password<span class="required">*</span></label>
-								<div class="col-md-6 col-sm-6">
-									<input class="form-control" type="password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" title="Minimum 8 Characters Including An Upper And Lower Case Letter, A Number And A Unique Character" required />
-									
-									<span style="position: absolute;right:15px;top:7px;" onclick="hideshow()" >
-										<i id="slash" class="fa fa-eye-slash"></i>
-										<i id="eye" class="fa fa-eye"></i>
-									</span>
-								</div>
-							</div>
-							
-							<div class="field item form-group">
-								<label class="col-form-label col-md-3 col-sm-3  label-align">Repeat password<span class="required">*</span></label>
-								<div class="col-md-6 col-sm-6">
-									<input class="form-control" type="password" name="password2" data-validate-linked='password' required='required' /></div>
-							</div>
-							<div class="field item form-group">
-								<label class="col-form-label col-md-3 col-sm-3  label-align">Telephone<span class="required">*</span></label>
-								<div class="col-md-6 col-sm-6">
-									<input class="form-control" type="tel" class='tel' name="phone" required='required' data-validate-length-range="8,20" /></div>
-							</div>
-							<div class="field item form-group">
-								<label class="col-form-label col-md-3 col-sm-3  label-align">message<span class="required">*</span></label>
-								<div class="col-md-6 col-sm-6">
-									<textarea required="required" name='message'></textarea></div>
-							</div>
-							<div class="ln_solid">
-								<div class="form-group">
-									<div class="col-md-6 offset-md-3">
-										<button type='submit' class="btn btn-primary">Submit</button>
-										<button type='reset' class="btn btn-success">Reset</button>
+								@endif
+								@php
+								$message = Session::get('message');
+								if($message){
+								echo '<span class="text-alert">'.$message.'</span>';
+								Session::put('message',null);
+								}
+								@endphp
+
+								<div class="tab-pane fade show active" id="home" role="tabpanel"
+									aria-labelledby="home-tab">
+									<div class="x_content">
+
+										<!-- <p>For alternative validation library <code>parsleyJS</code> check out in the <a href="form.html">form page</a>
+							</p> -->
+										<span class="section">Thông tin chi tiết</span>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Tên sản phẩm<span class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="name" placeholder="vd: CPU AMD"
+													required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Mô tả<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<textarea style="resize: none; width: 100%" id="ckeditor1" rows="8"
+													required="required" name='desc'></textarea>
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Nội dung<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<textarea style="resize: none; width: 100%" id="ckeditor2" rows="10"
+													required="required" name='content'></textarea>
+											</div>
+										</div>
+										<!-- <div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">root_id<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="root_id" required="required" />
+											</div>
+										</div> -->
+										
+										<!-- <div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Level<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="level" required="required" />
+											</div>
+										</div> -->
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Hình ảnh<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input type="file" class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="img" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Giá gốc<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input type="number" class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="price" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Giá bán<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input type="number" class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="price_sale" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Seo name<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="seo_name" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Tags<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="tags" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta title<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_title" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta
+												description<span class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_desc" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta
+												keyword<span class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_keyword" required="required" />
+											</div>
+										</div>
+										<input type="hidden" class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="root_id" required="required" />
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn danh mục
+												</label>
+											<div class="col-md-10 col-sm-10 ">
+												
+											</div>
+										</div>
+										<!-- <div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Tiêu
+												biểu</label>
+											<div class="col-md-10 col-sm-10 ">
+												<select name="representative" class="form-control">
+													<option value="0">Không</option>
+													<option value="1">Có</option>
+												</select>
+											</div>
+										</div> -->
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Kiểu hoạt
+												động</label>
+											<div class="col-md-10 col-sm-10 ">
+												<select name="status" class="form-control">
+													<option value="3">Không hoạt động</option>
+													<option value="1">Hoạt động</option>
+												</select>
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Kiểu hiển
+												thị</label>
+											<div class="col-md-10 col-sm-10 ">
+												<select name="display_menu" class="form-control">
+													<option value="0">Ẩn</option>
+													<option value="1">Hiện</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="ln_solid"></div>
 									</div>
+								</div>
+								<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+									<div class="x_content">
+										
+										<span class="section">Details</span>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Category
+												Name<span class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="name2"
+													placeholder="ex: Homepage Banner" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label
+												class="col-form-label col-md-2 col-sm-2  label-align">Description<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<textarea style="resize: none; width: 100%" id="ckeditor3" rows="8"
+													required="required" name='desc2'></textarea>
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Content<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<textarea style="resize: none; width: 100%" id="ckeditor4" rows="10"
+													required="required" name='content2'></textarea>
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Seo name<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="seo_name2" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Tags<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="tags2" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta title<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_title2" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta
+												description<span class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_desc2" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta
+												keyword<span class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_keyword2" required="required" />
+											</div>
+										</div>
+
+										<div class="ln_solid"></div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-6 offset-md-3">
+									<button type='submit' name="save_products"
+										class="btn btn-primary">Thêm</button>
+									<button type='reset' class="btn btn-success">Tạo lại</button>
 								</div>
 							</div>
 						</form>
