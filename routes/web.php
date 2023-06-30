@@ -67,6 +67,10 @@ Route::get('/active-product-display-menu/{id}', 'Backend\ProductController@activ
 
 Route::get('/add-products', 'Backend\ProductController@add_products');//->middleware('auth');
 Route::get('/list-products', 'Backend\ProductController@list_products');//->middleware('auth');
+Route::post('/save-products', 'Backend\ProductController@save_products');
+Route::get('/edit-products/{id}', 'Backend\ProductController@edit_products');
+Route::post('/update-products/{id}', 'Backend\ProductController@update_products');
+
 
 //News
 Route::get('/add-news', 'Backend\PostController@add_post');//->middleware('auth');

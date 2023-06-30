@@ -96,6 +96,14 @@
 											</div>
 										</div>
 										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Mã sản phẩm<span class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="code" placeholder="vd: RX7900xt"
+													required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Mô tả<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
@@ -197,27 +205,113 @@
 										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn danh mục
 												</label>
-											<div class="col-md-10 col-sm-10 ">
-												
-											</div>
+											<div class="col-md-10 col-sm-10  ">
+												<div class="x_panel">
+												  <div class="x_title">
+													<h2>Danh sách <small>danh mục</small></h2>
+													<ul class="nav navbar-right panel_toolbox">
+													  <li><a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+													  </li>
+													  <li class="dropdown">
+														<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+														</li>
+													  <li><a class="close-link"><i class="fa fa-close"></i></a>
+													  </li>
+													</ul>
+													<div class="clearfix"></div>
+												  </div>
+												  <div class="x_content">
+								  
+													<div class="">
+													  <ul class="to_do">
+														<label style="font-weight: bold; color: red;">DANH MỤC CẤP 1<span class="required"></span></label>
+														@foreach($product_cate_1 as $key => $level1)
+														<li>
+														  <p>
+															<input type="checkbox" name="product_categories[]" value="{{$level1->id}}" class="flat"> {{$level1->name}} </p>
+														</li>
+														@endforeach
+														<label style="font-weight: bold; color: green;">DANH MỤC CẤP 2<span class="required"></span></label>
+														@foreach($product_cate_2 as $key => $level2)
+														<li>
+														  <p>
+															<input type="checkbox" name="product_categories[]" value="{{$level2->id}}" class="flat"> {{$level2->name}} </p>
+														</li>
+														@endforeach
+														<label style="font-weight: bold; color: blue;">DANH MỤC CẤP 3<span class="required"></span></label>
+														@foreach($product_cate_3 as $key => $level3)
+														<li>
+														  <p>
+															<input type="checkbox" name="product_categories[]" value="{{$level3->id}}" class="flat"> {{$level3->name}} </p>
+														</li>
+														@endforeach
+													  </ul>
+													</div>
+												  </div>
+												</div>
+											  </div>
 										</div>
-										<!-- <div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align ">Tiêu
-												biểu</label>
-											<div class="col-md-10 col-sm-10 ">
-												<select name="representative" class="form-control">
-													<option value="0">Không</option>
-													<option value="1">Có</option>
-												</select>
-											</div>
-										</div> -->
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn thuộc tính
+												</label>
+											<div class="col-md-10 col-sm-10  ">
+												<div class="x_panel">
+												  <div class="x_title">
+													<h2>Danh sách <small>thuộc tính</small></h2>
+													<ul class="nav navbar-right panel_toolbox">
+													  <li><a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+													  </li>
+													  <li class="dropdown">
+														<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+														</li>
+													  <li><a class="close-link"><i class="fa fa-close"></i></a>
+													  </li>
+													</ul>
+													<div class="clearfix"></div>
+												  </div>
+												  <div class="x_content">
+								  
+													<div class="">
+													  <ul class="to_do">
+														
+														<li>
+														  <p>
+															<input type="checkbox" name="options[]" value="1" class="flat"> Sản phẩm mới </p>
+														</li>
+														
+														
+														<li>
+														  <p>
+															<input type="checkbox" name="options[]" value="2" class="flat"> Sản phẩm nổi bật </p>
+														</li>
+														
+														<li>
+														  <p>
+															<input type="checkbox" name="options[]" value="3" class="flat"> Sản phẩm đặc biệt </p>
+														</li>
+
+														<li>
+															<p>
+															  <input type="checkbox" name="options[]" value="4" class="flat"> Sản phẩm hot </p>
+														  </li>
+
+														  <li>
+															<p>
+															  <input type="checkbox" name="options[]" value="5" class="flat"> Sản phẩm khuyến mãi </p>
+														  </li>
+													  </ul>
+													</div>
+												  </div>
+												</div>
+											  </div>
+										</div>
 										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align ">Kiểu hoạt
 												động</label>
 											<div class="col-md-10 col-sm-10 ">
 												<select name="status" class="form-control">
 													<option value="3">Không hoạt động</option>
-													<option value="1">Hoạt động</option>
+													<option selected value="1">Hoạt động</option>
 												</select>
 											</div>
 										</div>
@@ -227,7 +321,7 @@
 											<div class="col-md-10 col-sm-10 ">
 												<select name="display_menu" class="form-control">
 													<option value="0">Ẩn</option>
-													<option value="1">Hiện</option>
+													<option selected value="1">Hiện</option>
 												</select>
 											</div>
 										</div>
@@ -240,12 +334,12 @@
 										
 										<span class="section">Details</span>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align">Category
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Product
 												Name<span class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
 												<input class="form-control" data-validate-length-range="6"
 													data-validate-words="2" name="name2"
-													placeholder="ex: Homepage Banner" required="required" />
+													placeholder="ex: CPU Intel" required="required" />
 											</div>
 										</div>
 										<div class="field item form-group">

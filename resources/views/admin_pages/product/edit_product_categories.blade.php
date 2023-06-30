@@ -87,7 +87,7 @@
 										@foreach($edit_categories_vn as $key => $edit_value2)
 										<span class="section">Thông tin chi tiết</span>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-2 col-sm-2  label-align">Tên banner<span
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Tên danh mục<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
 												<input class="form-control" value="{{$edit_value2->name}}"
@@ -209,7 +209,7 @@
 													<optgroup label="Danh mục cấp 1"></optgroup>
 															<!-- nếu là danh mục cấp 2 hoặc cấp 3 -->
 															@foreach($product_cate as $key => $product_category)
-																@if($product_category->id == $edit_value->id)
+																@if($product_category->id == $edit_value->parent_id)
 																	<option style="color: red;" selected value="{{$product_category->id}}">Cấp 1. {{$product_category->name}}</option>
 																@else
 																	<option style="color: red;" value="{{$product_category->id}}">Cấp 1. {{$product_category->name}}</option>
@@ -217,7 +217,7 @@
 															@endforeach
 															<optgroup label="Danh mục cấp 2"></optgroup>
 															@foreach($product_sub_cate as $key => $sub_cate)
-																@if($sub_cate->id == $edit_value->id)
+																@if($sub_cate->id == $edit_value->parent_id)
 																	<option style="color: green;" selected value="{{$sub_cate->id}}">Cấp 2. {{$sub_cate->name}}</option>
 																@else
 																	<option style="color: green;" value="{{$sub_cate->id}}">Cấp 2. {{$sub_cate->name}}</option>
