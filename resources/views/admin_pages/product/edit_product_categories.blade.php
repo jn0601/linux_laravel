@@ -27,7 +27,7 @@
 					<div class="x_title">
 						<h2><i class="fa fa-bars"></i> Danh mục </h2>
 						<ul class="nav navbar-right panel_toolbox">
-							<a href="{{URL::to('/list-product-categories')}}" class="btn btn-primary"> Quay lại </a>
+							<a href="{{URL::previous()}}" class="btn btn-primary"> Quay lại </a>
 							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 							</li>
 							<li class="dropdown">

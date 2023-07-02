@@ -16,8 +16,11 @@ use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
-    private $type_product = 6;
-    //type product là 6
+    //type product là 1
+    private $type_product = 1;
+    //type product categories là 6
+    private $type_product_categories = 6;
+    
 
     public function add_products()
     {
@@ -42,16 +45,125 @@ class ProductController extends Controller
     public function edit_products($id)
     {
         $products = Products::orderBy('id', 'desc')->get();
-        $product_categories = Product_categories::orderBy('id', 'desc')->get();
-        $product_cate_1 = Product_categories::where('level', 1)->orderBy('id', 'desc')->get();
-        $product_cate_2 = Product_categories::where('level', 2)->orderBy('id', 'desc')->get();
-        $product_cate_3 = Product_categories::where('level', 3)->orderBy('id', 'desc')->get();
-        $product_cate = Product_category_products::where('product_id', $id)->orderBy('id', 'desc')->get();
+        //$product_categories = Product_categories::orderBy('name', 'asc')->get();
+        $product_cate_1 = Product_categories::where('level', 1)->orderBy('name', 'asc')->get();
+        $product_cate_2 = Product_categories::where('level', 2)->orderBy('name', 'asc')->get();
+        $product_cate_3 = Product_categories::where('level', 3)->orderBy('name', 'asc')->get();
+        $product_cate = Product_category_products::join('product_categories', 'product_categories.id', '=', 'product_category_products.category_id')
+            ->where('product_category_products.product_id', $id)->get();
         $edit_products = Products::where('id', $id)->get();
+        $get_options = Products::where('id', $id)->get('options')->first();
+        $option_values = $get_options->options;
+        //preg_match_all('/[0-9]+/', $option_values, $array_values);
+        $string_values = preg_replace('/[^0-9]/', '', $option_values);
+        // var_dump($string_values);
+        // exit();
         $edit_products_vn = Multi_languages::where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_product)->get();
         $edit_products_en = Multi_languages::where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_product)->get();
-        $view_categories = view('admin_pages.product.edit_products')->with('product_categories', $product_categories)->with('product_cate', $product_cate)->with('product_cate_1', $product_cate_1)->with('product_cate_2', $product_cate_2)->with('product_cate_3', $product_cate_3)->with('edit_products', $edit_products)->with('edit_products_vn', $edit_products_vn)->with('edit_products_en', $edit_products_en)->with('products', $products);
+        $view_categories = view('admin_pages.product.edit_products')->with('product_cate', $product_cate)
+            ->with('product_cate_1', $product_cate_1)->with('product_cate_2', $product_cate_2)
+            ->with('product_cate_3', $product_cate_3)->with('edit_products', $edit_products)->with('edit_products_vn', $edit_products_vn)
+            ->with('edit_products_en', $edit_products_en)->with('products', $products)->with('string_values', $string_values);
         return view('admin_layout')->with('admin_pages.product.edit_products', $view_categories);
+    }
+
+    // update sản phẩm
+    public function update_products(Request $request, $id)
+    {
+        $data = array();
+        $data_vn = array();
+        $data_en = array();
+        //update bảng chính
+        $data['name'] = $request->name;
+        $data['code'] = $request->code;
+        $data['desc'] = $request->desc;
+        $data['content'] = $request->content;
+        $data['price'] = $request->price;
+        $data['price_sale'] = $request->price_sale;
+        $data['status'] = $request->status;
+        $data['display_menu'] = $request->display_menu;
+        $get_image = $request->file('img');
+        $data['seo_name'] = $request->seo_name;
+        $data['tags'] = $request->tags;
+        $data['meta_title'] = $request->meta_title;
+        $data['meta_desc'] = $request->meta_desc;
+        $data['meta_keyword'] = $request->meta_keyword;
+
+        if ($get_image) {
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
+            $get_image->move('public/backend/uploads/products', $new_image);
+            $data['image'] = $new_image;
+            //DB::table('banners')->where('id', $id)->update($data);
+        }
+        $options = $request->input('options');
+        $option_values = '';
+        if ($options) {
+            foreach ($options as $key => $opt) {
+                $option_values = $option_values . "," . $opt;
+            }
+        } else {
+            $option_values = ",";
+        }
+        $data['options'] = $option_values;
+
+
+        DB::table('products')->where('id', $id)->update($data);
+
+        //update bảng khóa ngoại
+        $categories = $request->input('product_categories');
+        $product_cate = Product_category_products::where('product_category_products.product_id', $id)->get();
+        foreach ($product_cate as $key => $product_cate_product) {
+            DB::table('Product_category_products')->where('product_id', $id)->delete();
+        }
+        if ($categories) {
+            // duyệt các danh mục được chọn
+            foreach ($categories as $key => $cate) {
+                $product_category_products = new Product_category_products();
+                $product_category_products->category_id = $cate;
+                $product_category_products->product_id = $id;
+                $product_category_products->save();
+            }
+        }
+
+        //update bảng phụ
+        $data_vn['name'] = $request->name;
+        $data_vn['desc'] = $request->desc;
+        $data_vn['content'] = $request->content;
+        $data_vn['seo_name'] = $request->seo_name;
+        $data_vn['tags'] = $request->tags;
+        $data_vn['meta_title'] = $request->meta_title;
+        $data_vn['meta_desc'] = $request->meta_desc;
+        $data_vn['meta_keyword'] = $request->meta_keyword;
+        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_product)->update($data_vn);
+
+        //update bảng phụ
+        $data_en['name'] = ($request->name2 ? $request->name2 : '');
+        $data_en['desc'] = ($request->desc2 ? $request->desc2 : '');
+        $data_en['content'] = ($request->content2 ? $request->content2 : '');
+        $data_en['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '');
+        $data_en['tags'] = ($request->tags2 ? $request->tags2 : '');
+        $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '');
+        $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '');
+        $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '');
+        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_product)->update($data_en);
+        Toastr::success('Cập nhật danh mục thành công', 'Thành công');
+
+        // Session::put('message','Cập nhật danh mục sản phẩm thành công');
+        return Redirect::to('list-products');
+    }
+
+    // xoá sản phẩm
+    public function delete_products($id)
+    {
+        DB::table('products')->where('id', $id)->delete();
+        DB::table('product_category_products')->where('product_id', $id)->where('type', $this->type_product)->delete();
+        DB::table('multi_languages')->where('object_id', $id)->delete();
+        Toastr::success('Xóa danh mục thành công', 'Thành công');
+
+        // Session::put('message','Xóa danh mục sản phẩm thành công');
+        return Redirect::to('list-products');
     }
 
     // lưu sản phẩm
@@ -121,20 +233,19 @@ class ProductController extends Controller
             $product->price = $data['price'];
             $product->price_sale = $data['price_sale'];
             $product->count_view = 0;
-            
+
             //$options = $data['options'];
             $options = $request->input('options');
             $option_values = '';
             // var_dump($options);
             if ($options) {
-                foreach($options as $key => $opt) {
+                foreach ($options as $key => $opt) {
                     $option_values = $option_values . "," . $opt;
                 }
-            }
-            else {
+            } else {
                 $option_values = ",";
             }
-            
+
 
             $product->date_created = date("Ymd");
             $product->seo_name = $data['seo_name'];
@@ -145,7 +256,7 @@ class ProductController extends Controller
             $product->status = $data['status'];
             $product->display_menu = $data['display_menu'];
             $product->options = $option_values;
-            
+
             $product->save();
 
             // save vào bảng khoá ngoại
@@ -153,14 +264,14 @@ class ProductController extends Controller
             // var_dump($categories);
             // exit();
             if ($categories) {
-                foreach($categories as $key => $cate) {
+                foreach ($categories as $key => $cate) {
                     $product_category_products = new Product_category_products();
                     $product_category_products->category_id = $cate;
                     $product_category_products->product_id = $product->id;
                     $product_category_products->save();
                 }
             }
-            
+
 
             //save vào bảng phụ tiếng Việt
             $product_vn->type = $this->type_product;
@@ -208,7 +319,7 @@ class ProductController extends Controller
         return view('admin_pages.product.add_product_categories')->with('list_product_cate', $list_product_cate)->with('product_cate', $product_cate)->with('product_sub_cate', $product_sub_cate);
     }
 
-    // trang danh sách
+    // trang danh sách danh mục
     public function list_product_categories()
     {
         $product_cate = Product_categories::where('level', 1)->orderBy('id', 'desc')->get();
@@ -230,7 +341,6 @@ class ProductController extends Controller
                 'name' => 'required|unique:product_categories|max:255',
                 'desc' => 'required',
                 'content' => 'required',
-                // 'link' => 'required',
                 'img' => 'required',
                 'seo_name' => 'required',
                 'tags' => 'required',
@@ -301,7 +411,7 @@ class ProductController extends Controller
             $product_cate->save();
 
             //save vào bảng phụ tiếng Việt
-            $product_cate_vn->type = $this->type_product;
+            $product_cate_vn->type = $this->type_product_categories;
             $product_cate_vn->object_id = $product_cate->id;
             $product_cate_vn->lang_code = "vn";
             $product_cate_vn->name = $data['name'];
@@ -315,7 +425,7 @@ class ProductController extends Controller
             $product_cate_vn->save();
 
             // save vào bảng phụ tiếng Anh
-            $product_cate_en->type = $this->type_product;
+            $product_cate_en->type = $this->type_product_categories;
             $product_cate_en->object_id = $product_cate->id;
             $product_cate_en->lang_code = "en";
             $product_cate_en->name = ($data_en['name2'] ? $data_en['name2'] : '');
@@ -360,7 +470,7 @@ class ProductController extends Controller
             $name_image = current(explode('.', $get_name_image));
             $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
             $get_image->move('public/backend/uploads/product_categories', $new_image);
-            $data['img'] = $new_image;
+            $data['image'] = $new_image;
             //DB::table('banners')->where('id', $id)->update($data);
         }
         $data['parent_id'] = $request->parent_id;
@@ -393,18 +503,18 @@ class ProductController extends Controller
         $data_vn['meta_title'] = $request->meta_title;
         $data_vn['meta_desc'] = $request->meta_desc;
         $data_vn['meta_keyword'] = $request->meta_keyword;
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_product)->update($data_vn);
+        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_product_categories)->update($data_vn);
 
         //update bảng phụ
-        $data_en['name'] = ($request->name2 ? $request->name2 : '' );
-        $data_en['desc'] = ($request->desc2 ? $request->desc2 : '' );
-        $data_en['content'] = ($request->content2 ? $request->content2 : '' );
-        $data_en['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '' );
-        $data_en['tags'] = ($request->tags2 ? $request->tags2 : '' );
-        $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '' );
-        $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '' );
-        $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '' );
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_product)->update($data_en);
+        $data_en['name'] = ($request->name2 ? $request->name2 : '');
+        $data_en['desc'] = ($request->desc2 ? $request->desc2 : '');
+        $data_en['content'] = ($request->content2 ? $request->content2 : '');
+        $data_en['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '');
+        $data_en['tags'] = ($request->tags2 ? $request->tags2 : '');
+        $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '');
+        $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '');
+        $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '');
+        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_product_categories)->update($data_en);
         Toastr::success('Cập nhật danh mục thành công', 'Thành công');
 
         // Session::put('message','Cập nhật danh mục sản phẩm thành công');
@@ -418,8 +528,8 @@ class ProductController extends Controller
         $product_cate = Product_categories::where('level', 1)->orderBy('id', 'desc')->get();
         $product_sub_cate = Product_categories::where('level', 2)->orderBy('id', 'desc')->get();
         $edit_categories = Product_categories::where('id', $id)->get();
-        $edit_categories_vn = Multi_languages::where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_product)->get();
-        $edit_categories_en = Multi_languages::where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_product)->get();
+        $edit_categories_vn = Multi_languages::where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_product_categories)->get();
+        $edit_categories_en = Multi_languages::where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_product_categories)->get();
         //$view_banner_categories  = view('admin_pages.banner.edit_banner_categories')->with('edit_banner_categories',$edit_banner_categories)->with('edit_banner_categories_lang',$edit_banner_categories_lang)->with('category',$category);
         $view_categories = view('admin_pages.product.edit_product_categories')->with('product_cate', $product_cate)->with('product_sub_cate', $product_sub_cate)->with('edit_categories', $edit_categories)->with('edit_categories_vn', $edit_categories_vn)->with('edit_categories_en', $edit_categories_en)->with('categories', $categories);
         return view('admin_layout')->with('admin_pages.product.edit_product_categories', $view_categories);
@@ -429,7 +539,7 @@ class ProductController extends Controller
     public function delete_product_categories($id)
     {
         DB::table('product_categories')->where('id', $id)->delete();
-        DB::table('multi_languages')->where('object_id', $id)->delete();
+        DB::table('multi_languages')->where('object_id', $id)->where('type', $this->type_product_categories)->delete();
         Toastr::success('Xóa danh mục thành công', 'Thành công');
 
         // Session::put('message','Xóa danh mục sản phẩm thành công');
@@ -437,7 +547,7 @@ class ProductController extends Controller
     }
 
     // bật tắt tiêu biểu
-    public function unactive_representative($id)
+    public function unactive_product_categories_representative($id)
     {
         //$unactive = CategoryProduct::where('id', $id)->update(['status'=>0]);
         DB::table('product_categories')->where('id', $id)->update(['representative' => 0]);
@@ -445,9 +555,8 @@ class ProductController extends Controller
 
         // Session::put('message','Không kích hoạt danh mục sản phẩm thành công');
         return redirect()->back();
-
     }
-    public function active_representative($id)
+    public function active_product_categories_representative($id)
     {
         DB::table('product_categories')->where('id', $id)->update(['representative' => 1]);
         Toastr::success('Danh mục tiêu biểu thành công', 'Thành công');
@@ -457,7 +566,7 @@ class ProductController extends Controller
     }
 
     // bật tắt hiển thị
-    public function unactive_display_menu($id)
+    public function unactive_product_categories_display_menu($id)
     {
         //$unactive = CategoryProduct::where('id', $id)->update(['status'=>0]);
         DB::table('product_categories')->where('id', $id)->update(['display_menu' => 0]);
@@ -465,9 +574,8 @@ class ProductController extends Controller
 
         // Session::put('message','Không kích hoạt danh mục sản phẩm thành công');
         return redirect()->back();
-
     }
-    public function active_display_menu($id)
+    public function active_product_categories_display_menu($id)
     {
         DB::table('product_categories')->where('id', $id)->update(['display_menu' => 1]);
         Toastr::success('Hiển thị danh mục thành công', 'Thành công');
@@ -478,7 +586,7 @@ class ProductController extends Controller
 
 
     // bật tắt hoạt động
-    public function unactive_status($id)
+    public function unactive_product_categories_status($id)
     {
         //$unactive = CategoryProduct::where('id', $id)->update(['status'=>0]);
         DB::table('product_categories')->where('id', $id)->update(['status' => 3]);
@@ -486,9 +594,8 @@ class ProductController extends Controller
 
         // Session::put('message','Không kích hoạt danh mục sản phẩm thành công');
         return redirect()->back();
-
     }
-    public function active_status($id)
+    public function active_product_categories_status($id)
     {
         DB::table('product_categories')->where('id', $id)->update(['status' => 1]);
         Toastr::success('Mở hoạt động thành công', 'Thành công');
@@ -507,7 +614,6 @@ class ProductController extends Controller
 
         // Session::put('message','Không kích hoạt danh mục sản phẩm thành công');
         return redirect()->back();
-
     }
     public function active_product_display_menu($id)
     {
@@ -528,7 +634,6 @@ class ProductController extends Controller
 
         // Session::put('message','Không kích hoạt danh mục sản phẩm thành công');
         return redirect()->back();
-
     }
     public function active_product_status($id)
     {

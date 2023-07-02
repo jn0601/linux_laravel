@@ -27,7 +27,7 @@
 					<div class="x_title">
 						<h2><i class="fa fa-bars"></i> Sản phẩm </h2>
 						<ul class="nav navbar-right panel_toolbox">
-							<a href="{{URL::to('/list-products')}}" class="btn btn-primary"> Quay lại </a>
+							<a href="{{URL::previous()}}" class="btn btn-primary"> Quay lại </a>
 							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 							</li>
 							<li class="dropdown">
@@ -223,7 +223,7 @@
 												  <div class="x_content">
 								  
 													<div class="">
-													  <ul class="to_do">
+													  <ul class="to_do background">
 														<label style="font-weight: bold; color: red;">DANH MỤC CẤP 1<span class="required"></span></label>
 														@foreach($product_cate_1 as $key => $level1)
 														<li>
@@ -272,7 +272,7 @@
 												  <div class="x_content">
 								  
 													<div class="">
-													  <ul class="to_do">
+													  <ul class="to_do background">
 														
 														<li>
 														  <p>

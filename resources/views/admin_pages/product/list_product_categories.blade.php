@@ -111,30 +111,30 @@
                   </td>
                   <td><span class="text-ellipsis">
                       <?php if ($product_category->representative == 1) { ?>
-                      <a href="{{URL::to('/unactive-representative/'.$product_category->id)}}"><span
+                      <a href="{{URL::to('/unactive-product-categories-representative/'.$product_category->id)}}"><span
                           class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
                       <?php } else { ?>
-                      <a href="{{URL::to('/active-representative/'.$product_category->id)}}"><span
+                      <a href="{{URL::to('/active-product-categories-representative/'.$product_category->id)}}"><span
                           class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
                       <?php } ?>
                     </span>
                   </td>
                   <td><span class="text-ellipsis">
                       <?php if ($product_category->status == 1) { ?>
-                      <a href="{{URL::to('/unactive-status/'.$product_category->id)}}"><span class="fa fa-toggle-on"
+                      <a href="{{URL::to('/unactive-product-categories-status/'.$product_category->id)}}"><span class="fa fa-toggle-on"
                           style="font-size: 25px;"></span></a>
                       <?php } else { ?>
-                      <a href="{{URL::to('/active-status/'.$product_category->id)}}"><span class="fa fa-toggle-off"
+                      <a href="{{URL::to('/active-product-categories-status/'.$product_category->id)}}"><span class="fa fa-toggle-off"
                           style="font-size: 25px;"></span></a>
                       <?php } ?>
                     </span>
                   </td>
                   <td><span class="text-ellipsis">
                       <?php if ($product_category->display_menu == 1) { ?>
-                      <a href="{{URL::to('/unactive-display-menu/'.$product_category->id)}}"><span
+                      <a href="{{URL::to('/unactive-product-categories-display-menu/'.$product_category->id)}}"><span
                           class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
                       <?php } else { ?>
-                      <a href="{{URL::to('/active-display-menu/'.$product_category->id)}}"><span
+                      <a href="{{URL::to('/active-product-categories-display-menu/'.$product_category->id)}}"><span
                           class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
                       <?php } ?>
                     </span>

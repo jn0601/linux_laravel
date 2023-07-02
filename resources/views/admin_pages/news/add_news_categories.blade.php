@@ -25,9 +25,9 @@
 			<div class="col-md-12 col-sm-12  ">
 				<div class="x_panel">
 					<div class="x_title">
-						<h2><i class="fa fa-bars"></i> Danh mục <small>sản phẩm</small></h2>
+						<h2><i class="fa fa-bars"></i> Danh mục <small>tin tức</small></h2>
 						<ul class="nav navbar-right panel_toolbox">
-							<a href="{{URL::to('/list-product-categories')}}" class="btn btn-primary"> Quay lại </a>
+							<a href="{{URL::previous()}}" class="btn btn-primary"> Quay lại </a>
 							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 							</li>
 							<li class="dropdown">
@@ -45,7 +45,7 @@
 					</div>
 
 					<div class="x_content">
-						<form class="" enctype="multipart/form-data" action="{{URL::to('/save-product-categories')}}"
+						<form class="" enctype="multipart/form-data" action="{{URL::to('/save-news-categories')}}"
 							method="post" novalidate>
 							<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 								<li class="nav-item">
@@ -112,22 +112,23 @@
 													required="required" name='content'></textarea>
 											</div>
 										</div>
-										<div class="field item form-group">
+										<!-- <div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align">root_id<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
 												<input class="form-control" data-validate-length-range="6"
 													data-validate-words="2" name="root_id" required="required" />
 											</div>
-										</div>
-										<div class="field item form-group">
+										</div> -->
+										
+										<!-- <div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Level<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
 												<input class="form-control" data-validate-length-range="6"
 													data-validate-words="2" name="level" required="required" />
 											</div>
-										</div>
+										</div> -->
 										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Hình ảnh<span
 													class="required">*</span></label>
@@ -176,23 +177,21 @@
 													data-validate-words="2" name="meta_keyword" required="required" />
 											</div>
 										</div>
+										<input type="hidden" class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="root_id" required="required" />
 										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn danh mục
 												cha</label>
 											<div class="col-md-10 col-sm-10 ">
-												<select name="category_id" class="form-control">
+												<select name="parent_id" class="select2_group form-control">
 													<option value="0">Danh mục cha</option>
-													@foreach($list_product_cate as $key => $product_category)
-														@if($product_category->parent_id == 0)
-															<option style="color:red;" value="{{$product_category->id}}">Cấp 1. {{$product_category->name}}</option>
-														@else
-															@foreach($product_cate as $key => $sub_cate)
-																@if($sub_cate->id == $product_category->parent_id)
-																	<option style="color:green;" value="{{$product_category->id}}">Cấp 2. {{$product_category->name}}</option>
-																
-																@endif
-															@endforeach
-														@endif
+													<optgroup label="Danh mục cấp 1"></optgroup>
+													@foreach($news_cate as $key => $news_category)
+														<option style="color:red;" value="{{$news_category->id}}">Cấp 1. {{$news_category->name}}</option>
+													@endforeach
+													<optgroup label="Danh mục cấp 2"></optgroup>
+													@foreach($news_sub_cate as $key => $sub_cate)
+														<option style="color:green;" value="{{$sub_cate->id}}">Cấp 2. {{$sub_cate->name}}</option>
 													@endforeach
 												</select>
 											</div>
@@ -201,8 +200,8 @@
 											<label class="col-form-label col-md-2 col-sm-2  label-align ">Tiêu
 												biểu</label>
 											<div class="col-md-10 col-sm-10 ">
-												<select name="status" class="form-control">
-													<option value="0">Không</option>
+												<select name="representative" class="form-control">
+													<option selected value="0">Không</option>
 													<option value="1">Có</option>
 												</select>
 											</div>
@@ -213,7 +212,7 @@
 											<div class="col-md-10 col-sm-10 ">
 												<select name="status" class="form-control">
 													<option value="3">Không hoạt động</option>
-													<option value="1">Hoạt động</option>
+													<option selected value="1">Hoạt động</option>
 												</select>
 											</div>
 										</div>
@@ -221,9 +220,9 @@
 											<label class="col-form-label col-md-2 col-sm-2  label-align ">Kiểu hiển
 												thị</label>
 											<div class="col-md-10 col-sm-10 ">
-												<select name="status" class="form-control">
+												<select name="display_menu" class="form-control">
 													<option value="0">Ẩn</option>
-													<option value="1">Hiện</option>
+													<option selected value="1">Hiện</option>
 												</select>
 											</div>
 										</div>

@@ -19,6 +19,10 @@
     padding: 10px 20px 0;
     margin-left: 230px;
 }
+ul.background li {
+    background: none !important;
+}
+
 @media (max-width: 991px){
     .banner_categories_height {
     

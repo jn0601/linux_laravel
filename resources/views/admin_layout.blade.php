@@ -75,7 +75,7 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Quản lý website <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{URL::to('/list-menu')}}">Quản lý menu</a></li>
+                      <li><a href="#">Quản lý menu</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Chức năng chính <span class="fa fa-chevron-down"></span></a>

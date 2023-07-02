@@ -27,7 +27,7 @@
 					<div class="x_title">
 						<h2><i class="fa fa-bars"></i> Danh mục <small>sản phẩm</small></h2>
 						<ul class="nav navbar-right panel_toolbox">
-							<a href="{{URL::to('/list-product-categories')}}" class="btn btn-primary"> Quay lại </a>
+							<a href="{{URL::previous()}}" class="btn btn-primary"> Quay lại </a>
 							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 							</li>
 							<li class="dropdown">
@@ -201,7 +201,7 @@
 												biểu</label>
 											<div class="col-md-10 col-sm-10 ">
 												<select name="representative" class="form-control">
-													<option value="0">Không</option>
+													<option selected value="0">Không</option>
 													<option value="1">Có</option>
 												</select>
 											</div>
@@ -212,7 +212,7 @@
 											<div class="col-md-10 col-sm-10 ">
 												<select name="status" class="form-control">
 													<option value="3">Không hoạt động</option>
-													<option value="1">Hoạt động</option>
+													<option selected value="1">Hoạt động</option>
 												</select>
 											</div>
 										</div>
@@ -222,7 +222,7 @@
 											<div class="col-md-10 col-sm-10 ">
 												<select name="display_menu" class="form-control">
 													<option value="0">Ẩn</option>
-													<option value="1">Hiện</option>
+													<option selected value="1">Hiện</option>
 												</select>
 											</div>
 										</div>

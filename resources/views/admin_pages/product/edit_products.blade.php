@@ -27,7 +27,7 @@
                     <div class="x_title">
                         <h2><i class="fa fa-bars"></i> Sản phẩm </h2>
                         <ul class="nav navbar-right panel_toolbox">
-                            <a href="{{URL::to('/list-products')}}" class="btn btn-primary"> Quay lại </a>
+                            <a href="{{URL::previous()}}" class="btn btn-primary"> Quay lại </a>
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
                             <li class="dropdown">
@@ -220,91 +220,110 @@
                                                         <div class="clearfix"></div>
                                                     </div>
                                                     <div class="x_content">
-                                                        @if ($product_cate)
-                                                        @foreach($product_cate as $key => $sub_table)
                                                         <div class="">
-                                                            <ul class="to_do">
+                                                            <ul class="to_do background">
                                                                 <label style="font-weight: bold; color: red;">DANH MỤC
                                                                     CẤP 1<span class="required"></span></label>
                                                                 @foreach($product_cate_1 as $key => $level1)
-                                                                @if ($level1->id == $sub_table->category_id)
-                                                                <li>
-                                                                    <p>
-                                                                        <input type="checkbox" checked
-                                                                            name="product_categories[]"
-                                                                            value="{{$level1->id}}" class="flat">
-                                                                        {{$level1->name}}
-                                                                    </p>
-                                                                </li>
-                                                                @else
-                                                                <li>
-                                                                    <p>
-                                                                        <input type="checkbox"
-                                                                            name="product_categories[]"
-                                                                            value="{{$level1->id}}" class="flat">
-                                                                        {{$level1->name}}
-                                                                    </p>
-                                                                </li>
-                                                                @endif
+                                                                    @php 
+                                                                    $count = 0;
+                                                                    @endphp
+                                                                    @foreach($product_cate as $key => $sub_table)
+                                                                        @if ($level1->id == $sub_table->category_id)
+                                                                            <li>
+                                                                                <p>
+                                                                                    <input type="checkbox" checked
+                                                                                        name="product_categories[]"
+                                                                                        value="{{$level1->id}}" class="flat">
+                                                                                    {{$level1->name}}
+                                                                                </p>
+                                                                            </li>
+                                                                            @php 
+                                                                            $count++;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endforeach
+                                                                    @if ($count == 0)
+                                                                    <li>
+                                                                        <p>
+                                                                            <input type="checkbox"
+                                                                                name="product_categories[]"
+                                                                                value="{{$level1->id}}" class="flat">
+                                                                            {{$level1->name}}
+                                                                        </p>
+                                                                    </li>
+                                                                    @endif
                                                                 @endforeach
                                                                 <label style="font-weight: bold; color: green;">DANH MỤC
                                                                     CẤP 2<span class="required"></span></label>
                                                                 @foreach($product_cate_2 as $key => $level2)
-                                                                @if ($level2->id == $sub_table->category_id)
-                                                                <li>
-                                                                    <p>
-                                                                        <input type="checkbox" checked
-                                                                            name="product_categories[]"
-                                                                            value="{{$level2->id}}" class="flat">
-                                                                        {{$level2->name}}
-                                                                    </p>
-                                                                </li>
-                                                                @else
-                                                                <li>
-                                                                    <p>
-                                                                        <input type="checkbox"
-                                                                            name="product_categories[]"
-                                                                            value="{{$level2->id}}" class="flat">
-                                                                        {{$level2->name}}
-                                                                    </p>
-                                                                </li>
-                                                                @endif
+                                                                    @php 
+                                                                    $count = 0;
+                                                                    @endphp
+                                                                    @foreach($product_cate as $key => $sub_table)
+                                                                        @if ($level2->id == $sub_table->category_id)
+                                                                            <li>
+                                                                                <p>
+                                                                                    <input type="checkbox" checked
+                                                                                        name="product_categories[]"
+                                                                                        value="{{$level2->id}}" class="flat">
+                                                                                    {{$level2->name}}
+                                                                                </p>
+                                                                            </li>
+                                                                            @php 
+                                                                            $count++;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endforeach
+                                                                    @if ($count == 0)
+                                                                    <li>
+                                                                        <p>
+                                                                            <input type="checkbox"
+                                                                                name="product_categories[]"
+                                                                                value="{{$level2->id}}" class="flat">
+                                                                            {{$level2->name}}
+                                                                        </p>
+                                                                    </li>
+                                                                    @endif
                                                                 @endforeach
                                                                 <label style="font-weight: bold; color: blue;">DANH MỤC
                                                                     CẤP 3<span class="required"></span></label>
                                                                 @foreach($product_cate_3 as $key => $level3)
-                                                                @if ($level3->id == $sub_table->category_id)
-                                                                <li>
-                                                                    <p>
-                                                                        <input type="checkbox" checked
-                                                                            name="product_categories[]"
-                                                                            value="{{$level3->id}}" class="flat">
-                                                                        {{$level3->name}}
-                                                                    </p>
-                                                                </li>
-                                                                @else
-                                                                <li>
-                                                                    <p>
-                                                                        <input type="checkbox"
-                                                                            name="product_categories[]"
-                                                                            value="{{$level3->id}}" class="flat">
-                                                                        {{$level3->name}}
-                                                                    </p>
-                                                                </li>
-                                                                @endif
+                                                                    @php 
+                                                                    $count = 0;
+                                                                    @endphp
+                                                                    @foreach($product_cate as $key => $sub_table)
+                                                                        @if ($level3->id == $sub_table->category_id)
+                                                                            <li>
+                                                                                <p>
+                                                                                    <input type="checkbox" checked
+                                                                                        name="product_categories[]"
+                                                                                        value="{{$level3->id}}" class="flat">
+                                                                                    {{$level3->name}}
+                                                                                </p>
+                                                                            </li>
+                                                                            @php 
+                                                                            $count++;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endforeach
+                                                                    @if ($count == 0)
+                                                                    <li>
+                                                                        <p>
+                                                                            <input type="checkbox"
+                                                                                name="product_categories[]"
+                                                                                value="{{$level3->id}}" class="flat">
+                                                                            {{$level3->name}}
+                                                                        </p>
+                                                                    </li>
+                                                                    @endif
                                                                 @endforeach
                                                             </ul>
                                                         </div>
-                                                        @endforeach
-                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        @php
-                                        $option_values = $edit_value->options;
-                                        preg_match_all('/[0-9]+/', $option_values, $array_values);
-                                        @endphp
                                         <div class="field item form-group">
                                             <label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn thuộc
                                                 tính
@@ -329,10 +348,10 @@
                                                         <div class="clearfix"></div>
                                                     </div>
                                                     <div class="x_content">
-                                                        @foreach($array_values as $key => $value)
+                                                        
                                                         <div class="">
-                                                            <ul class="to_do">
-                                                                @if ($value == 1)
+                                                            <ul class="to_do background">
+                                                                @if (strpos($string_values, '1') !== false)
                                                                 <li>
                                                                     <p>
                                                                         <input type="checkbox" checked name="options[]"
@@ -348,7 +367,7 @@
                                                                 </li>
                                                                 @endif
 
-                                                                @if ($value == 2)
+                                                                @if (strpos($string_values, '2') !== false)
                                                                 <li>
                                                                     <p>
                                                                         <input type="checkbox" checked name="options[]"
@@ -364,7 +383,7 @@
                                                                 </li>
                                                                 @endif
 
-                                                                @if ($value == 3)
+                                                                @if (strpos($string_values, '3') !== false)
                                                                 <li>
                                                                     <p>
                                                                         <input type="checkbox" checked name="options[]"
@@ -380,7 +399,7 @@
                                                                 </li>
                                                                 @endif
 
-                                                                @if ($value == 4)
+                                                                @if (strpos($string_values, '4') !== false)
                                                                 <li>
                                                                     <p>
                                                                         <input type="checkbox" checked name="options[]"
@@ -396,7 +415,7 @@
                                                                 </li>
                                                                 @endif
 
-                                                                @if ($value == 5)
+                                                                @if (strpos($string_values, '5') !== false)
                                                                 <li>
                                                                     <p>
                                                                         <input type="checkbox" checked name="options[]"
@@ -413,7 +432,6 @@
                                                                 @endif
                                                             </ul>
                                                         </div>
-                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>
@@ -538,7 +556,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 offset-md-3">
-                                    <button type='submit' name="save_products" class="btn btn-primary">Thêm</button>
+                                    <button type='submit' name="save_products" class="btn btn-primary">Cập nhật</button>
                                     <button type='reset' class="btn btn-success">Tạo lại</button>
                                 </div>
                             </div>

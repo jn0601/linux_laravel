@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Session;
 
 class BannerController extends Controller
 {
-    //type mặc định là 4
+    //type mặc định của banner categories là 3
+    private $type_banner_categories = 3;
+    //type mặc định của banner là 4
     private $type_banner = 4;
 
     // public function AuthLogin()
@@ -177,7 +179,7 @@ class BannerController extends Controller
             $name_image = current(explode('.', $get_name_image));
             $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
             $get_image->move('public/backend/uploads/banners', $new_image);
-            $data['img'] = $new_image;
+            $data['image'] = $new_image;
             //DB::table('banners')->where('id', $id)->update($data);
         }
         DB::table('banners')->where('id', $id)->update($data);
@@ -191,7 +193,7 @@ class BannerController extends Controller
         $data_vn['meta_title'] = $request->meta_title;
         $data_vn['meta_desc'] = $request->meta_desc;
         $data_vn['meta_keyword'] = $request->meta_keyword;
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->update($data_vn);
+        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_banner)->update($data_vn);
 
         //update bảng phụ
         $data_en['name'] = ($request->name2 ? $request->name2 : '' );
@@ -202,7 +204,7 @@ class BannerController extends Controller
         $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '' );
         $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '' );
         $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '' );
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->update($data_en);
+        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_banner)->update($data_en);
         Toastr::success('Cập nhật thành công', 'Thành công');
 
         // Session::put('message','Cập nhật danh mục sản phẩm thành công');
@@ -213,7 +215,7 @@ class BannerController extends Controller
     public function delete_banners($id)
     {
         DB::table('banners')->where('id', $id)->delete();
-        DB::table('multi_languages')->where('object_id', $id)->delete();
+        DB::table('multi_languages')->where('object_id', $id)->where('type', $this->type_banner)->delete();
         Toastr::success('Xóa banner thành công', 'Thành công');
 
         // Session::put('message','Xóa danh mục sản phẩm thành công');
@@ -274,7 +276,7 @@ class BannerController extends Controller
             $banner_categories->save();
 
             // save vào bảng phụ tiếng Việt
-            $banner_categories_vn->type = "4";
+            $banner_categories_vn->type = $this->type_banner_categories;
             $banner_categories_vn->object_id = $banner_categories->id;
             $banner_categories_vn->lang_code = "vn";
             $banner_categories_vn->name = $data['name'];
@@ -288,7 +290,7 @@ class BannerController extends Controller
             $banner_categories_vn->save();
 
             // save vào bảng phụ tiếng Anh
-            $banner_categories_en->type = "4";
+            $banner_categories_en->type = $this->type_banner_categories;
             $banner_categories_en->object_id = $banner_categories->id;
             $banner_categories_en->lang_code = "en";
             $banner_categories_en->name = ($data_en['name2'] ? $data_en['name2'] : '');
@@ -333,8 +335,8 @@ class BannerController extends Controller
 
         $edit_banner_categories = Banner_categories::where('id', $id)->get();
         //$edit_banner_categories_lang = Multi_languages::where('object_id',$id)->get();
-        $edit_banner_categories_vn = Multi_languages::where('object_id', $id)->where('lang_code', 'vn')->get();
-        $edit_banner_categories_en = Multi_languages::where('object_id', $id)->where('lang_code', 'en')->get();
+        $edit_banner_categories_vn = Multi_languages::where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_banner_categories)->get();
+        $edit_banner_categories_en = Multi_languages::where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_banner_categories)->get();
         //$view_banner_categories  = view('admin_pages.banner.edit_banner_categories')->with('edit_banner_categories',$edit_banner_categories)->with('edit_banner_categories_lang',$edit_banner_categories_lang)->with('category',$category);
         $view_banner_categories = view('admin_pages.banner.edit_banner_categories')->with('edit_banner_categories', $edit_banner_categories)->with('edit_banner_categories_vn', $edit_banner_categories_vn)->with('edit_banner_categories_en', $edit_banner_categories_en)->with('category', $category);
         return view('admin_layout')->with('admin_pages.banner.edit_banner_categories', $view_banner_categories);
@@ -359,7 +361,7 @@ class BannerController extends Controller
         $data['meta_title'] = $request->meta_title;
         $data['meta_desc'] = $request->meta_desc;
         $data['meta_keyword'] = $request->meta_keyword;
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->update($data);
+        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_banner_categories)->update($data);
 
         //update bảng phụ
         $data['name'] = ($request->name2 ? $request->name2 : '');
@@ -370,7 +372,7 @@ class BannerController extends Controller
         $data['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '');
         $data['meta_desc'] = ($request->meta_desc2 ? $request->meta_desc2 : '');
         $data['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '');
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->update($data);
+        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_banner_categories)->update($data);
         Toastr::success('Cập nhật danh mục thành công', 'Thành công');
 
         // Session::put('message','Cập nhật danh mục sản phẩm thành công');
@@ -381,7 +383,7 @@ class BannerController extends Controller
     public function delete_banner_categories($id)
     {
         DB::table('banner_categories')->where('id', $id)->delete();
-        DB::table('multi_languages')->where('object_id', $id)->delete();
+        DB::table('multi_languages')->where('object_id', $id)->where('type', $this->type_banner_categories)->delete();
         Toastr::success('Xóa danh mục thành công', 'Thành công');
 
         // Session::put('message','Xóa danh mục sản phẩm thành công');
