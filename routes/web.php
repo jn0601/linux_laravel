@@ -44,6 +44,11 @@ Route::get('/404', 'Backend\AdminController@error');
 Route::get('/add-menu', 'Backend\MainMenuController@add_menu');//->middleware('auth');
 Route::get('/list-menu', 'Backend\MainMenuController@list_menu');//->middleware('auth');
 
+//Contact
+Route::get('/list-contacts', 'Backend\FormContactsController@list_contacts');
+Route::get('/detail-contacts/{id}', 'Backend\FormContactsController@detail_contacts');
+Route::get('/delete-contacts/{id}', 'Backend\FormContactsController@delete_contacts');
+
 //Product
 Route::get('/add-product-categories', 'Backend\ProductController@add_product_categories');//->middleware('auth');
 Route::get('/list-product-categories', 'Backend\ProductController@list_product_categories');//->middleware('auth');
