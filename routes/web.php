@@ -114,9 +114,7 @@ Route::get('/delete-banners/{id}', 'Backend\BannerController@delete_banners');
 Route::get('/unactive-banners/{id}', 'Backend\BannerController@unactive_banners');//->middleware('auth');;
 Route::get('/active-banners/{id}', 'Backend\BannerController@active_banners');//->middleware('auth');
 
-//Slider
-Route::get('/add-slider', 'Backend\SliderController@add_slider');//->middleware('auth');
-Route::get('/list-slider', 'Backend\SliderController@list_slider');//->middleware('auth');
+
 
 //User
 Route::get('/add-user', 'UserController@add_user')->middleware('auth');

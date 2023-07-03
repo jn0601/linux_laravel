@@ -183,7 +183,7 @@
 											<div class="col-md-10 col-sm-10 ">
 												<select name="status" class="form-control">
 													<option value="3">Không hoạt động</option>
-													<option value="1">Hoạt động</option>
+													<option selected value="1">Hoạt động</option>
 												</select>
 											</div>
 										</div>
