@@ -32,6 +32,7 @@
     <link href="{{asset('public/backend/css/custom.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/backend/css/style.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
   </head>
   
   <body class="nav-md">
@@ -298,6 +299,8 @@
     <!-- Custom Theme Scripts -->
     <script src="{{asset('public/backend/js/custom.min.js')}}"></script>
     <script src="{{asset('public/backend/ckeditor4/ckeditor.js')}}"></script>
+    <!-- <script src="{{asset('public/backend/js/datatables.js')}}"> </script> -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <!-- <script src="{{asset('public/backend/ckeditor5/ckeditor.js')}}"></script> -->
     <script type="text/javascript">
       CKEDITOR.replace('ckeditor1');
@@ -314,6 +317,9 @@
       //   .catch( error => {
       //       console.error( error );
       //   } );
+    </script>
+    <script type="text/javascript">
+      let table = new DataTable('#myTable');
     </script>
 
     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>

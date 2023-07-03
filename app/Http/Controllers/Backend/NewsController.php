@@ -35,7 +35,7 @@ class NewsController extends Controller
     }
     public function list_news()
     {
-        $list_news = News::orderBy('display_order', 'DESC')->paginate(5); // paginate để phân trang, thường thì xài get
+        $list_news = News::orderBy('display_order', 'DESC')->get();//->paginate(5); // paginate để phân trang, thường thì xài get
         $news_cate = News_categories::orderBy('id', 'desc')->get();
         $view_news = view('admin_pages.news.list_news')
         ->with('list_news', $list_news)
@@ -272,7 +272,7 @@ class NewsController extends Controller
     {
         $news_cate = News_categories::where('level', 1)->orderBy('id', 'desc')->get();
         $news_sub_cate = News_categories::where('level', 2)->orderBy('id', 'desc')->get();
-        $list_news_cate = News_categories::orderBy('display_order', 'DESC')->paginate(5); // paginate để phân trang, thường thì xài get
+        $list_news_cate = News_categories::orderBy('display_order', 'DESC')->get();//->paginate(5); // paginate để phân trang, thường thì xài get
         $view_news_cate = view('admin_pages.news.list_news_categories')->with('list_news_cate', $list_news_cate)->with('news_cate', $news_cate)->with('news_sub_cate', $news_sub_cate);
         return view('admin_layout')->with('admin_pages.news.list_news_categories', $view_news_cate);
     }

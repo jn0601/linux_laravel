@@ -35,7 +35,7 @@ class ProductController extends Controller
         // $product = Products::orderBy('id', 'desc')->get();
         // $get_product_id = $product->id;
         $list_product_cate = Product_categories::orderBy('id', 'DESC')->get();
-        $list_product = Products::orderBy('display_order', 'DESC')->paginate(5); // paginate để phân trang, thường thì xài get
+        $list_product = Products::orderBy('display_order', 'DESC')->get();//->paginate(5); // paginate để phân trang, thường thì xài get
         $product_cate = Product_category_products::orderBy('id', 'desc')->get();
         $view_product = view('admin_pages.product.list_products')->with('list_product', $list_product)->with('product_cate', $product_cate)->with('list_product_cate', $list_product_cate);
         return view('admin_layout')->with('admin_pages.product.list_products', $view_product);
@@ -324,7 +324,7 @@ class ProductController extends Controller
     {
         $product_cate = Product_categories::where('level', 1)->orderBy('id', 'desc')->get();
         $product_sub_cate = Product_categories::where('level', 2)->orderBy('id', 'desc')->get();
-        $list_product_cate = Product_categories::orderBy('display_order', 'DESC')->paginate(5); // paginate để phân trang, thường thì xài get
+        $list_product_cate = Product_categories::orderBy('display_order', 'DESC')->get();//->paginate(5); // paginate để phân trang, thường thì xài get
         $view_product_cate = view('admin_pages.product.list_product_categories')->with('list_product_cate', $list_product_cate)->with('product_cate', $product_cate)->with('product_sub_cate', $product_sub_cate);
         return view('admin_layout')->with('admin_pages.product.list_product_categories', $view_product_cate);
     }

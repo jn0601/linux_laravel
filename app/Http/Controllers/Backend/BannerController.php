@@ -45,7 +45,7 @@ class BannerController extends Controller
     {
         $banner_cate = Banners::join('banner_categories', 'banner_categories.id', '=', 'banners.category_id')->orderBy('banner_categories.id', 'desc')->get();
         //$list_banners = Banners::join('banner_categories', 'banner_categories.id', '=', 'banners.category_id')->orderBy('banners.display_order', 'DESC')->paginate(5); // paginate để phân trang, thường thì xài get
-        $list_banners = Banners::orderBy('banners.display_order', 'DESC')->paginate(5); // paginate để phân trang, thường thì xài get
+        $list_banners = Banners::orderBy('banners.display_order', 'DESC')->get();//->paginate(5); // paginate để phân trang, thường thì xài get
         $view_banners = view('admin_pages.banner.list_banners')->with('list_banners', $list_banners)->with('banner_cate', $banner_cate);
         return view('admin_layout')->with('admin_pages.banner.list_banners', $view_banners);
     }
@@ -321,7 +321,7 @@ class BannerController extends Controller
         // $banner_categories_vn = Banner_categories::where('name', '!=', '')->orderBy('display_order','asc')->get();
         // $banner_categories_en = Banner_categories::where('name', '')->orderBy('display_order','asc')->get();
         //exit($banner_categories_vn . "<br>" . "<br>" . "<br>" . "<br>" . $banner_categories_en) ;
-        $list_banner_categories = Banner_categories::orderBy('display_order', 'DESC')->paginate(5); // paginate để phân trang, thường thì xài get
+        $list_banner_categories = Banner_categories::orderBy('display_order', 'DESC')->get();//->paginate(5); // paginate để phân trang, thường thì xài get
 
         $view_banner_categories = view('admin_pages.banner.list_banner_categories')->with('list_banner_categories', $list_banner_categories); //->with('banner_categories', $banner_categories);
         return view('admin_layout')->with('admin_pages.banner.list_banner_categories', $view_banner_categories);

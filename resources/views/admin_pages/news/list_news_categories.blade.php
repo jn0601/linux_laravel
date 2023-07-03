@@ -8,7 +8,7 @@
         <h3>Danh sách <small>Danh mục</small></h3>
       </div>
 
-      <div class="title_right">
+      <!-- <div class="title_right">
         <div class="col-md-5 col-sm-5   form-group pull-right top_search">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for...">
@@ -17,7 +17,7 @@
             </span>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="clearfix"></div>
@@ -52,7 +52,7 @@
             <!-- <p>Simple table with project listing with progress and editing options</p> -->
 
             <!-- start project list -->
-            <table class="list_banners table table-striped projects bulk_action">
+            <table class="list_banners table table-striped projects bulk_action" id="myTable">
               <thead>
                 <tr>
                   <th style="width: 14%;">Số thứ tự</th>
@@ -158,7 +158,7 @@
 
         </div>
       </div>
-      {!!$list_news_cate->links()!!}
+      {{--{!!$list_news_cate->links()!!} --}}
     </div>
   </div>
 </div>

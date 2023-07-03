@@ -8,7 +8,7 @@
         <h3>Danh sách <small>Danh mục</small></h3>
       </div>
 
-      <div class="title_right">
+      <!-- <div class="title_right">
         <div class="col-md-5 col-sm-5   form-group pull-right top_search">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for...">
@@ -17,7 +17,7 @@
             </span>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="clearfix"></div>
@@ -26,7 +26,7 @@
       <div class="col-md-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Danh sách danh mục sản phẩm</h2>
+            <h2>Danh mục sản phẩm</h2>
             <ul class="nav navbar-right panel_toolbox">
               <!-- <a href="#" class="btn btn-success"> Lưu</a>
               <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Xoá</a> -->
@@ -47,118 +47,116 @@
             </ul>
             <div class="clearfix"></div>
           </div>
-          <div class="x_content">
+            <div class="x_content">
+                <!-- <p>Simple table with project listing with progress and editing options</p> -->
 
-            <!-- <p>Simple table with project listing with progress and editing options</p> -->
+                <!-- start project list -->
+                <table class="list_banners table table-striped projects bulk_action " id="myTable">
+                  <thead>
+                    <tr>
+                      <th style="width: 14%;">Số thứ tự</th>
+                      <th>Hình ảnh</th>
+                      <th>Tên danh mục</th>
+                      <th>Danh mục cha</th>
+                      <th>Tiêu biểu</th>
+                      <th>Hoạt động</th>
+                      <th>Hiển thị</th>
+                      <th>Chỉnh sửa </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($list_product_cate as $key => $product_category)
+                    <tr>
+                      <td>
+                        <div class=" display_order col-md-8 col-sm-8" style="max-width: 70px; width: 70px; padding: 0;">
+                          <input class="form-control" name="name" data-validate-words="2" name="display_order"
+                            value="{{$product_category->display_order}}" />
+                        </div>
+                      </td>
+                      <td>
+                        <img src="public/backend/uploads/product_categories/{{ $product_category->image }}"
+                          height="auto" width="80">
+                      </td>
+                      <td>
+                        <a>{{ $product_category->name }}</a>
+                        <br />
+                        <!-- <small>Created 01.01.2015</small> -->
+                      </td>
 
-            <!-- start project list -->
-            <table class="list_banners table table-striped projects bulk_action">
-              <thead>
-                <tr>
-                  <th style="width: 14%;">Số thứ tự</th>
-                  <th>Hình ảnh</th>
-                  <th>Tên danh mục</th>
-                  <th>Danh mục cha</th>
-                  <th>Tiêu biểu</th>
-                  <th>Hoạt động</th>
-                  <th>Hiển thị</th>
-                  <th>Chỉnh sửa </th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($list_product_cate as $key => $product_category)
-                <tr>
-                  <td>
-                    <div class=" display_order col-md-8 col-sm-8" style="max-width: 70px; width: 70px; padding: 0;">
-                      <input class="form-control" name="name" data-validate-words="2" name="display_order"
-                        value="{{$product_category->display_order}}" />
-                    </div>
-                  </td>
-                  <td>
-                    <img src="public/backend/uploads/product_categories/{{ $product_category->image }}" height="auto"
-                      width="80">
-                  </td>
-                  <td>
-                    <a>{{ $product_category->name }}</a>
-                    <br />
-                    <!-- <small>Created 01.01.2015</small> -->
-                  </td>
-                  
-                  <td class="project_progress">
-                    <!-- level 1 -->
-                    @if($product_category->parent_id == 0)
-                    <span style="color: red"> -----------</span>
-                    <!-- level 2 or 3 -->
-                    @else
-                      <!-- level 2 -->
-                      @if($product_category->level == 2)
+                      <td class="project_progress">
+                        <!-- level 1 -->
+                        @if($product_category->parent_id == 0)
+                        <span style="color: red"> -----------</span>
+                        <!-- level 2 or 3 -->
+                        @else
+                        <!-- level 2 -->
+                        @if($product_category->level == 2)
                         @foreach($product_cate as $key => $sub_cate)
-                          @if($sub_cate->id == $product_category->parent_id)
-                            <span style="color: green">{{$sub_cate->name}}
-                            </span>
-                          @endif
+                        @if($sub_cate->id == $product_category->parent_id)
+                        <span style="color: green">{{$sub_cate->name}}
+                        </span>
+                        @endif
                         @endforeach
-                      <!-- level 3 -->
-                      @else
-                          @foreach($product_sub_cate as $key => $sub_cate2)
-                            @if($sub_cate2->id == $product_category->parent_id)
-                              <span style="color: blue">{{$sub_cate2->name}}
-                              </span>
-                            @endif
-                          @endforeach
-                      @endif
-                    @endif
-                  </td>
-                  <td><span class="text-ellipsis">
-                      <?php if ($product_category->representative == 1) { ?>
-                      <a href="{{URL::to('/unactive-product-categories-representative/'.$product_category->id)}}"><span
-                          class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
-                      <?php } else { ?>
-                      <a href="{{URL::to('/active-product-categories-representative/'.$product_category->id)}}"><span
-                          class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
-                      <?php } ?>
-                    </span>
-                  </td>
-                  <td><span class="text-ellipsis">
-                      <?php if ($product_category->status == 1) { ?>
-                      <a href="{{URL::to('/unactive-product-categories-status/'.$product_category->id)}}"><span class="fa fa-toggle-on"
-                          style="font-size: 25px;"></span></a>
-                      <?php } else { ?>
-                      <a href="{{URL::to('/active-product-categories-status/'.$product_category->id)}}"><span class="fa fa-toggle-off"
-                          style="font-size: 25px;"></span></a>
-                      <?php } ?>
-                    </span>
-                  </td>
-                  <td><span class="text-ellipsis">
-                      <?php if ($product_category->display_menu == 1) { ?>
-                      <a href="{{URL::to('/unactive-product-categories-display-menu/'.$product_category->id)}}"><span
-                          class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
-                      <?php } else { ?>
-                      <a href="{{URL::to('/active-product-categories-display-menu/'.$product_category->id)}}"><span
-                          class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
-                      <?php } ?>
-                    </span>
-                  </td>
-                  <td>
-                    <!-- <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a> -->
-                    <a href="{{URL::to('/edit-product-categories/'.$product_category->id)}}"
-                      class="btn btn-info btn-xs btn-sm"><i class="fa fa-pencil"></i> Sửa</a>
-                    <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
-                      href="{{URL::to('/delete-product-categories/'.$product_category->id)}}"
-                      class="btn btn-danger btn-xs btn-sm"><i class="fa fa-trash-o"></i> Xoá</a>
-                  </td>
-                </tr>
+                        <!-- level 3 -->
+                        @else
+                        @foreach($product_sub_cate as $key => $sub_cate2)
+                        @if($sub_cate2->id == $product_category->parent_id)
+                        <span style="color: blue">{{$sub_cate2->name}}
+                        </span>
+                        @endif
+                        @endforeach
+                        @endif
+                        @endif
+                      </td>
+                      <td><span class="text-ellipsis">
+                          <?php if ($product_category->representative == 1) { ?>
+                          <a href="{{URL::to('/unactive-product-categories-representative/'.$product_category->id)}}"><span
+                              class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
+                          <?php } else { ?>
+                          <a href="{{URL::to('/active-product-categories-representative/'.$product_category->id)}}"><span
+                              class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
+                          <?php } ?>
+                        </span>
+                      </td>
+                      <td><span class="text-ellipsis">
+                          <?php if ($product_category->status == 1) { ?>
+                          <a href="{{URL::to('/unactive-product-categories-status/'.$product_category->id)}}"><span
+                              class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
+                          <?php } else { ?>
+                          <a href="{{URL::to('/active-product-categories-status/'.$product_category->id)}}"><span
+                              class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
+                          <?php } ?>
+                        </span>
+                      </td>
+                      <td><span class="text-ellipsis">
+                          <?php if ($product_category->display_menu == 1) { ?>
+                          <a href="{{URL::to('/unactive-product-categories-display-menu/'.$product_category->id)}}"><span
+                              class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
+                          <?php } else { ?>
+                          <a href="{{URL::to('/active-product-categories-display-menu/'.$product_category->id)}}"><span
+                              class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
+                          <?php } ?>
+                        </span>
+                      </td>
+                      <td>
+                        <!-- <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a> -->
+                        <a href="{{URL::to('/edit-product-categories/'.$product_category->id)}}"
+                          class="btn btn-info btn-xs btn-sm"><i class="fa fa-pencil"></i> Sửa</a>
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
+                          href="{{URL::to('/delete-product-categories/'.$product_category->id)}}"
+                          class="btn btn-danger btn-xs btn-sm"><i class="fa fa-trash-o"></i> Xoá</a>
+                      </td>
+                    </tr>
 
-                @endforeach
-              </tbody>
-            </table>
-            <!-- end project list -->
+                    @endforeach
+                  </tbody>
+                </table>
+                <!-- end project list -->
 
-          </div>
-
+            </div>
         </div>
       </div>
-      {!!$list_product_cate->links()!!}
+      {{-- {!!$list_product_cate->links()!!} --}}
     </div>
   </div>
 </div>

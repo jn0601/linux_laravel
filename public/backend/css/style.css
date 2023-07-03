@@ -14,7 +14,7 @@
 }
 
 .banner_categories_height {
-    min-height: 650px;
+    min-height: 100vh;
     background: #F7F7F7;
     padding: 10px 20px 0;
     margin-left: 230px;
@@ -23,10 +23,18 @@ ul.background li {
     background: none !important;
 }
 
+
+
 @media (max-width: 991px){
     .banner_categories_height {
     
         margin-left: 0px;
-        min-height: auto;
+        min-height: 100vh;
     }  
+}
+
+@media (max-width: 540px) {
+    .x_content {
+        overflow-y: scroll;
+    }
 }
