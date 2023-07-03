@@ -90,7 +90,7 @@
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Tên banner<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
-												<input class="form-control" value="{{$edit_value2->name}}"
+												<input class="form-control" id="slug" onkeyup="ChangeToSlug();" value="{{$edit_value2->name}}"
 													data-validate-length-range="6" data-validate-words="2" name="name"
 													placeholder="vd: Banner trang chủ" required="required" />
 											</div>
@@ -136,7 +136,7 @@
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Seo name<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
-												<input class="form-control" value="{{$edit_value2->seo_name}}"
+												<input class="form-control" id="convert_slug" value="{{$edit_value2->seo_name}}"
 													data-validate-length-range="6" data-validate-words="2"
 													name="seo_name" required="required" />
 											</div>
@@ -233,7 +233,7 @@
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Banner
 												Name<span class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
-												<input class="form-control" value="{{$edit_value2->name}}"
+												<input class="form-control" id="slug2" onkeyup="ChangeToSlug();" value="{{$edit_value2->name}}"
 													data-validate-length-range="6" data-validate-words="2" name="name2"
 													placeholder="ex: Homepage Banner" required="required" />
 											</div>
@@ -276,7 +276,7 @@
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Seo name<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
-												<input class="form-control" value="{{$edit_value2->seo_name}}"
+												<input class="form-control" id="convert_slug2" value="{{$edit_value2->seo_name}}"
 													data-validate-length-range="6" data-validate-words="2"
 													name="seo_name2" required="required" />
 											</div>

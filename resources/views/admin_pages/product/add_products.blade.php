@@ -90,7 +90,7 @@
 										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Tên sản phẩm<span class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
-												<input class="form-control" data-validate-length-range="6"
+												<input class="form-control" id="slug" onkeyup="ChangeToSlug();" data-validate-length-range="6"
 													data-validate-words="2" name="name" placeholder="vd: CPU AMD"
 													required="required" />
 											</div>
@@ -164,7 +164,7 @@
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Seo name<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
-												<input class="form-control" data-validate-length-range="6"
+												<input class="form-control" id="convert_slug" data-validate-length-range="6"
 													data-validate-words="2" name="seo_name" required="required" />
 											</div>
 										</div>
@@ -337,7 +337,7 @@
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Product
 												Name<span class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
-												<input class="form-control" data-validate-length-range="6"
+												<input class="form-control" id="slug2" onkeyup="ChangeToSlug();" data-validate-length-range="6"
 													data-validate-words="2" name="name2"
 													placeholder="ex: CPU Intel" required="required" />
 											</div>
@@ -364,7 +364,7 @@
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Seo name<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
-												<input class="form-control" data-validate-length-range="6"
+												<input class="form-control" id="convert_slug2" data-validate-length-range="6"
 													data-validate-words="2" name="seo_name2" required="required" />
 											</div>
 										</div>

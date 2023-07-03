@@ -49,7 +49,8 @@
 							<div class="field item form-group">
 								<label class="col-form-label col-md-3 col-sm-3  label-align">Name<span class="required">*</span></label>
 								<div class="col-md-6 col-sm-6">
-									<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="ex. John f. Kennedy" required="required" />
+									<input class="form-control" id="slug" onkeyup="ChangeToSlug();" data-validate-length-range="6"
+													data-validate-words="2" name="name" placeholder="ex. John f. Kennedy" required="required" />
 								</div>
 							</div>
 							<div class="field item form-group">
