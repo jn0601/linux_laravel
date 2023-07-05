@@ -76,7 +76,7 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Quản lý website <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#">Quản lý menu</a></li>
+                      <li><a href="{{URL::to('/list-menus')}}">Quản lý menu</a></li>
                       <li><a href="{{URL::to('/list-contacts')}}">Quản lý khách hàng liên hệ</a></li>
                     </ul>
                   </li>

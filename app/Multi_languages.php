@@ -19,4 +19,6 @@ class Multi_languages extends Model
     // ];
     protected $primaryKey = 'id';
  	protected $table = 'multi_languages';
+
+    
 }

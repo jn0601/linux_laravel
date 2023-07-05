@@ -41,8 +41,15 @@ Route::get('/logout', 'Backend\LoginController@logout');
 Route::get('/404', 'Backend\AdminController@error');
 
 //Menu
-Route::get('/add-menu', 'Backend\MainMenuController@add_menu');//->middleware('auth');
-Route::get('/list-menu', 'Backend\MainMenuController@list_menu');//->middleware('auth');
+Route::get('/add-menus', 'Backend\MenusController@add_menus');//->middleware('auth');
+Route::get('/list-menus', 'Backend\MenusController@list_menus');//->middleware('auth');
+Route::get('/edit-menus/{id}', 'Backend\MenusController@edit_menus');
+Route::post('/update-menus/{id}', 'Backend\MenusController@update_menus');
+Route::post('/save-menus', 'Backend\MenusController@save_menus');
+Route::get('/delete-menus/{id}', 'Backend\MenusController@delete_menus');
+
+Route::get('/unactive-menus-status/{id}', 'Backend\MenusController@unactive_menus_status');//->middleware('auth');;
+Route::get('/active-menus-status/{id}', 'Backend\MenusController@active_menus_status');
 
 //Contact
 Route::get('/list-contacts', 'Backend\FormContactsController@list_contacts');
