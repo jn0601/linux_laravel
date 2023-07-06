@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\Banners;
 use App\Banner_categories;
+use App\BaseModel;
 use App\Http\Controllers\Controller;
 use App\Multi_languages;
+use App\Nodes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -62,7 +64,6 @@ class BannerController extends Controller
                 'name' => 'required|unique:banners|max:255',
                 'desc' => 'required',
                 'content' => 'required',
-                // 'link' => 'required',
                 'img' => 'required',
                 'seo_name' => 'required|unique:multi_languages',
                 'tags' => 'required',
@@ -97,7 +98,6 @@ class BannerController extends Controller
             $banners_en = new Multi_languages();
 
             // save vào bảng chính
-            // nếu là tiếng Việt
             $banners->name = $data['name'];
             $banners->desc = $data['desc'];
             $banners->content = $data['content'];
@@ -110,39 +110,65 @@ class BannerController extends Controller
             $banners->status = $data['status'];
             $banners->save();
 
+            //save vào bảng phụ đường dẫn
+            $banners_node = new BaseModel();
+            $banners_node->save_nodes($banners_node, $this->type_banner, $banners->id, $data['seo_name'], 1, 1);
+
             // save vào bảng phụ tiếng Việt
-            $banners_vn->type = $this->type_banner;
-            $banners_vn->object_id = $banners->id;
-            $banners_vn->lang_code = "vn";
-            $banners_vn->name = $data['name'];
-            $banners_vn->desc = $data['desc'];
-            $banners_vn->content = $data['content'];
-            $banners_vn->seo_name = $data['seo_name'];
-            $banners_vn->tags = $data['tags'];
-            $banners_vn->meta_title = $data['meta_title'];
-            $banners_vn->meta_desc = $data['meta_desc'];
-            $banners_vn->meta_keyword = $data['meta_keyword'];
-            $banners_vn->save();
+            $banners_vn = new BaseModel();
+            $banners_vn->save_lang($banners_vn, $this->type_banner, $banners->id, "vn", 
+            $data['name'],
+            $data['desc'], 
+            $data['content'], 
+            $data['seo_name'], 
+            $data['tags'], 
+            $data['meta_title'],
+            $data['meta_desc'], 
+            $data['meta_keyword']);
+
+            // $banners_vn->type = $this->type_banner;
+            // $banners_vn->object_id = $banners->id;
+            // $banners_vn->lang_code = "vn";
+            // $banners_vn->name = $data['name'];
+            // $banners_vn->desc = $data['desc'];
+            // $banners_vn->content = $data['content'];
+            // $banners_vn->seo_name = $data['seo_name'];
+            // $banners_vn->tags = $data['tags'];
+            // $banners_vn->meta_title = $data['meta_title'];
+            // $banners_vn->meta_desc = $data['meta_desc'];
+            // $banners_vn->meta_keyword = $data['meta_keyword'];
+            // $banners_vn->save();
 
             // save vào bảng phụ tiếng Anh
-            $banners_en->type = $this->type_banner;
-            $banners_en->object_id = $banners->id;
-            $banners_en->lang_code = "en";
-            $banners_en->name = ($data_en['name2'] ? $data_en['name2'] : '');
-            $banners_en->desc = ($data_en['desc2'] ? $data_en['desc2'] : '');
-            $banners_en->content = ($data_en['content2'] ? $data_en['content2'] : '');
-            $banners_en->seo_name = ($data_en['seo_name2'] ? $data_en['seo_name2'] : '');
-            $banners_en->tags = ($data_en['tags2'] ? $data_en['tags2'] : '');
-            $banners_en->meta_title = ($data_en['meta_title2'] ? $data_en['meta_title2'] : '');
-            $banners_en->meta_desc = ($data_en['meta_desc2'] ? $data_en['meta_desc2'] : '');
-            $banners_en->meta_keyword = ($data_en['meta_keyword2'] ? $data_en['meta_keyword2'] : '');
-            $banners_en->save();
+            $banners_en = new BaseModel();
+            $banners_en->save_lang($banners_en, $this->type_banner, $banners->id, "en", 
+            ($data['name2'] ? $data['name2'] : ''),
+            ($data['desc2'] ? $data['desc2'] : ''), 
+            ($data['content2'] ? $data['content2'] : ''), 
+            ($data['seo_name2'] ? $data['seo_name2'] : ''), 
+            ($data['tags2'] ? $data['tags2'] : ''), 
+            ($data['meta_title2'] ? $data['meta_title2'] : ''),
+            ($data['meta_desc2'] ? $data['meta_desc2'] : ''), 
+            ($data['meta_keyword2'] ? $data['meta_keyword2'] : ''));
+
+            // $banners_en->type = $this->type_banner;
+            // $banners_en->object_id = $banners->id;
+            // $banners_en->lang_code = "en";
+            // $banners_en->name = ($data_en['name2'] ? $data_en['name2'] : '');
+            // $banners_en->desc = ($data_en['desc2'] ? $data_en['desc2'] : '');
+            // $banners_en->content = ($data_en['content2'] ? $data_en['content2'] : '');
+            // $banners_en->seo_name = ($data_en['seo_name2'] ? $data_en['seo_name2'] : '');
+            // $banners_en->tags = ($data_en['tags2'] ? $data_en['tags2'] : '');
+            // $banners_en->meta_title = ($data_en['meta_title2'] ? $data_en['meta_title2'] : '');
+            // $banners_en->meta_desc = ($data_en['meta_desc2'] ? $data_en['meta_desc2'] : '');
+            // $banners_en->meta_keyword = ($data_en['meta_keyword2'] ? $data_en['meta_keyword2'] : '');
+            // $banners_en->save();
             Toastr::success('Thêm banner thành công', 'Thành công');
-            return Redirect::to('list-banners');
+            return Redirect::to('/admin/list-banners');
             //return redirect()->action('Backend\BannerController@edit_banners', ['id' => $banners->id]);
         } else {
             Session::put('message', 'Vui lòng điền đầy đủ các trường');
-            return Redirect::to('add-banners');
+            return Redirect::to('/admin/add-banners');
         }
     }
 
@@ -164,8 +190,9 @@ class BannerController extends Controller
     public function update_banners(Request $request, $id)
     {
         $data = array();
-        $data_vn = array();
-        $data_en = array();
+        // $data_vn = array();
+        // $data_en = array();
+
         //update bảng chính
         $data['name'] = $request->name;
         $data['desc'] = $request->desc;
@@ -183,44 +210,65 @@ class BannerController extends Controller
             $data['image'] = $new_image;
             //DB::table('banners')->where('id', $id)->update($data);
         }
-        DB::table('banners')->where('id', $id)->update($data);
+        Banners::where('id', $id)->update($data);
+
+        //update bảng nodes
+        $data_nodes = new BaseModel();
+        $data_nodes->update_nodes($id, $this->type_banner, $request->seo_name);
 
         //update bảng phụ
-        $data_vn['name'] = $request->name;
-        $data_vn['desc'] = $request->desc;
-        $data_vn['content'] = $request->content;
-        $data_vn['seo_name'] = $request->seo_name;
-        $data_vn['tags'] = $request->tags;
-        $data_vn['meta_title'] = $request->meta_title;
-        $data_vn['meta_desc'] = $request->meta_desc;
-        $data_vn['meta_keyword'] = $request->meta_keyword;
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_banner)->update($data_vn);
+        $data_vn = new BaseModel();
+        $data_vn->update_lang($id, 'vn', $this->type_banner, $request->name, $request->desc, 
+        $request->content, $request->seo_name, $request->tags, $request->meta_title,
+        $request->meta_desc, $request->meta_keyword);
+
+        // $data_vn['name'] = $request->name;
+        // $data_vn['desc'] = $request->desc;
+        // $data_vn['content'] = $request->content;
+        // $data_vn['seo_name'] = $request->seo_name;
+        // $data_vn['tags'] = $request->tags;
+        // $data_vn['meta_title'] = $request->meta_title;
+        // $data_vn['meta_desc'] = $request->meta_desc;
+        // $data_vn['meta_keyword'] = $request->meta_keyword;
+        // DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_banner)->update($data_vn);
 
         //update bảng phụ
-        $data_en['name'] = ($request->name2 ? $request->name2 : '' );
-        $data_en['desc'] = ($request->desc2 ? $request->desc2 : '' );
-        $data_en['content'] = ($request->content2 ? $request->content2 : '' );
-        $data_en['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '' );
-        $data_en['tags'] = ($request->tags2 ? $request->tags2 : '' );
-        $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '' );
-        $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '' );
-        $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '' );
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_banner)->update($data_en);
+        $data_vn = new BaseModel();
+        $data_vn->update_lang($id, 'en', $this->type_banner, 
+        ($request->name2 ? $request->name2 : ''),
+        ($request->desc2 ? $request->desc2 : ''), 
+        ($request->content2 ? $request->content2 : ''),
+        ($request->seo_name2 ? $request->seo_name2 : ''),
+        ($request->tags2 ? $request->tags2 : ''), 
+        ($request->meta_title2 ? $request->meta_title2 : ''),
+        ($request->meta_desc2 ? $request->meta_desc2 : ''), 
+        ($request->meta_keyword2 ? $request->meta_keyword2 : ''));
+
+        // $data_en['name'] = ($request->name2 ? $request->name2 : '' );
+        // $data_en['desc'] = ($request->desc2 ? $request->desc2 : '' );
+        // $data_en['content'] = ($request->content2 ? $request->content2 : '' );
+        // $data_en['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '' );
+        // $data_en['tags'] = ($request->tags2 ? $request->tags2 : '' );
+        // $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '' );
+        // $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '' );
+        // $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '' );
+        // DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_banner)->update($data_en);
         Toastr::success('Cập nhật thành công', 'Thành công');
 
         // Session::put('message','Cập nhật danh mục sản phẩm thành công');
-        return Redirect::to('list-banners');
+        return Redirect::to('/admin/list-banners');
     }
 
     // xoá banner
     public function delete_banners($id)
     {
-        DB::table('banners')->where('id', $id)->delete();
-        DB::table('multi_languages')->where('object_id', $id)->where('type', $this->type_banner)->delete();
+        Banners::where('id', $id)->delete();
+        Nodes::where('object_id', $id)->where('type', $this->type_banner)->delete();
+        Multi_languages::where('object_id', $id)->where('type', $this->type_banner)->delete();
         Toastr::success('Xóa banner thành công', 'Thành công');
 
         // Session::put('message','Xóa danh mục sản phẩm thành công');
-        return Redirect::to('list-banners');
+        return Redirect::to('/admin/list-banners');
     }
 
     // trang thêm danh mục
@@ -233,9 +281,9 @@ class BannerController extends Controller
     // lưu danh mục
     public function save_banner_categories(Request $request)
     {
-        //$data = $request->all();
-        $data_en = $request->all();
-        $data = $request->validate(
+        $data = $request->all();
+        //$data_en = $request->all();
+        $data_vn = $request->validate(
             [
                 'name' => 'required|unique:banner_categories|max:255',
                 'desc' => 'required',
@@ -261,14 +309,11 @@ class BannerController extends Controller
             ]
         );
 
-        if ($data) {
+        if ($data_vn) {
             $banner_categories = new Banner_categories();
-            $banner_categories_vn = new Multi_languages();
-            $banner_categories_en = new Multi_languages();
 
 
             // save vào bảng chính
-            // nếu là tiếng Việt
             $banner_categories->name = $data['name'];
             $banner_categories->desc = $data['desc'];
             $banner_categories->content = $data['content'];
@@ -277,38 +322,68 @@ class BannerController extends Controller
             $banner_categories->display_order = $display_order;
             $banner_categories->save();
 
+            //save vào bảng phụ đường dẫn
+            $banner_cate_node = new BaseModel();
+            $banner_cate_node->save_nodes($banner_cate_node, $this->type_banner_categories, 
+            $banner_categories->id, $data['seo_name'], 1, 1);
+
             // save vào bảng phụ tiếng Việt
-            $banner_categories_vn->type = $this->type_banner_categories;
-            $banner_categories_vn->object_id = $banner_categories->id;
-            $banner_categories_vn->lang_code = "vn";
-            $banner_categories_vn->name = $data['name'];
-            $banner_categories_vn->desc = $data['desc'];
-            $banner_categories_vn->content = $data['content'];
-            $banner_categories_vn->seo_name = $data['seo_name'];
-            $banner_categories_vn->tags = $data['tags'];
-            $banner_categories_vn->meta_title = $data['meta_title'];
-            $banner_categories_vn->meta_desc = $data['meta_desc'];
-            $banner_categories_vn->meta_keyword = $data['meta_keyword'];
-            $banner_categories_vn->save();
+            $banner_categories_vn = new BaseModel();
+            $banner_categories_vn->save_lang($banner_categories_vn, $this->type_banner_categories, 
+            $banner_categories->id, "vn", 
+            $data['name'],
+            $data['desc'], 
+            $data['content'], 
+            $data['seo_name'], 
+            $data['tags'], 
+            $data['meta_title'],
+            $data['meta_desc'], 
+            $data['meta_keyword']);
+
+            // $banner_categories_vn->type = $this->type_banner_categories;
+            // $banner_categories_vn->object_id = $banner_categories->id;
+            // $banner_categories_vn->lang_code = "vn";
+            // $banner_categories_vn->name = $data['name'];
+            // $banner_categories_vn->desc = $data['desc'];
+            // $banner_categories_vn->content = $data['content'];
+            // $banner_categories_vn->seo_name = $data['seo_name'];
+            // $banner_categories_vn->tags = $data['tags'];
+            // $banner_categories_vn->meta_title = $data['meta_title'];
+            // $banner_categories_vn->meta_desc = $data['meta_desc'];
+            // $banner_categories_vn->meta_keyword = $data['meta_keyword'];
+            // $banner_categories_vn->save();
 
             // save vào bảng phụ tiếng Anh
-            $banner_categories_en->type = $this->type_banner_categories;
-            $banner_categories_en->object_id = $banner_categories->id;
-            $banner_categories_en->lang_code = "en";
-            $banner_categories_en->name = ($data_en['name2'] ? $data_en['name2'] : '');
-            $banner_categories_en->desc = ($data_en['desc2'] ? $data_en['desc2'] : '');
-            $banner_categories_en->content = ($data_en['content2'] ? $data_en['content2'] : '');
-            $banner_categories_en->seo_name = ($data_en['seo_name2'] ? $data_en['seo_name2'] : '');
-            $banner_categories_en->tags = ($data_en['tags2'] ? $data_en['tags2'] : '');
-            $banner_categories_en->meta_title = ($data_en['meta_title2'] ? $data_en['meta_title2'] : '');
-            $banner_categories_en->meta_desc = ($data_en['meta_desc2'] ? $data_en['meta_desc2'] : '');
-            $banner_categories_en->meta_keyword = ($data_en['meta_keyword2'] ? $data_en['meta_keyword2'] : '');
-            $banner_categories_en->save();
+            $banner_categories_en = new BaseModel();
+            $banner_categories_en->save_lang($banner_categories_en, $this->type_banner_categories, 
+            $banner_categories->id, "en", 
+            ($data['name2'] ? $data['name2'] : ''),
+            ($data['desc2'] ? $data['desc2'] : ''), 
+            ($data['content2'] ? $data['content2'] : ''), 
+            ($data['seo_name2'] ? $data['seo_name2'] : ''), 
+            ($data['tags2'] ? $data['tags2'] : ''), 
+            ($data['meta_title2'] ? $data['meta_title2'] : ''),
+            ($data['meta_desc2'] ? $data['meta_desc2'] : ''), 
+            ($data['meta_keyword2'] ? $data['meta_keyword2'] : ''));
+
+            // $banner_categories_en->type = $this->type_banner_categories;
+            // $banner_categories_en->object_id = $banner_categories->id;
+            // $banner_categories_en->lang_code = "en";
+            // $banner_categories_en->name = ($data_en['name2'] ? $data_en['name2'] : '');
+            // $banner_categories_en->desc = ($data_en['desc2'] ? $data_en['desc2'] : '');
+            // $banner_categories_en->content = ($data_en['content2'] ? $data_en['content2'] : '');
+            // $banner_categories_en->seo_name = ($data_en['seo_name2'] ? $data_en['seo_name2'] : '');
+            // $banner_categories_en->tags = ($data_en['tags2'] ? $data_en['tags2'] : '');
+            // $banner_categories_en->meta_title = ($data_en['meta_title2'] ? $data_en['meta_title2'] : '');
+            // $banner_categories_en->meta_desc = ($data_en['meta_desc2'] ? $data_en['meta_desc2'] : '');
+            // $banner_categories_en->meta_keyword = ($data_en['meta_keyword2'] ? $data_en['meta_keyword2'] : '');
+            // $banner_categories_en->save();
             Toastr::success('Thêm danh mục thành công', 'Thành công');
-            return redirect()->action('Backend\BannerController@edit_banner_categories', ['id' => $banner_categories->id]);
+            return Redirect::to('/admin/list-banner-categories');
+            //return redirect()->action('Backend\BannerController@edit_banner_categories', ['id' => $banner_categories->id]);
         } else {
             Session::put('message', 'Vui lòng điền đầy đủ các trường');
-            return Redirect::to('add-banner-categories');
+            return Redirect::to('/admin/add-banner-categories');
         }
 
         // return Redirect::to('add-banner-categories');
@@ -352,40 +427,63 @@ class BannerController extends Controller
         $data['desc'] = $request->desc;
         $data['content'] = $request->content;
 
-        DB::table('banner_categories')->where('id', $id)->update($data);
+        Banner_categories::where('id', $id)->update($data);
+
+        //update bảng nodes
+        $data_nodes = new BaseModel();
+        $data_nodes->update_nodes($id, $this->type_banner_categories, $request->seo_name);
 
         //update bảng phụ
-        $data['name'] = $request->name;
-        $data['desc'] = $request->desc;
-        $data['content'] = $request->content;
-        $data['seo_name'] = $request->seo_name;
-        $data['tags'] = $request->tags;
-        $data['meta_title'] = $request->meta_title;
-        $data['meta_desc'] = $request->meta_desc;
-        $data['meta_keyword'] = $request->meta_keyword;
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_banner_categories)->update($data);
+        $data_vn = new BaseModel();
+        $data_vn->update_lang($id, 'vn', $this->type_banner_categories, 
+        $request->name, $request->desc, 
+        $request->content, $request->seo_name, 
+        $request->tags, $request->meta_title,
+        $request->meta_desc, $request->meta_keyword);
+
+        // $data['name'] = $request->name;
+        // $data['desc'] = $request->desc;
+        // $data['content'] = $request->content;
+        // $data['seo_name'] = $request->seo_name;
+        // $data['tags'] = $request->tags;
+        // $data['meta_title'] = $request->meta_title;
+        // $data['meta_desc'] = $request->meta_desc;
+        // $data['meta_keyword'] = $request->meta_keyword;
+        // DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_banner_categories)->update($data);
 
         //update bảng phụ
-        $data['name'] = ($request->name2 ? $request->name2 : '');
-        $data['desc'] = ($request->desc2 ? $request->desc2 : '');
-        $data['content'] = ($request->content2 ? $request->content2 : '');
-        $data['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '');
-        $data['tags'] = ($request->tags2 ? $request->tags2 : '');
-        $data['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '');
-        $data['meta_desc'] = ($request->meta_desc2 ? $request->meta_desc2 : '');
-        $data['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '');
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_banner_categories)->update($data);
+        $data_en = new BaseModel();
+        $data_en->update_lang($id, 'en', $this->type_banner_categories, 
+        ($request->name2 ? $request->name2 : ''),
+        ($request->desc2 ? $request->desc2 : ''), 
+        ($request->content2 ? $request->content2 : ''),
+        ($request->seo_name2 ? $request->seo_name2 : ''),
+        ($request->tags2 ? $request->tags2 : ''), 
+        ($request->meta_title2 ? $request->meta_title2 : ''),
+        ($request->meta_desc2 ? $request->meta_desc2 : ''), 
+        ($request->meta_keyword2 ? $request->meta_keyword2 : ''));
+
+        // $data['name'] = ($request->name2 ? $request->name2 : '');
+        // $data['desc'] = ($request->desc2 ? $request->desc2 : '');
+        // $data['content'] = ($request->content2 ? $request->content2 : '');
+        // $data['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '');
+        // $data['tags'] = ($request->tags2 ? $request->tags2 : '');
+        // $data['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '');
+        // $data['meta_desc'] = ($request->meta_desc2 ? $request->meta_desc2 : '');
+        // $data['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '');
+        // DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_banner_categories)->update($data);
         Toastr::success('Cập nhật danh mục thành công', 'Thành công');
 
         // Session::put('message','Cập nhật danh mục sản phẩm thành công');
-        return Redirect::to('list-banner-categories');
+        return Redirect::to('/admin/list-banner-categories');
     }
 
     // xoá danh mục
     public function delete_banner_categories($id)
     {
-        DB::table('banner_categories')->where('id', $id)->delete();
-        DB::table('multi_languages')->where('object_id', $id)->where('type', $this->type_banner_categories)->delete();
+        Banner_categories::where('id', $id)->delete();
+        Nodes::where('object_id', $id)->where('type', $this->type_banner_categories)->delete();
+        Multi_languages::where('object_id', $id)->where('type', $this->type_banner_categories)->delete();
         Toastr::success('Xóa danh mục thành công', 'Thành công');
 
         // Session::put('message','Xóa danh mục sản phẩm thành công');

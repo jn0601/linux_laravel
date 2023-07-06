@@ -76,36 +76,36 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Quản lý website <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{URL::to('/list-menus')}}">Quản lý menu</a></li>
-                      <li><a href="{{URL::to('/list-contacts')}}">Quản lý khách hàng liên hệ</a></li>
+                      <li><a href="{{URL::to('/admin/list-menus')}}">Quản lý menu</a></li>
+                      <li><a href="{{URL::to('/admin/list-contacts')}}">Quản lý khách hàng liên hệ</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Chức năng chính <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                     <li><a><i class="fa fa-gamepad"></i> Quản lý sản phẩm <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{URL::to('/add-products')}}">Thêm sản phẩm</a></li>
-                      <li><a href="{{URL::to('/list-products')}}">Danh sách sản phẩm</a></li>
-                      <li><a href="{{URL::to('/add-product-categories')}}">Thêm danh mục</a></li>
-                      <li><a href="{{URL::to('/list-product-categories')}}">Danh sách danh mục</a></li>
+                      <li><a href="{{URL::to('/admin/add-products')}}">Thêm sản phẩm</a></li>
+                      <li><a href="{{URL::to('/admin/list-products')}}">Danh sách sản phẩm</a></li>
+                      <li><a href="{{URL::to('/admin/add-product-categories')}}">Thêm danh mục</a></li>
+                      <li><a href="{{URL::to('/admin/list-product-categories')}}">Danh sách danh mục</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-newspaper-o"></i> Quản lý tin tức <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{URL::to('/add-news')}}">Thêm tin tức</a></li>
-                      <li><a href="{{URL::to('/list-news')}}">Danh sách tin tức</a></li>
-                      <li><a href="{{URL::to('/add-news-categories')}}">Thêm danh mục</a></li>
-                      <li><a href="{{URL::to('/list-news-categories')}}">Danh sách danh mục</a></li>
+                      <li><a href="{{URL::to('/admin/add-news')}}">Thêm tin tức</a></li>
+                      <li><a href="{{URL::to('/admin/list-news')}}">Danh sách tin tức</a></li>
+                      <li><a href="{{URL::to('/admin/add-news-categories')}}">Thêm danh mục</a></li>
+                      <li><a href="{{URL::to('/admin/list-news-categories')}}">Danh sách danh mục</a></li>
                     </ul>
                   </li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> Quản lý banner<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{URL::to('/add-banners')}}">Thêm banner</a></li>
-                      <li><a href="{{URL::to('/list-banners')}}">Danh sách banner</a></li>
-                      <li><a href="{{URL::to('/add-banner-categories')}}">Thêm danh mục</a></li>
-                      <li><a href="{{URL::to('/list-banner-categories')}}">Danh sách danh mục</a></li>
+                      <li><a href="{{URL::to('/admin/add-banners')}}">Thêm banner</a></li>
+                      <li><a href="{{URL::to('/admin/list-banners')}}">Danh sách banner</a></li>
+                      <li><a href="{{URL::to('/admin/add-banner-categories')}}">Thêm danh mục</a></li>
+                      <li><a href="{{URL::to('/admin/list-banner-categories')}}">Danh sách danh mục</a></li>
                     <ul class="nav child_menu">
                       
                     </ul>
@@ -120,8 +120,8 @@
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> Quản lý users <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{URL::to('/add-user')}}">Thêm user</a></li>
-                      <li><a href="{{URL::to('/list-user')}}">Danh sách user</a></li>
+                      <li><a href="#">Thêm user</a></li>
+                      <li><a href="#">Danh sách user</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -164,17 +164,17 @@
                      } ?>
                   </a>
                   <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                      <a class="dropdown-item"  href="javascript:;">
+                    <a class="dropdown-item"  href="javascript:;"> Thông tin cá nhân</a>
+                      <!-- <a class="dropdown-item"  href="javascript:;">
                         <span class="badge bg-red pull-right">50%</span>
                         <span>Settings</span>
                       </a>
-                  <a class="dropdown-item"  href="javascript:;">Help</a>
-                    <a class="dropdown-item"  href="{{URL::to('/logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <a class="dropdown-item"  href="javascript:;">Help</a> -->
+                    <a class="dropdown-item"  href="{{URL::to('/logout')}}"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a>
                   </div>
                 </li>
 
-                <li role="presentation" class="nav-item dropdown open">
+                <!-- <li role="presentation" class="nav-item dropdown open">
                   <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-green">6</span>
@@ -237,7 +237,7 @@
                       </div>
                     </li>
                   </ul>
-                </li>
+                </li> -->
               </ul>
             </nav>
           </div>

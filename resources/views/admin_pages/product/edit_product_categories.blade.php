@@ -8,7 +8,7 @@
 				<h3>Cập nhật danh mục</h3>
 			</div>
 
-			<div class="title_right">
+			<!-- <div class="title_right">
 				<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search for...">
@@ -17,7 +17,7 @@
 						</span>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="clearfix"></div>
 
@@ -27,8 +27,8 @@
 					<div class="x_title">
 						<h2><i class="fa fa-bars"></i> Danh mục </h2>
 						<ul class="nav navbar-right panel_toolbox">
-							<a href="{{URL::previous()}}" class="btn btn-primary"> Quay lại </a>
-							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+							<a href="{{URL::to('/admin/list-product-categories')}}" class="btn btn-primary btn-sm"> Quay lại </a>
+							<!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 							</li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -39,7 +39,7 @@
 								</div>
 							</li>
 							<li><a class="close-link"><i class="fa fa-close"></i></a>
-							</li>
+							</li> -->
 						</ul>
 						<div class="clearfix"></div>
 					</div>
@@ -47,7 +47,7 @@
 					@foreach($edit_categories as $key => $edit_value)
 					<div class="x_content">
 						<form class="" enctype="multipart/form-data"
-							action="{{URL::to('/update-product-categories/'.$edit_value->id)}}" method="post" novalidate>
+							action="{{URL::to('/admin/update-product-categories/'.$edit_value->id)}}" method="post" novalidate>
 							<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 								<li class="nav-item">
 									<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
@@ -207,7 +207,6 @@
 													<option value="0">Danh mục cha</option>
 													<!-- danh sách các danh mục khác -->
 													<optgroup label="Danh mục cấp 1"></optgroup>
-															<!-- nếu là danh mục cấp 2 hoặc cấp 3 -->
 															@foreach($product_cate as $key => $product_category)
 																@if($product_category->id == $edit_value->parent_id)
 																	<option style="color: red;" selected value="{{$product_category->id}}">Cấp 1. {{$product_category->name}}</option>
@@ -369,7 +368,7 @@
 								<div class="col-md-6 offset-md-3">
 									<button type='submit' name="save_product_categories" class="btn btn-primary">Cập
 										nhật</button>
-									<button type='reset' class="btn btn-success">Tạo lại</button>
+									<button type='reset' class="btn btn-success btn-sm">Tạo lại</button>
 								</div>
 							</div>
 						</form>

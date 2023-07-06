@@ -8,7 +8,7 @@
 				<h3>Chi tiết liên hệ</h3>
 			</div>
 
-			<!-- <div class="title_right">
+			<!-- <!-- <div class="title_right">
 				<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search for...">
@@ -17,7 +17,7 @@
 						</span>
 					</div>
 				</div>
-			</div> -->
+			</div> --> -->
 		</div>
 		<div class="clearfix"></div>
 
@@ -27,7 +27,7 @@
 					<div class="x_title">
 						<h2><i class="fa fa-bars"></i> Liên hệ </h2>
 						<ul class="nav navbar-right panel_toolbox">
-							<a href="{{URL::previous()}}" class="btn btn-primary"> Quay lại </a>
+							<a href="{{URL::to('/admin/list-contacts')}}" class="btn btn-primary btn-sm"> Quay lại </a>
 							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 							</li>
 							<li class="dropdown">

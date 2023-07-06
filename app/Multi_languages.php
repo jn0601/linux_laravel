@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Multi_languages extends Model
+class Multi_languages extends BaseModel
 {
     public $timestamps = false; //set time to false
     

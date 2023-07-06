@@ -28,11 +28,11 @@
           <div class="x_title">
             <h2>Danh sách danh mục tin tức</h2>
             <ul class="nav navbar-right panel_toolbox">
-              <!-- <a href="#" class="btn btn-success"> Lưu</a>
+              <!-- <a href="#" class="btn btn-success btn-sm"> Lưu</a>
               <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Xoá</a> -->
-              <a href="#" class="btn btn-success"> Lưu </a>
-              <a href="{{URL::to('/add-news-categories')}}" class="btn btn-primary"> Thêm danh mục </a>
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              <a href="#" class="btn btn-success btn-sm"> Lưu </a>
+              <a href="{{URL::to('/admin/add-news-categories')}}" class="btn btn-primary btn-sm"> Thêm danh mục </a>
+              <!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
@@ -42,8 +42,8 @@
                   <a class="dropdown-item" href="#">Settings 2</a>
                 </div>
               </li>
-              <!-- <li><a class="close-link"><i class="fa fa-close"></i></a> -->
-              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li> -->
             </ul>
             <div class="clearfix"></div>
           </div>
@@ -75,7 +75,7 @@
                     </div>
                   </td>
                   <td>
-                    <img src="public/backend/uploads/news_categories/{{ $news_category->image }}" height="auto"
+                    <img src="{{URL::to('public/backend/uploads/news_categories/'.$news_category->image)}}" height="auto"
                       width="80">
                   </td>
                   <td>
@@ -111,40 +111,40 @@
                   </td>
                   <td><span class="text-ellipsis">
                       <?php if ($news_category->representative == 1) { ?>
-                      <a href="{{URL::to('/unactive-news-categories-representative/'.$news_category->id)}}"><span
+                      <a href="{{URL::to('/admin/unactive-news-categories-representative/'.$news_category->id)}}"><span
                           class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
                       <?php } else { ?>
-                      <a href="{{URL::to('/active-news-categories-representative/'.$news_category->id)}}"><span
+                      <a href="{{URL::to('/admin/active-news-categories-representative/'.$news_category->id)}}"><span
                           class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
                       <?php } ?>
                     </span>
                   </td>
                   <td><span class="text-ellipsis">
                       <?php if ($news_category->status == 1) { ?>
-                      <a href="{{URL::to('/unactive-news-categories-status/'.$news_category->id)}}"><span class="fa fa-toggle-on"
+                      <a href="{{URL::to('/admin/unactive-news-categories-status/'.$news_category->id)}}"><span class="fa fa-toggle-on"
                           style="font-size: 25px;"></span></a>
                       <?php } else { ?>
-                      <a href="{{URL::to('/active-news-categories-status/'.$news_category->id)}}"><span class="fa fa-toggle-off"
+                      <a href="{{URL::to('/admin/active-news-categories-status/'.$news_category->id)}}"><span class="fa fa-toggle-off"
                           style="font-size: 25px;"></span></a>
                       <?php } ?>
                     </span>
                   </td>
                   <td><span class="text-ellipsis">
                       <?php if ($news_category->display_menu == 1) { ?>
-                      <a href="{{URL::to('/unactive-news-categories-display-menu/'.$news_category->id)}}"><span
+                      <a href="{{URL::to('/admin/unactive-news-categories-display-menu/'.$news_category->id)}}"><span
                           class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
                       <?php } else { ?>
-                      <a href="{{URL::to('/active-news-categories-display-menu/'.$news_category->id)}}"><span
+                      <a href="{{URL::to('/admin/active-news-categories-display-menu/'.$news_category->id)}}"><span
                           class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
                       <?php } ?>
                     </span>
                   </td>
                   <td>
                     <!-- <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a> -->
-                    <a href="{{URL::to('/edit-news-categories/'.$news_category->id)}}"
+                    <a href="{{URL::to('/admin/edit-news-categories/'.$news_category->id)}}"
                       class="btn btn-info btn-xs btn-sm"><i class="fa fa-pencil"></i> Sửa</a>
                     <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
-                      href="{{URL::to('/delete-news-categories/'.$news_category->id)}}"
+                      href="{{URL::to('/admin/delete-news-categories/'.$news_category->id)}}"
                       class="btn btn-danger btn-xs btn-sm"><i class="fa fa-trash-o"></i> Xoá</a>
                   </td>
                 </tr>

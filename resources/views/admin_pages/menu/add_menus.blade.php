@@ -8,7 +8,7 @@
 				<h3>Thêm menu</h3>
 			</div>
 
-			<div class="title_right">
+			<!-- <div class="title_right">
 				<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search for...">
@@ -17,7 +17,7 @@
 						</span>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="clearfix"></div>
 
@@ -27,8 +27,8 @@
 					<div class="x_title">
 						<h2><i class="fa fa-bars"></i> Menu</h2>
 						<ul class="nav navbar-right panel_toolbox">
-							<a href="{{URL::previous()}}" class="btn btn-primary"> Quay lại </a>
-							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+							<a href="{{URL::to('/admin/list-menus')}}" class="btn btn-primary btn-sm"> Quay lại </a>
+							<!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 							</li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -39,13 +39,13 @@
 								</div>
 							</li>
 							<li><a class="close-link"><i class="fa fa-close"></i></a>
-							</li>
+							</li> -->
 						</ul>
 						<div class="clearfix"></div>
 					</div>
 
 					<div class="x_content">
-						<form class="" enctype="multipart/form-data" action="{{URL::to('/save-menus')}}"
+						<form class="" enctype="multipart/form-data" action="{{URL::to('/admin/save-menus')}}"
 							method="post" novalidate>
 							<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 								<li class="nav-item">
@@ -111,6 +111,39 @@
 													data-validate-words="2" name="seo_name" required="required" />
 											</div>
 										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Tags<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="tags" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta title<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_title" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta
+												description<span class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_desc" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta
+												keyword<span class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_keyword" required="required" />
+											</div>
+										</div>
+
 										<input type="hidden" class="form-control" data-validate-length-range="6"
 													data-validate-words="2" name="root_id" required="required" />
 										<div class="field item form-group">
@@ -119,26 +152,29 @@
 											<div class="col-md-10 col-sm-10 ">
 												<select name="parent_id" class="select2_group form-control">
 													<option value="0">Menu cha</option>
-													@foreach($list_menus as $key => $menu)
-														@if($menu->parent_id == 0)
 														<optgroup label="Menu cấp 1"></optgroup>
+														@foreach($list_menus as $key => $menu)
+														@if($menu->parent_id == 0)
 														<option style="color:red;" value="{{$menu->id}}">Cấp 1. {{$menu->name}}</option>
-														@else
-															@foreach($list_menus as $key => $grand_menu)
+														@endif
+														@endforeach
+														<optgroup label="Menu cấp 2"></optgroup>
+														@foreach($list_menus as $key => $menu)
+														@if($menu->parent_id != 0)
+														@foreach($list_menus as $key => $grand_menu)
 																@if($menu->parent_id == $grand_menu->id)
 																	@foreach($list_menus as $key => $parent_menu)
 																		@if($menu->parent_id == $parent_menu->id)
 																			@if($parent_menu->parent_id == 0)
-																			<optgroup label="Menu cấp 2"></optgroup>
 																			<option style="color: green" value="{{$menu->id}}">Cấp 2. {{$menu->name}}
 																			</option>
 																			@endif
 																		@endif
 																	@endforeach
 																@endif
-															@endforeach
+														@endforeach
 														@endif
-													@endforeach
+														@endforeach
 												</select>
 											</div>
 										</div>
@@ -199,7 +235,38 @@
 													data-validate-words="2" name="seo_name2" required="required" />
 											</div>
 										</div>
-										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Tags<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="tags2" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta title<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_title2" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta
+												description<span class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_desc2" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Meta
+												keyword<span class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<input class="form-control" data-validate-length-range="6"
+													data-validate-words="2" name="meta_keyword2" required="required" />
+											</div>
+										</div>
 
 										<div class="ln_solid"></div>
 									</div>
@@ -208,8 +275,8 @@
 							<div class="form-group">
 								<div class="col-md-6 offset-md-3">
 									<button type='submit' name="save_menus"
-										class="btn btn-primary">Thêm</button>
-									<button type='reset' class="btn btn-success">Tạo lại</button>
+										class="btn btn-primary btn-sm">Thêm</button>
+									<button type='reset' class="btn btn-success btn-sm">Tạo lại</button>
 								</div>
 							</div>
 						</form>

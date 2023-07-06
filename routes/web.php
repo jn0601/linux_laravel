@@ -41,90 +41,90 @@ Route::get('/logout', 'Backend\LoginController@logout');
 Route::get('/404', 'Backend\AdminController@error');
 
 //Menu
-Route::get('/add-menus', 'Backend\MenusController@add_menus');//->middleware('auth');
-Route::get('/list-menus', 'Backend\MenusController@list_menus');//->middleware('auth');
-Route::get('/edit-menus/{id}', 'Backend\MenusController@edit_menus');
-Route::post('/update-menus/{id}', 'Backend\MenusController@update_menus');
-Route::post('/save-menus', 'Backend\MenusController@save_menus');
-Route::get('/delete-menus/{id}', 'Backend\MenusController@delete_menus');
+Route::get('/admin/add-menus', 'Backend\MenusController@add_menus');//->middleware('auth');
+Route::get('/admin/list-menus', 'Backend\MenusController@list_menus');//->middleware('auth');
+Route::get('/admin/edit-menus/{id}', 'Backend\MenusController@edit_menus');
+Route::post('/admin/update-menus/{id}', 'Backend\MenusController@update_menus');
+Route::post('/admin/save-menus', 'Backend\MenusController@save_menus');
+Route::get('/admin/delete-menus/{id}', 'Backend\MenusController@delete_menus');
 
-Route::get('/unactive-menus-status/{id}', 'Backend\MenusController@unactive_menus_status');//->middleware('auth');;
-Route::get('/active-menus-status/{id}', 'Backend\MenusController@active_menus_status');
+Route::get('/admin/unactive-menus-status/{id}', 'Backend\MenusController@unactive_menus_status');//->middleware('auth');;
+Route::get('/admin/active-menus-status/{id}', 'Backend\MenusController@active_menus_status');
 
 //Contact
-Route::get('/list-contacts', 'Backend\FormContactsController@list_contacts');
-Route::get('/detail-contacts/{id}', 'Backend\FormContactsController@detail_contacts');
-Route::get('/delete-contacts/{id}', 'Backend\FormContactsController@delete_contacts');
+Route::get('/admin/list-contacts', 'Backend\FormContactsController@list_contacts');
+Route::get('/admin/detail-contacts/{id}', 'Backend\FormContactsController@detail_contacts');
+Route::get('/admin/delete-contacts/{id}', 'Backend\FormContactsController@delete_contacts');
 
 //Product
-Route::get('/add-product-categories', 'Backend\ProductController@add_product_categories');//->middleware('auth');
-Route::get('/list-product-categories', 'Backend\ProductController@list_product_categories');//->middleware('auth');
-Route::get('/edit-product-categories/{id}', 'Backend\ProductController@edit_product_categories');
-Route::post('/update-product-categories/{id}', 'Backend\ProductController@update_product_categories');
-Route::post('/save-product-categories', 'Backend\ProductController@save_product_categories');
-Route::get('/delete-product-categories/{id}', 'Backend\ProductController@delete_product_categories');
+Route::get('/admin/add-product-categories', 'Backend\ProductController@add_product_categories');//->middleware('auth');
+Route::get('/admin/list-product-categories', 'Backend\ProductController@list_product_categories');//->middleware('auth');
+Route::get('/admin/edit-product-categories/{id}', 'Backend\ProductController@edit_product_categories');
+Route::post('/admin/update-product-categories/{id}', 'Backend\ProductController@update_product_categories');
+Route::post('/admin/save-product-categories', 'Backend\ProductController@save_product_categories');
+Route::get('/admin/delete-product-categories/{id}', 'Backend\ProductController@delete_product_categories');
 
-Route::get('/unactive-product-categories-representative/{id}', 'Backend\ProductController@unactive_product_categories_representative');//->middleware('auth');;
-Route::get('/active-product-categories-representative/{id}', 'Backend\ProductController@active_product_categories_representative');//->middleware('auth');
-Route::get('/unactive-product-categories-status/{id}', 'Backend\ProductController@unactive_product_categories_status');//->middleware('auth');;
-Route::get('/active-product-categories-status/{id}', 'Backend\ProductController@active_product_categories_status');//->middleware('auth');
-Route::get('/unactive-product-categories-display-menu/{id}', 'Backend\ProductController@unactive_product_categories_display_menu');//->middleware('auth');;
-Route::get('/active-product-categories-display-menu/{id}', 'Backend\ProductController@active_product_categories_display_menu');//->middleware('auth');
+Route::get('/admin/unactive-product-categories-representative/{id}', 'Backend\ProductController@unactive_product_categories_representative');//->middleware('auth');;
+Route::get('/admin/active-product-categories-representative/{id}', 'Backend\ProductController@active_product_categories_representative');//->middleware('auth');
+Route::get('/admin/unactive-product-categories-status/{id}', 'Backend\ProductController@unactive_product_categories_status');//->middleware('auth');;
+Route::get('/admin/active-product-categories-status/{id}', 'Backend\ProductController@active_product_categories_status');//->middleware('auth');
+Route::get('/admin/unactive-product-categories-display-menu/{id}', 'Backend\ProductController@unactive_product_categories_display_menu');//->middleware('auth');;
+Route::get('/admin/active-product-categories-display-menu/{id}', 'Backend\ProductController@active_product_categories_display_menu');//->middleware('auth');
 
-Route::get('/unactive-product-status/{id}', 'Backend\ProductController@unactive_product_status');//->middleware('auth');;
-Route::get('/active-product-status/{id}', 'Backend\ProductController@active_product_status');//->middleware('auth');
-Route::get('/unactive-product-display-menu/{id}', 'Backend\ProductController@unactive_product_display_menu');//->middleware('auth');;
-Route::get('/active-product-display-menu/{id}', 'Backend\ProductController@active_product_display_menu');
+Route::get('/admin/unactive-product-status/{id}', 'Backend\ProductController@unactive_product_status');//->middleware('auth');;
+Route::get('/admin/active-product-status/{id}', 'Backend\ProductController@active_product_status');//->middleware('auth');
+Route::get('/admin/unactive-product-display-menu/{id}', 'Backend\ProductController@unactive_product_display_menu');//->middleware('auth');;
+Route::get('/admin/active-product-display-menu/{id}', 'Backend\ProductController@active_product_display_menu');
 
 
-Route::get('/add-products', 'Backend\ProductController@add_products');//->middleware('auth');
-Route::get('/list-products', 'Backend\ProductController@list_products');//->middleware('auth');
-Route::post('/save-products', 'Backend\ProductController@save_products');
-Route::get('/edit-products/{id}', 'Backend\ProductController@edit_products');
-Route::post('/update-products/{id}', 'Backend\ProductController@update_products');
-Route::get('/delete-products/{id}', 'Backend\ProductController@delete_products');
+Route::get('/admin/add-products', 'Backend\ProductController@add_products');//->middleware('auth');
+Route::get('/admin/list-products', 'Backend\ProductController@list_products');//->middleware('auth');
+Route::post('/admin/save-products', 'Backend\ProductController@save_products');
+Route::get('/admin/edit-products/{id}', 'Backend\ProductController@edit_products');
+Route::post('/admin/update-products/{id}', 'Backend\ProductController@update_products');
+Route::get('/admin/delete-products/{id}', 'Backend\ProductController@delete_products');
 
 
 //News
-Route::get('/add-news-categories', 'Backend\NewsController@add_news_categories');//->middleware('auth');
-Route::get('/list-news-categories', 'Backend\NewsController@list_news_categories');//->middleware('auth');
-Route::get('/edit-news-categories/{id}', 'Backend\NewsController@edit_news_categories');
-Route::post('/update-news-categories/{id}', 'Backend\NewsController@update_news_categories');
-Route::post('/save-news-categories', 'Backend\NewsController@save_news_categories');
-Route::get('/delete-news-categories/{id}', 'Backend\NewsController@delete_news_categories');
+Route::get('/admin/add-news-categories', 'Backend\NewsController@add_news_categories');//->middleware('auth');
+Route::get('/admin/list-news-categories', 'Backend\NewsController@list_news_categories');//->middleware('auth');
+Route::get('/admin/edit-news-categories/{id}', 'Backend\NewsController@edit_news_categories');
+Route::post('/admin/update-news-categories/{id}', 'Backend\NewsController@update_news_categories');
+Route::post('/admin/save-news-categories', 'Backend\NewsController@save_news_categories');
+Route::get('/admin/delete-news-categories/{id}', 'Backend\NewsController@delete_news_categories');
 
-Route::get('/unactive-news-categories-representative/{id}', 'Backend\NewsController@unactive_news_categories_representative');//->middleware('auth');;
-Route::get('/active-news-categories-representative/{id}', 'Backend\NewsController@active_news_categories_representative');//->middleware('auth');
-Route::get('/unactive-news-categories-status/{id}', 'Backend\NewsController@unactive_news_categories_status');//->middleware('auth');;
-Route::get('/active-news-categories-status/{id}', 'Backend\NewsController@active_news_categories_status');//->middleware('auth');
-Route::get('/unactive-news-categories-display-menu/{id}', 'Backend\NewsController@unactive_news_categories_display_menu');//->middleware('auth');;
-Route::get('/active-news-categories-display-menu/{id}', 'Backend\NewsController@active_news_categories_display_menu');//->middleware('auth');
+Route::get('/admin/unactive-news-categories-representative/{id}', 'Backend\NewsController@unactive_news_categories_representative');//->middleware('auth');;
+Route::get('/admin/active-news-categories-representative/{id}', 'Backend\NewsController@active_news_categories_representative');//->middleware('auth');
+Route::get('/admin/unactive-news-categories-status/{id}', 'Backend\NewsController@unactive_news_categories_status');//->middleware('auth');;
+Route::get('/admin/active-news-categories-status/{id}', 'Backend\NewsController@active_news_categories_status');//->middleware('auth');
+Route::get('/admin/unactive-news-categories-display-menu/{id}', 'Backend\NewsController@unactive_news_categories_display_menu');//->middleware('auth');;
+Route::get('/admin/active-news-categories-display-menu/{id}', 'Backend\NewsController@active_news_categories_display_menu');//->middleware('auth');
 
-Route::get('/unactive-news-status/{id}', 'Backend\NewsController@unactive_news_status');//->middleware('auth');;
-Route::get('/active-news-status/{id}', 'Backend\NewsController@active_news_status');//->middleware('auth');
+Route::get('/admin/unactive-news-status/{id}', 'Backend\NewsController@unactive_news_status');//->middleware('auth');;
+Route::get('/admin/active-news-status/{id}', 'Backend\NewsController@active_news_status');//->middleware('auth');
 
-Route::get('/add-news', 'Backend\NewsController@add_news');//->middleware('auth');
-Route::get('/list-news', 'Backend\NewsController@list_news');//->middleware('auth');
-Route::post('/save-news', 'Backend\NewsController@save_news');
-Route::get('/edit-news/{id}', 'Backend\NewsController@edit_news');
-Route::post('/update-news/{id}', 'Backend\NewsController@update_news');
-Route::get('/delete-news/{id}', 'Backend\NewsController@delete_news');
+Route::get('/admin/add-news', 'Backend\NewsController@add_news');//->middleware('auth');
+Route::get('/admin/list-news', 'Backend\NewsController@list_news');//->middleware('auth');
+Route::post('/admin/save-news', 'Backend\NewsController@save_news');
+Route::get('/admin/edit-news/{id}', 'Backend\NewsController@edit_news');
+Route::post('/admin/update-news/{id}', 'Backend\NewsController@update_news');
+Route::get('/admin/delete-news/{id}', 'Backend\NewsController@delete_news');
 
 //Banner
-Route::get('/add-banners', 'Backend\BannerController@add_banners');//->middleware('auth');
-Route::get('/list-banners', 'Backend\BannerController@list_banners');//->middleware('auth');
-Route::get('/add-banner-categories', 'Backend\BannerController@add_banner_categories');
-Route::post('/save-banner-categories', 'Backend\BannerController@save_banner_categories');
-Route::post('/save-banners', 'Backend\BannerController@save_banners');
-Route::get('/list-banner-categories', 'Backend\BannerController@list_banner_categories');
-Route::get('/edit-banner-categories/{id}', 'Backend\BannerController@edit_banner_categories');
-Route::get('/edit-banners/{id}', 'Backend\BannerController@edit_banners');
-Route::post('/update-banner-categories/{id}', 'Backend\BannerController@update_banner_categories');
-Route::post('/update-banners/{id}', 'Backend\BannerController@update_banners');
-Route::get('/delete-banner-categories/{id}', 'Backend\BannerController@delete_banner_categories');
-Route::get('/delete-banners/{id}', 'Backend\BannerController@delete_banners');
-Route::get('/unactive-banners/{id}', 'Backend\BannerController@unactive_banners');//->middleware('auth');;
-Route::get('/active-banners/{id}', 'Backend\BannerController@active_banners');//->middleware('auth');
+Route::get('/admin/add-banners', 'Backend\BannerController@add_banners');//->middleware('auth');
+Route::get('/admin/list-banners', 'Backend\BannerController@list_banners');//->middleware('auth');
+Route::get('/admin/add-banner-categories', 'Backend\BannerController@add_banner_categories');
+Route::post('/admin/save-banner-categories', 'Backend\BannerController@save_banner_categories');
+Route::post('/admin/save-banners', 'Backend\BannerController@save_banners');
+Route::get('/admin/list-banner-categories', 'Backend\BannerController@list_banner_categories');
+Route::get('/admin/edit-banner-categories/{id}', 'Backend\BannerController@edit_banner_categories');
+Route::get('/admin/edit-banners/{id}', 'Backend\BannerController@edit_banners');
+Route::post('/admin/update-banner-categories/{id}', 'Backend\BannerController@update_banner_categories');
+Route::post('/admin/update-banners/{id}', 'Backend\BannerController@update_banners');
+Route::get('/admin/delete-banner-categories/{id}', 'Backend\BannerController@delete_banner_categories');
+Route::get('/admin/delete-banners/{id}', 'Backend\BannerController@delete_banners');
+Route::get('/admin/unactive-banners/{id}', 'Backend\BannerController@unactive_banners');//->middleware('auth');;
+Route::get('/admin/active-banners/{id}', 'Backend\BannerController@active_banners');//->middleware('auth');
 
 
 

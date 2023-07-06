@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Nodes extends Model
+class Nodes extends BaseModel
 {
     public $timestamps = false; //set time to false
     // $fillable là các biến có thể update 

@@ -48,8 +48,7 @@ class NewsController extends Controller
     // lưu tin tức
     public function save_news(Request $request)
     {
-        //$data = $request->all();
-        $data_en = $request->all();
+        //$data_en = $request->all();
         $data = $request->all();
         $get_image = request('img');
         $data_vn = $request->validate(
@@ -152,10 +151,10 @@ class NewsController extends Controller
 
 
             Toastr::success('Thêm thành công', 'Thành công');
-            return Redirect::to('list-news');
+            return Redirect::to('/admin/list-news');
         } else {
             Session::put('message', 'Vui lòng điền đầy đủ các trường');
-            return Redirect::to('add-news');
+            return Redirect::to('/admin/add-news');
         }
     }
 
@@ -163,34 +162,34 @@ class NewsController extends Controller
     public function update_news(Request $request, $id)
     {
         $data = array();
-        $data_en = array();
+        //$data_en = array();
 
         //update bảng chính
-        $data_validate = $request->validate(
-            [
-                'name' => 'required|unique:news|max:255',
-                'desc' => 'required',
-                'content' => 'required',
-                'seo_name' => 'required|unique:news',
-                'tags' => 'required',
-                'meta_title' => 'required',
-                'meta_desc' => 'required',
-                'meta_keyword' => 'required',
+        // $data_validate = $request->validate(
+        //     [
+        //         'name' => 'required|unique:news|max:255',
+        //         'desc' => 'required',
+        //         'content' => 'required',
+        //         'seo_name' => 'required|unique:news|unique:nodes',
+        //         'tags' => 'required',
+        //         'meta_title' => 'required',
+        //         'meta_desc' => 'required',
+        //         'meta_keyword' => 'required',
 
-            ],
-            [
-                'name.required' => 'Tên không được để trống',
-                'name.unique' => 'Tên đã tồn tại, vui lòng chọn tên khác',
-                'desc.required' => 'Vui lòng điền mô tả',
-                'content.required' => 'Vui lòng điền nội dung',
-                'seo_name.required' => 'Vui lòng điền seo name',
-                'seo_name.unique' => 'Seo name đã tồn tại, vui lòng chọn tên khác',
-                'tags.required' => 'Vui lòng điền tags',
-                'meta_title.required' => 'Vui lòng điền tiêu đề seo ',
-                'meta_desc.required' => 'Vui lòng điền mô tả seo ',
-                'meta_keyword.required' => 'Vui lòng điền từ khóa seo ',
-            ]
-        );
+        //     ],
+        //     [
+        //         'name.required' => 'Tên không được để trống',
+        //         'name.unique' => 'Tên đã tồn tại, vui lòng chọn tên khác',
+        //         'desc.required' => 'Vui lòng điền mô tả',
+        //         'content.required' => 'Vui lòng điền nội dung',
+        //         'seo_name.required' => 'Vui lòng điền seo name',
+        //         'seo_name.unique' => 'Seo name đã tồn tại, vui lòng chọn tên khác',
+        //         'tags.required' => 'Vui lòng điền tags',
+        //         'meta_title.required' => 'Vui lòng điền tiêu đề seo ',
+        //         'meta_desc.required' => 'Vui lòng điền mô tả seo ',
+        //         'meta_keyword.required' => 'Vui lòng điền từ khóa seo ',
+        //     ]
+        // );
 
 
         
@@ -203,7 +202,7 @@ class NewsController extends Controller
             $get_image->move('public/backend/uploads/news', $new_image);
             $data['image'] = $new_image;
         }
-        if ($data_validate) {
+        //if ($data_validate) {
             $data['name'] = $request->name;
             $data['desc'] = $request->desc;
             $data['content'] = $request->content;
@@ -227,7 +226,11 @@ class NewsController extends Controller
             $data['options'] = $option_values;
             $data['status'] = $request->status;
 
-            DB::table('news')->where('id', $id)->update($data);
+            News::where('id', $id)->update($data);
+
+            //update bảng nodes
+            $data_nodes = new BaseModel();
+            $data_nodes->update_nodes($id, $this->type_news, $request->seo_name);
 
             //update bảng phụ tiếng việt
             $data_vn = new BaseModel();
@@ -248,8 +251,8 @@ class NewsController extends Controller
 
 
             //update bảng phụ tiếng anh
-            $data_vn = new BaseModel();
-            $data_vn->update_lang($id, 'en', $this->type_news, 
+            $data_en = new BaseModel();
+            $data_en->update_lang($id, 'en', $this->type_news, 
             ($request->name2 ? $request->name2 : ''),
             ($request->desc2 ? $request->desc2 : ''), 
             ($request->content2 ? $request->content2 : ''),
@@ -270,13 +273,13 @@ class NewsController extends Controller
             // DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_news)->update($data_en);
             
             Toastr::success('Cập nhật thành công', 'Thành công');
-            return Redirect::to('list-news');
-        }
+            return Redirect::to('/admin/list-news');
+        // }
         
-        else {
-            Session::put('message', 'Vui lòng điền đầy đủ các trường');
-            return Redirect::to('edit-news/{$id}');
-        }
+        // else {
+        //     Session::put('message', 'Vui lòng điền đầy đủ các trường');
+        //     return Redirect::to('edit-news/{$id}');
+        // }
     }
 
     // trang update tin tức
@@ -308,12 +311,13 @@ class NewsController extends Controller
     // xoá tin tức
     public function delete_news($id)
     {
-        DB::table('news')->where('id', $id)->delete();
-        DB::table('multi_languages')->where('object_id', $id)->where('type', $this->type_news)->delete();
+        News::where('id', $id)->delete();
+        Nodes::where('object_id', $id)->where('type', $this->type_news)->delete();
+        Multi_languages::where('object_id', $id)->where('type', $this->type_news)->delete();
         Toastr::success('Xóa danh mục thành công', 'Thành công');
 
         // Session::put('message','Xóa danh mục sản phẩm thành công');
-        return Redirect::to('list-news');
+        return Redirect::to('/admin/list-news');
     }
 
     // trang thêm danh mục
@@ -339,8 +343,7 @@ class NewsController extends Controller
     // lưu danh mục
     public function save_news_categories(Request $request)
     {
-        //$data = $request->all();
-        $data_en = $request->all();
+        //$data_en = $request->all();
         $data = $request->all();
         $get_image = request('img');
         $data_vn = $request->validate(
@@ -378,9 +381,7 @@ class NewsController extends Controller
             $get_image->move('public/backend/uploads/news_categories', $new_image);
 
             $news_cate = new News_categories();
-            $news_cate_node = new Nodes();
-            $news_cate_vn = new Multi_languages();
-            $news_cate_en = new Multi_languages();
+            
 
             // save vào bảng chính
             $news_cate->name = $data['name'];
@@ -420,10 +421,12 @@ class NewsController extends Controller
             $news_cate->save();
 
             //save vào bảng phụ đường dẫn
+            $news_cate_node = new BaseModel();
             $news_cate_node->save_nodes($news_cate_node, $this->type_news_categories, 
             $news_cate->id, $data['seo_name'], 1, 1);
 
             //save vào bảng phụ tiếng Việt
+            $news_cate_vn = new BaseModel();
             $news_cate_vn->save_lang($news_cate_vn, $this->type_news_categories, 
             $news_cate->id, "vn", 
             $data['name'],
@@ -434,10 +437,10 @@ class NewsController extends Controller
             $data['meta_title'],
             $data['meta_desc'], 
             $data['meta_keyword']);
-            
 
             // save vào bảng phụ tiếng Anh
-            $news_cate_vn->save_lang($news_cate_vn, $this->type_news_categories, 
+            $news_cate_en = new BaseModel();
+            $news_cate_en->save_lang($news_cate_vn, $this->type_news_categories, 
             $news_cate->id, "en", 
             ($data['name2'] ? $data['name2'] : ''),
             ($data['desc2'] ? $data['desc2'] : ''), 
@@ -450,11 +453,11 @@ class NewsController extends Controller
             
             
             Toastr::success('Thêm thành công', 'Thành công');
-            return Redirect::to('list-news-categories');
+            return Redirect::to('/admin/list-news-categories');
             //return redirect()->action('Backend\BannerController@edit_banners', ['id' => $banners->id]);
         } else {
             Session::put('message', 'Vui lòng điền đầy đủ các trường');
-            return Redirect::to('add-news-categories');
+            return Redirect::to('/admin/add-news-categories');
         }
     }
 
@@ -475,35 +478,35 @@ class NewsController extends Controller
     public function update_news_categories(Request $request, $id)
     {
         $data = array();
-        $data_vn = array();
-        $data_en = array();
+        // $data_vn = array();
+        // $data_en = array();
 
         //update bảng chính
-        $data_validate = $request->validate(
-            [
-                'name' => 'required|unique:news_categories|max:255',
-                'desc' => 'required',
-                'content' => 'required',
-                'seo_name' => 'required|unique:news_categories',
-                'tags' => 'required',
-                'meta_title' => 'required',
-                'meta_desc' => 'required',
-                'meta_keyword' => 'required',
+        // $data_validate = $request->validate(
+        //     [
+        //         'name' => 'required|unique:news_categories|max:255',
+        //         'desc' => 'required',
+        //         'content' => 'required',
+        //         'seo_name' => 'required|unique:news_categories',
+        //         'tags' => 'required',
+        //         'meta_title' => 'required',
+        //         'meta_desc' => 'required',
+        //         'meta_keyword' => 'required',
 
-            ],
-            [
-                'name.required' => 'Tên không được để trống',
-                'name.unique' => 'Tên đã tồn tại, vui lòng chọn tên khác',
-                'desc.required' => 'Vui lòng điền mô tả',
-                'content.required' => 'Vui lòng điền nội dung',
-                'seo_name.required' => 'Vui lòng điền seo name',
-                'seo_name.unique' => 'Seo name đã tồn tại, vui lòng chọn tên khác',
-                'tags.required' => 'Vui lòng điền tags',
-                'meta_title.required' => 'Vui lòng điền tiêu đề seo ',
-                'meta_desc.required' => 'Vui lòng điền mô tả seo ',
-                'meta_keyword.required' => 'Vui lòng điền từ khóa seo ',
-            ]
-        );
+        //     ],
+        //     [
+        //         'name.required' => 'Tên không được để trống',
+        //         'name.unique' => 'Tên đã tồn tại, vui lòng chọn tên khác',
+        //         'desc.required' => 'Vui lòng điền mô tả',
+        //         'content.required' => 'Vui lòng điền nội dung',
+        //         'seo_name.required' => 'Vui lòng điền seo name',
+        //         'seo_name.unique' => 'Seo name đã tồn tại, vui lòng chọn tên khác',
+        //         'tags.required' => 'Vui lòng điền tags',
+        //         'meta_title.required' => 'Vui lòng điền tiêu đề seo ',
+        //         'meta_desc.required' => 'Vui lòng điền mô tả seo ',
+        //         'meta_keyword.required' => 'Vui lòng điền từ khóa seo ',
+        //     ]
+        // );
 
         
         $get_image = $request->file('img');
@@ -517,7 +520,7 @@ class NewsController extends Controller
             $data['image'] = $new_image;
         }
 
-        if ($data_validate) {
+        //if ($data_validate) {
             $data['name'] = $request->name;
             $data['desc'] = $request->desc;
             $data['content'] = $request->content;
@@ -549,38 +552,61 @@ class NewsController extends Controller
                 }
             }
 
-            DB::table('news_categories')->where('id', $id)->update($data);
+            News_categories::where('id', $id)->update($data);
+            //DB::table('news_categories')->where('id', $id)->update($data);
+
+            //update bảng nodes
+            $data_nodes = new BaseModel();
+            $data_nodes->update_nodes($id, $this->type_news_categories, $request->seo_name);
+            
+            //update bảng phụ
+            $data_vn = new BaseModel();
+            $data_vn->update_lang($id, 'vn', $this->type_news_categories, 
+            $request->name, $request->desc, 
+            $request->content, $request->seo_name, 
+            $request->tags, $request->meta_title,
+            $request->meta_desc, $request->meta_keyword);
+
+            // $data_vn['name'] = $request->name;
+            // $data_vn['desc'] = $request->desc;
+            // $data_vn['content'] = $request->content;
+            // $data_vn['seo_name'] = $request->seo_name;
+            // $data_vn['tags'] = $request->tags;
+            // $data_vn['meta_title'] = $request->meta_title;
+            // $data_vn['meta_desc'] = $request->meta_desc;
+            // $data_vn['meta_keyword'] = $request->meta_keyword;
+            // DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_news_categories)->update($data_vn);
 
             //update bảng phụ
-            $data_vn['name'] = $request->name;
-            $data_vn['desc'] = $request->desc;
-            $data_vn['content'] = $request->content;
-            $data_vn['seo_name'] = $request->seo_name;
-            $data_vn['tags'] = $request->tags;
-            $data_vn['meta_title'] = $request->meta_title;
-            $data_vn['meta_desc'] = $request->meta_desc;
-            $data_vn['meta_keyword'] = $request->meta_keyword;
-            DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_news_categories)->update($data_vn);
+            $data_en = new BaseModel();
+            $data_en->update_lang($id, 'en', $this->type_news_categories, 
+            ($request->name2 ? $request->name2 : ''),
+            ($request->desc2 ? $request->desc2 : ''), 
+            ($request->content2 ? $request->content2 : ''),
+            ($request->seo_name2 ? $request->seo_name2 : ''),
+            ($request->tags2 ? $request->tags2 : ''), 
+            ($request->meta_title2 ? $request->meta_title2 : ''),
+            ($request->meta_desc2 ? $request->meta_desc2 : ''), 
+            ($request->meta_keyword2 ? $request->meta_keyword2 : ''));
 
-            //update bảng phụ
-            $data_en['name'] = ($request->name2 ? $request->name2 : '');
-            $data_en['desc'] = ($request->desc2 ? $request->desc2 : '');
-            $data_en['content'] = ($request->content2 ? $request->content2 : '');
-            $data_en['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '');
-            $data_en['tags'] = ($request->tags2 ? $request->tags2 : '');
-            $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '');
-            $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '');
-            $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '');
-            DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_news_categories)->update($data_en);
+            // $data_en['name'] = ($request->name2 ? $request->name2 : '');
+            // $data_en['desc'] = ($request->desc2 ? $request->desc2 : '');
+            // $data_en['content'] = ($request->content2 ? $request->content2 : '');
+            // $data_en['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '');
+            // $data_en['tags'] = ($request->tags2 ? $request->tags2 : '');
+            // $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '');
+            // $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '');
+            // $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '');
+            // DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_news_categories)->update($data_en);
             Toastr::success('Cập nhật danh mục thành công', 'Thành công');
 
             // Session::put('message','Cập nhật danh mục sản phẩm thành công');
-            return Redirect::to('list-news-categories');
-        }
-        else {
-            Session::put('message', 'Vui lòng điền đầy đủ các trường');
-            return Redirect::to('edit-news/{$id}');
-        }
+            return Redirect::to('/admin/list-news-categories');
+        // }
+        // else {
+        //     Session::put('message', 'Vui lòng điền đầy đủ các trường');
+        //     return Redirect::to('edit-news/{$id}');
+        // }
         
     }
 
@@ -588,12 +614,13 @@ class NewsController extends Controller
     // xoá danh mục
     public function delete_news_categories($id)
     {
-        DB::table('news_categories')->where('id', $id)->delete();
-        DB::table('multi_languages')->where('object_id', $id)->where('type', $this->type_news_categories)->delete();
+        News_categories::where('id', $id)->delete();
+        Nodes::where('object_id', $id)->where('type', $this->type_news_categories)->delete();
+        Multi_languages::where('object_id', $id)->where('type', $this->type_news_categories)->delete();
         Toastr::success('Xóa danh mục thành công', 'Thành công');
 
         // Session::put('message','Xóa danh mục sản phẩm thành công');
-        return Redirect::to('list-news-categories');
+        return Redirect::to('/admin/list-news-categories');
     }
 
     // bật tắt tiêu biểu

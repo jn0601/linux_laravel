@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product_category_products extends Model
+class Product_category_products extends BaseModel
 {
     public $timestamps = false; //set time to false
     // $fillable là các biến có thể update 

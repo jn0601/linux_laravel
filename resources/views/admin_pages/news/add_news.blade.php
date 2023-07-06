@@ -8,7 +8,7 @@
 				<h3>Thêm tin tức</h3>
 			</div>
 
-			<div class="title_right">
+			<!-- <div class="title_right">
 				<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search for...">
@@ -17,7 +17,7 @@
 						</span>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="clearfix"></div>
 
@@ -27,8 +27,8 @@
 					<div class="x_title">
 						<h2><i class="fa fa-bars"></i> Tin tức </h2>
 						<ul class="nav navbar-right panel_toolbox">
-							<a href="{{URL::previous()}}" class="btn btn-primary"> Quay lại </a>
-							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+							<a href="{{URL::to('/admin/list-news')}}" class="btn btn-primary btn-sm"> Quay lại </a>
+							<!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 							</li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
@@ -38,13 +38,13 @@
 								</div>
 							</li>
 							<li><a class="close-link"><i class="fa fa-close"></i></a>
-							</li>
+							</li> -->
 						</ul>
 						<div class="clearfix"></div>
 					</div>
 
 					<div class="x_content">
-						<form class="" enctype="multipart/form-data" action="{{URL::to('/save-news')}}" method="post" novalidate>
+						<form class="" enctype="multipart/form-data" action="{{URL::to('/admin/save-news')}}" method="post" novalidate>
 							<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 								<li class="nav-item">
 									<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Tiếng Việt</a>
@@ -310,8 +310,8 @@
 							</div>
 							<div class="form-group">
 								<div class="col-md-6 offset-md-3">
-									<button type='submit' name="save_banner_categories" class="btn btn-primary">Thêm</button>
-									<button type='reset' class="btn btn-success">Tạo lại</button>
+									<button type='submit' name="save_banner_categories" class="btn btn-primary btn-sm">Thêm</button>
+									<button type='reset' class="btn btn-success btn-sm">Tạo lại</button>
 								</div>
 							</div>
 						</form>

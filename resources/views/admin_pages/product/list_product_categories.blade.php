@@ -28,11 +28,11 @@
           <div class="x_title">
             <h2>Danh mục sản phẩm</h2>
             <ul class="nav navbar-right panel_toolbox">
-              <!-- <a href="#" class="btn btn-success"> Lưu</a>
+              <!-- <a href="#" class="btn btn-success btn-sm"> Lưu</a>
               <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Xoá</a> -->
-              <a href="#" class="btn btn-success"> Lưu </a>
-              <a href="{{URL::to('/add-product-categories')}}" class="btn btn-primary"> Thêm danh mục </a>
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              <a href="#" class="btn btn-success btn-sm"> Lưu </a>
+              <a href="{{URL::to('/admin/add-product-categories')}}" class="btn btn-primary btn-sm"> Thêm danh mục </a>
+              <!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
@@ -42,8 +42,8 @@
                   <a class="dropdown-item" href="#">Settings 2</a>
                 </div>
               </li>
-              <!-- <li><a class="close-link"><i class="fa fa-close"></i></a> -->
-              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li> -->
             </ul>
             <div class="clearfix"></div>
           </div>
@@ -74,7 +74,7 @@
                         </div>
                       </td>
                       <td>
-                        <img src="public/backend/uploads/product_categories/{{ $product_category->image }}"
+                        <img src="{{URL::to('public/backend/uploads/product_categories/'.$product_category->image)}}"
                           height="auto" width="80">
                       </td>
                       <td>
@@ -110,40 +110,40 @@
                       </td>
                       <td><span class="text-ellipsis">
                           <?php if ($product_category->representative == 1) { ?>
-                          <a href="{{URL::to('/unactive-product-categories-representative/'.$product_category->id)}}"><span
+                          <a href="{{URL::to('/admin/unactive-product-categories-representative/'.$product_category->id)}}"><span
                               class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
                           <?php } else { ?>
-                          <a href="{{URL::to('/active-product-categories-representative/'.$product_category->id)}}"><span
+                          <a href="{{URL::to('/admin/active-product-categories-representative/'.$product_category->id)}}"><span
                               class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
                           <?php } ?>
                         </span>
                       </td>
                       <td><span class="text-ellipsis">
                           <?php if ($product_category->status == 1) { ?>
-                          <a href="{{URL::to('/unactive-product-categories-status/'.$product_category->id)}}"><span
+                          <a href="{{URL::to('/admin/unactive-product-categories-status/'.$product_category->id)}}"><span
                               class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
                           <?php } else { ?>
-                          <a href="{{URL::to('/active-product-categories-status/'.$product_category->id)}}"><span
+                          <a href="{{URL::to('/admin/active-product-categories-status/'.$product_category->id)}}"><span
                               class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
                           <?php } ?>
                         </span>
                       </td>
                       <td><span class="text-ellipsis">
                           <?php if ($product_category->display_menu == 1) { ?>
-                          <a href="{{URL::to('/unactive-product-categories-display-menu/'.$product_category->id)}}"><span
+                          <a href="{{URL::to('/admin/unactive-product-categories-display-menu/'.$product_category->id)}}"><span
                               class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
                           <?php } else { ?>
-                          <a href="{{URL::to('/active-product-categories-display-menu/'.$product_category->id)}}"><span
+                          <a href="{{URL::to('/admin/active-product-categories-display-menu/'.$product_category->id)}}"><span
                               class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
                           <?php } ?>
                         </span>
                       </td>
                       <td>
                         <!-- <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a> -->
-                        <a href="{{URL::to('/edit-product-categories/'.$product_category->id)}}"
+                        <a href="{{URL::to('/admin/edit-product-categories/'.$product_category->id)}}"
                           class="btn btn-info btn-xs btn-sm"><i class="fa fa-pencil"></i> Sửa</a>
                         <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
-                          href="{{URL::to('/delete-product-categories/'.$product_category->id)}}"
+                          href="{{URL::to('/admin/delete-product-categories/'.$product_category->id)}}"
                           class="btn btn-danger btn-xs btn-sm"><i class="fa fa-trash-o"></i> Xoá</a>
                       </td>
                     </tr>

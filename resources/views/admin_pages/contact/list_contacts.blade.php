@@ -28,11 +28,11 @@
           <div class="x_title">
             <h2>Danh sách liên hệ</h2>
             <ul class="nav navbar-right panel_toolbox">
-              <!-- <a href="#" class="btn btn-success"> Lưu</a>
+              <!-- <a href="#" class="btn btn-success btn-sm"> Lưu</a>
               <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Xoá</a> -->
-              <!-- <a href="#" class="btn btn-success"> Lưu </a>
-              <a href="{{URL::to('/add-banner-categories')}}" class="btn btn-primary"> Thêm danh mục </a> -->
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              <!-- <a href="#" class="btn btn-success btn-sm"> Lưu </a>
+              <a href="{{URL::to('/add-banner-categories')}}" class="btn btn-primary btn-sm"> Thêm danh mục </a> -->
+              <!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
@@ -42,8 +42,8 @@
                   <a class="dropdown-item" href="#">Settings 2</a>
                 </div>
               </li>
-              <!-- <li><a class="close-link"><i class="fa fa-close"></i></a> -->
-              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li> -->
             </ul>
             <div class="clearfix"></div>
           </div>
@@ -85,10 +85,10 @@
 
                   <td>
                     <!-- <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a> -->
-                    <a href="{{URL::to('/detail-contacts/'.$contact->id)}}"
+                    <a href="{{URL::to('/admin/detail-contacts/'.$contact->id)}}"
                       class="btn btn-info btn-xs btn-sm"><i class="fa fa-pencil"></i> Xem chi tiết</a>
                     <a onclick="return confirm('Bạn có chắc chắn muốn xóa liên hệ này ko?')"
-                      href="{{URL::to('/delete-contacts/'.$contact->id)}}"
+                      href="{{URL::to('/admin/delete-contacts/'.$contact->id)}}"
                       class="btn btn-danger btn-xs btn-sm"><i class="fa fa-trash-o"></i> Xoá</a>
                   </td>
                 </tr>

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Form_contacts extends Model
+class Form_contacts extends BaseModel
 {
     public $timestamps = false; //set time to false
     // $fillable là các biến có thể update 

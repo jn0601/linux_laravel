@@ -36,6 +36,6 @@ class FormContactsController extends Controller
     {
         DB::table('form_contacts')->where('id', $id)->delete();
         Toastr::success('Xóa liên hệ thành công', 'Thành công');
-        return Redirect::to('list-contacts');
+        return Redirect::to('/admin/list-contacts');
     }
 }

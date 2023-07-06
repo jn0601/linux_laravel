@@ -16,6 +16,12 @@ class BaseModel extends Model
         $node->save();
     }
 
+    public function update_nodes($id, $type, $seo_name) {
+        $data = array();
+        $data['seo_name'] = $seo_name;
+        Nodes::where('object_id', $id)->where('type', $type)->update($data);
+    }
+
     public function save_lang($lang, $type,  $object_id, $lang_code, $name, $desc, $content,
     $seo_name, $tags, $meta_title, $meta_desc, $meta_keyword) {
         $lang = new Multi_languages();

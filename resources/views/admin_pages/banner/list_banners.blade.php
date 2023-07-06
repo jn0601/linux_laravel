@@ -28,11 +28,11 @@
           <div class="x_title">
             <h2>Danh sách banner</h2>
             <ul class="nav navbar-right panel_toolbox">
-              <!-- <a href="#" class="btn btn-success"> Lưu</a>
+              <!-- <a href="#" class="btn btn-success btn-sm"> Lưu</a>
               <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Xoá</a> -->
-              <a href="#" class="btn btn-success"> Lưu </a>
-              <a href="{{URL::to('/add-banners')}}" class="btn btn-primary"> Thêm banner </a>
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              <a href="#" class="btn btn-success btn-sm"> Lưu </a>
+              <a href="{{URL::to('/admin/add-banners')}}" class="btn btn-primary btn-sm"> Thêm banner </a>
+              <!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
@@ -42,8 +42,8 @@
                   <a class="dropdown-item" href="#">Settings 2</a>
                 </div>
               </li>
-              <!-- <li><a class="close-link"><i class="fa fa-close"></i></a> -->
-              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li> -->
             </ul>
             <div class="clearfix"></div>
           </div>
@@ -82,7 +82,7 @@
                     <!-- <small>Created 01.01.2015</small> -->
                   </td>
                   <td>
-                    <img src="public/backend/uploads/banners/{{ $banner->image }}" height="120" width="300">
+                    <img src="{{URL::to('public/backend/uploads/banners/'.$banner->image)}}" height="120" width="300">
                   </td>
                   <td class="project_progress">
                     @if($banner->category_id == 0)
@@ -92,26 +92,27 @@
                     @if($cate_banner->id == $banner->category_id)
                     <span style="color: green">{{$cate_banner->name}}
                     </span>
+                    @break
                     @endif
                     @endforeach
                     @endif
                   </td>
                   <td><span class="text-ellipsis">
                       <?php if ($banner->status == 1) { ?>
-                      <a href="{{URL::to('/unactive-banners/'.$banner->id)}}"><span
+                      <a href="{{URL::to('/admin/unactive-banners/'.$banner->id)}}"><span
                           class="fa fa-toggle-on" style="font-size: 25px;"></span></a>
                       <?php } else { ?>
-                      <a href="{{URL::to('/active-banners/'.$banner->id)}}"><span
+                      <a href="{{URL::to('/admin/active-banners/'.$banner->id)}}"><span
                           class="fa fa-toggle-off" style="font-size: 25px;"></span></a>
                       <?php } ?>
                     </span>
                   </td>
                   <td>
                     <!-- <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a> -->
-                    <a href="{{URL::to('/edit-banners/'.$banner->id)}}" class="btn btn-info btn-xs btn-sm"><i
+                    <a href="{{URL::to('/admin/edit-banners/'.$banner->id)}}" class="btn btn-info btn-xs btn-sm"><i
                         class="fa fa-pencil"></i> Sửa</a>
                     <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
-                      href="{{URL::to('/delete-banners/'.$banner->id)}}"
+                      href="{{URL::to('/admin/delete-banners/'.$banner->id)}}"
                       class="btn btn-danger btn-xs btn-sm"><i class="fa fa-trash-o"></i> Xoá</a>
                   </td>
                 </tr>

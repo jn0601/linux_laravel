@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\BaseModel;
 use App\Http\Controllers\Controller;
 use App\Multi_languages;
+use App\Nodes;
 use App\Product_categories;
 use App\Product_category_products;
 use App\Products;
@@ -36,7 +38,7 @@ class ProductController extends Controller
         // $get_product_id = $product->id;
         $list_product_cate = Product_categories::orderBy('id', 'DESC')->get();
         $list_product = Products::orderBy('display_order', 'DESC')->get();//->paginate(5); // paginate để phân trang, thường thì xài get
-        $product_cate = Product_category_products::orderBy('id', 'desc')->get();
+        $product_cate = Product_category_products::orderBy('id', 'asc')->get();
         $view_product = view('admin_pages.product.list_products')->with('list_product', $list_product)->with('product_cate', $product_cate)->with('list_product_cate', $list_product_cate);
         return view('admin_layout')->with('admin_pages.product.list_products', $view_product);
     }
@@ -71,8 +73,8 @@ class ProductController extends Controller
     public function update_products(Request $request, $id)
     {
         $data = array();
-        $data_vn = array();
-        $data_en = array();
+        // $data_vn = array();
+        // $data_en = array();
         //update bảng chính
         $data['name'] = $request->name;
         $data['code'] = $request->code;
@@ -109,7 +111,12 @@ class ProductController extends Controller
         $data['options'] = $option_values;
 
 
-        DB::table('products')->where('id', $id)->update($data);
+        //DB::table('products')->where('id', $id)->update($data);
+        Products::where('id', $id)->update($data);
+
+        //update bảng nodes
+        $data_nodes = new BaseModel();
+        $data_nodes->update_nodes($id, $this->type_product, $request->seo_name);
 
         //update bảng khóa ngoại
         $categories = $request->input('product_categories');
@@ -128,49 +135,65 @@ class ProductController extends Controller
         }
 
         //update bảng phụ
-        $data_vn['name'] = $request->name;
-        $data_vn['desc'] = $request->desc;
-        $data_vn['content'] = $request->content;
-        $data_vn['seo_name'] = $request->seo_name;
-        $data_vn['tags'] = $request->tags;
-        $data_vn['meta_title'] = $request->meta_title;
-        $data_vn['meta_desc'] = $request->meta_desc;
-        $data_vn['meta_keyword'] = $request->meta_keyword;
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_product)->update($data_vn);
+        $data_vn = new BaseModel();
+        $data_vn->update_lang($id, 'vn', $this->type_product, $request->name, $request->desc, 
+        $request->content, $request->seo_name, $request->tags, $request->meta_title,
+        $request->meta_desc, $request->meta_keyword);
+        
+        // $data_vn['name'] = $request->name;
+        // $data_vn['desc'] = $request->desc;
+        // $data_vn['content'] = $request->content;
+        // $data_vn['seo_name'] = $request->seo_name;
+        // $data_vn['tags'] = $request->tags;
+        // $data_vn['meta_title'] = $request->meta_title;
+        // $data_vn['meta_desc'] = $request->meta_desc;
+        // $data_vn['meta_keyword'] = $request->meta_keyword;
+        // DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_product)->update($data_vn);
 
         //update bảng phụ
-        $data_en['name'] = ($request->name2 ? $request->name2 : '');
-        $data_en['desc'] = ($request->desc2 ? $request->desc2 : '');
-        $data_en['content'] = ($request->content2 ? $request->content2 : '');
-        $data_en['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '');
-        $data_en['tags'] = ($request->tags2 ? $request->tags2 : '');
-        $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '');
-        $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '');
-        $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '');
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_product)->update($data_en);
+        $data_en = new BaseModel();
+        $data_en->update_lang($id, 'en', $this->type_product, 
+        ($request->name2 ? $request->name2 : ''),
+        ($request->desc2 ? $request->desc2 : ''), 
+        ($request->content2 ? $request->content2 : ''),
+        ($request->seo_name2 ? $request->seo_name2 : ''),
+        ($request->tags2 ? $request->tags2 : ''), 
+        ($request->meta_title2 ? $request->meta_title2 : ''),
+        ($request->meta_desc2 ? $request->meta_desc2 : ''), 
+        ($request->meta_keyword2 ? $request->meta_keyword2 : ''));
+
+        // $data_en['name'] = ($request->name2 ? $request->name2 : '');
+        // $data_en['desc'] = ($request->desc2 ? $request->desc2 : '');
+        // $data_en['content'] = ($request->content2 ? $request->content2 : '');
+        // $data_en['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '');
+        // $data_en['tags'] = ($request->tags2 ? $request->tags2 : '');
+        // $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '');
+        // $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '');
+        // $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '');
+        // DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_product)->update($data_en);
         Toastr::success('Cập nhật danh mục thành công', 'Thành công');
 
         // Session::put('message','Cập nhật danh mục sản phẩm thành công');
-        return Redirect::to('list-products');
+        return Redirect::to('/admin/list-products');
     }
 
     // xoá sản phẩm
     public function delete_products($id)
     {
-        DB::table('products')->where('id', $id)->delete();
-        DB::table('product_category_products')->where('product_id', $id)->where('type', $this->type_product)->delete();
-        DB::table('multi_languages')->where('object_id', $id)->delete();
+        Products::where('id', $id)->delete();
+        Nodes::where('object_id', $id)->where('type', $this->type_product)->delete();
+        Product_category_products::where('product_id', $id)->delete();
+        Multi_languages::where('object_id', $id)->delete();
         Toastr::success('Xóa danh mục thành công', 'Thành công');
 
         // Session::put('message','Xóa danh mục sản phẩm thành công');
-        return Redirect::to('list-products');
+        return Redirect::to('/admin/list-products');
     }
 
     // lưu sản phẩm
     public function save_products(Request $request)
     {
-        //$data = $request->all();
-        $data_en = $request->all();
+        //$data_en = $request->all();
         $data = $request->all();
         $get_image = request('img');
         $data_vn = $request->validate(
@@ -273,40 +296,65 @@ class ProductController extends Controller
                 }
             }
 
+            //save vào bảng phụ đường dẫn
+            $products_node = new BaseModel();
+            $products_node->save_nodes($products_node, $this->type_product, $product->id, $data['seo_name'], 1, 1);
 
             //save vào bảng phụ tiếng Việt
-            $product_vn->type = $this->type_product;
-            $product_vn->object_id = $product->id;
-            $product_vn->lang_code = "vn";
-            $product_vn->name = $data['name'];
-            $product_vn->desc = $data['desc'];
-            $product_vn->content = $data['content'];
-            $product_vn->seo_name = $data['seo_name'];
-            $product_vn->tags = $data['tags'];
-            $product_vn->meta_title = $data['meta_title'];
-            $product_vn->meta_desc = $data['meta_desc'];
-            $product_vn->meta_keyword = $data['meta_keyword'];
-            $product_vn->save();
+            $products_vn = new BaseModel();
+            $products_vn->save_lang($products_vn, $this->type_product, $product->id, "vn", 
+            $data['name'],
+            $data['desc'], 
+            $data['content'], 
+            $data['seo_name'], 
+            $data['tags'], 
+            $data['meta_title'],
+            $data['meta_desc'], 
+            $data['meta_keyword']);
+
+            // $product_vn->type = $this->type_product;
+            // $product_vn->object_id = $product->id;
+            // $product_vn->lang_code = "vn";
+            // $product_vn->name = $data['name'];
+            // $product_vn->desc = $data['desc'];
+            // $product_vn->content = $data['content'];
+            // $product_vn->seo_name = $data['seo_name'];
+            // $product_vn->tags = $data['tags'];
+            // $product_vn->meta_title = $data['meta_title'];
+            // $product_vn->meta_desc = $data['meta_desc'];
+            // $product_vn->meta_keyword = $data['meta_keyword'];
+            // $product_vn->save();
 
             // save vào bảng phụ tiếng Anh
-            $product_en->type = $this->type_product;
-            $product_en->object_id = $product->id;
-            $product_en->lang_code = "en";
-            $product_en->name = ($data_en['name2'] ? $data_en['name2'] : '');
-            $product_en->desc = ($data_en['desc2'] ? $data_en['desc2'] : '');
-            $product_en->content = ($data_en['content2'] ? $data_en['content2'] : '');
-            $product_en->seo_name = ($data_en['seo_name2'] ? $data_en['seo_name2'] : '');
-            $product_en->tags = ($data_en['tags2'] ? $data_en['tags2'] : '');
-            $product_en->meta_title = ($data_en['meta_title2'] ? $data_en['meta_title2'] : '');
-            $product_en->meta_desc = ($data_en['meta_desc2'] ? $data_en['meta_desc2'] : '');
-            $product_en->meta_keyword = ($data_en['meta_keyword2'] ? $data_en['meta_keyword2'] : '');
-            $product_en->save();
+            $products_vn = new BaseModel();
+            $products_vn->save_lang($products_vn, $this->type_product, $product->id, "en", 
+            ($data['name2'] ? $data['name2'] : ''),
+            ($data['desc2'] ? $data['desc2'] : ''), 
+            ($data['content2'] ? $data['content2'] : ''), 
+            ($data['seo_name2'] ? $data['seo_name2'] : ''), 
+            ($data['tags2'] ? $data['tags2'] : ''), 
+            ($data['meta_title2'] ? $data['meta_title2'] : ''),
+            ($data['meta_desc2'] ? $data['meta_desc2'] : ''), 
+            ($data['meta_keyword2'] ? $data['meta_keyword2'] : ''));
+
+            // $product_en->type = $this->type_product;
+            // $product_en->object_id = $product->id;
+            // $product_en->lang_code = "en";
+            // $product_en->name = ($data_en['name2'] ? $data_en['name2'] : '');
+            // $product_en->desc = ($data_en['desc2'] ? $data_en['desc2'] : '');
+            // $product_en->content = ($data_en['content2'] ? $data_en['content2'] : '');
+            // $product_en->seo_name = ($data_en['seo_name2'] ? $data_en['seo_name2'] : '');
+            // $product_en->tags = ($data_en['tags2'] ? $data_en['tags2'] : '');
+            // $product_en->meta_title = ($data_en['meta_title2'] ? $data_en['meta_title2'] : '');
+            // $product_en->meta_desc = ($data_en['meta_desc2'] ? $data_en['meta_desc2'] : '');
+            // $product_en->meta_keyword = ($data_en['meta_keyword2'] ? $data_en['meta_keyword2'] : '');
+            // $product_en->save();
             Toastr::success('Thêm thành công', 'Thành công');
-            return Redirect::to('list-products');
+            return Redirect::to('/admin/list-products');
             //return redirect()->action('Backend\BannerController@edit_banners', ['id' => $banners->id]);
         } else {
             Session::put('message', 'Vui lòng điền đầy đủ các trường');
-            return Redirect::to('add-products');
+            return Redirect::to('/admin/add-products');
         }
     }
 
@@ -333,8 +381,7 @@ class ProductController extends Controller
     // lưu danh mục
     public function save_product_categories(Request $request)
     {
-        //$data = $request->all();
-        $data_en = $request->all();
+        //$data_en = $request->all();
         $data = $request->all();
         $get_image = request('img');
         $data_vn = $request->validate(
@@ -412,39 +459,68 @@ class ProductController extends Controller
             $product_cate->meta_keyword = $data['meta_keyword'];
             $product_cate->save();
 
+            //save vào bảng phụ đường dẫn
+            $product_cate_node = new BaseModel();
+            $product_cate_node->save_nodes($product_cate_node, $this->type_product_categories, 
+            $product_cate->id, $data['seo_name'], 1, 1);
+            
             //save vào bảng phụ tiếng Việt
-            $product_cate_vn->type = $this->type_product_categories;
-            $product_cate_vn->object_id = $product_cate->id;
-            $product_cate_vn->lang_code = "vn";
-            $product_cate_vn->name = $data['name'];
-            $product_cate_vn->desc = $data['desc'];
-            $product_cate_vn->content = $data['content'];
-            $product_cate_vn->seo_name = $data['seo_name'];
-            $product_cate_vn->tags = $data['tags'];
-            $product_cate_vn->meta_title = $data['meta_title'];
-            $product_cate_vn->meta_desc = $data['meta_desc'];
-            $product_cate_vn->meta_keyword = $data['meta_keyword'];
-            $product_cate_vn->save();
+            $product_cate_vn = new BaseModel();
+            $product_cate_vn->save_lang($product_cate_vn, $this->type_product_categories, 
+            $product_cate->id, "vn", 
+            $data['name'],
+            $data['desc'], 
+            $data['content'], 
+            $data['seo_name'], 
+            $data['tags'], 
+            $data['meta_title'],
+            $data['meta_desc'], 
+            $data['meta_keyword']);
+
+            // $product_cate_vn->type = $this->type_product_categories;
+            // $product_cate_vn->object_id = $product_cate->id;
+            // $product_cate_vn->lang_code = "vn";
+            // $product_cate_vn->name = $data['name'];
+            // $product_cate_vn->desc = $data['desc'];
+            // $product_cate_vn->content = $data['content'];
+            // $product_cate_vn->seo_name = $data['seo_name'];
+            // $product_cate_vn->tags = $data['tags'];
+            // $product_cate_vn->meta_title = $data['meta_title'];
+            // $product_cate_vn->meta_desc = $data['meta_desc'];
+            // $product_cate_vn->meta_keyword = $data['meta_keyword'];
+            // $product_cate_vn->save();
 
             // save vào bảng phụ tiếng Anh
-            $product_cate_en->type = $this->type_product_categories;
-            $product_cate_en->object_id = $product_cate->id;
-            $product_cate_en->lang_code = "en";
-            $product_cate_en->name = ($data_en['name2'] ? $data_en['name2'] : '');
-            $product_cate_en->desc = ($data_en['desc2'] ? $data_en['desc2'] : '');
-            $product_cate_en->content = ($data_en['content2'] ? $data_en['content2'] : '');
-            $product_cate_en->seo_name = ($data_en['seo_name2'] ? $data_en['seo_name2'] : '');
-            $product_cate_en->tags = ($data_en['tags2'] ? $data_en['tags2'] : '');
-            $product_cate_en->meta_title = ($data_en['meta_title2'] ? $data_en['meta_title2'] : '');
-            $product_cate_en->meta_desc = ($data_en['meta_desc2'] ? $data_en['meta_desc2'] : '');
-            $product_cate_en->meta_keyword = ($data_en['meta_keyword2'] ? $data_en['meta_keyword2'] : '');
-            $product_cate_en->save();
+            $product_cate_en = new BaseModel();
+            $product_cate_en->save_lang($product_cate_en, $this->type_product_categories, 
+            $product_cate->id, "en", 
+            ($data['name2'] ? $data['name2'] : ''),
+            ($data['desc2'] ? $data['desc2'] : ''), 
+            ($data['content2'] ? $data['content2'] : ''), 
+            ($data['seo_name2'] ? $data['seo_name2'] : ''), 
+            ($data['tags2'] ? $data['tags2'] : ''), 
+            ($data['meta_title2'] ? $data['meta_title2'] : ''),
+            ($data['meta_desc2'] ? $data['meta_desc2'] : ''), 
+            ($data['meta_keyword2'] ? $data['meta_keyword2'] : ''));
+
+            // $product_cate_en->type = $this->type_product_categories;
+            // $product_cate_en->object_id = $product_cate->id;
+            // $product_cate_en->lang_code = "en";
+            // $product_cate_en->name = ($data_en['name2'] ? $data_en['name2'] : '');
+            // $product_cate_en->desc = ($data_en['desc2'] ? $data_en['desc2'] : '');
+            // $product_cate_en->content = ($data_en['content2'] ? $data_en['content2'] : '');
+            // $product_cate_en->seo_name = ($data_en['seo_name2'] ? $data_en['seo_name2'] : '');
+            // $product_cate_en->tags = ($data_en['tags2'] ? $data_en['tags2'] : '');
+            // $product_cate_en->meta_title = ($data_en['meta_title2'] ? $data_en['meta_title2'] : '');
+            // $product_cate_en->meta_desc = ($data_en['meta_desc2'] ? $data_en['meta_desc2'] : '');
+            // $product_cate_en->meta_keyword = ($data_en['meta_keyword2'] ? $data_en['meta_keyword2'] : '');
+            // $product_cate_en->save();
             Toastr::success('Thêm thành công', 'Thành công');
-            return Redirect::to('list-product-categories');
+            return Redirect::to('/admin/list-product-categories');
             //return redirect()->action('Backend\BannerController@edit_banners', ['id' => $banners->id]);
         } else {
             Session::put('message', 'Vui lòng điền đầy đủ các trường');
-            return Redirect::to('add-product-categories');
+            return Redirect::to('/admin/add-product-categories');
         }
     }
 
@@ -452,8 +528,9 @@ class ProductController extends Controller
     public function update_product_categories(Request $request, $id)
     {
         $data = array();
-        $data_vn = array();
-        $data_en = array();
+        // $data_vn = array();
+        // $data_en = array();
+
         //update bảng chính
         $data['name'] = $request->name;
         $data['desc'] = $request->desc;
@@ -494,33 +571,56 @@ class ProductController extends Controller
             }
         }
 
-        DB::table('product_categories')->where('id', $id)->update($data);
+        Product_categories::where('id', $id)->update($data);
+        //DB::table('product_categories')->where('id', $id)->update($data);
+
+        //update bảng nodes
+        $data_nodes = new BaseModel();
+        $data_nodes->update_nodes($id, $this->type_product_categories, $request->seo_name);
+        
+        //update bảng phụ
+        $data_vn = new BaseModel();
+        $data_vn->update_lang($id, 'vn', $this->type_product_categories, 
+        $request->name, $request->desc, 
+        $request->content, $request->seo_name, 
+        $request->tags, $request->meta_title,
+        $request->meta_desc, $request->meta_keyword);
+
+        // $data_vn['name'] = $request->name;
+        // $data_vn['desc'] = $request->desc;
+        // $data_vn['content'] = $request->content;
+        // $data_vn['seo_name'] = $request->seo_name;
+        // $data_vn['tags'] = $request->tags;
+        // $data_vn['meta_title'] = $request->meta_title;
+        // $data_vn['meta_desc'] = $request->meta_desc;
+        // $data_vn['meta_keyword'] = $request->meta_keyword;
+        // DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_product_categories)->update($data_vn);
 
         //update bảng phụ
-        $data_vn['name'] = $request->name;
-        $data_vn['desc'] = $request->desc;
-        $data_vn['content'] = $request->content;
-        $data_vn['seo_name'] = $request->seo_name;
-        $data_vn['tags'] = $request->tags;
-        $data_vn['meta_title'] = $request->meta_title;
-        $data_vn['meta_desc'] = $request->meta_desc;
-        $data_vn['meta_keyword'] = $request->meta_keyword;
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'vn')->where('type', $this->type_product_categories)->update($data_vn);
+        $data_en = new BaseModel();
+        $data_en->update_lang($id, 'en', $this->type_product_categories, 
+        ($request->name2 ? $request->name2 : ''),
+        ($request->desc2 ? $request->desc2 : ''), 
+        ($request->content2 ? $request->content2 : ''),
+        ($request->seo_name2 ? $request->seo_name2 : ''),
+        ($request->tags2 ? $request->tags2 : ''), 
+        ($request->meta_title2 ? $request->meta_title2 : ''),
+        ($request->meta_desc2 ? $request->meta_desc2 : ''), 
+        ($request->meta_keyword2 ? $request->meta_keyword2 : ''));
 
-        //update bảng phụ
-        $data_en['name'] = ($request->name2 ? $request->name2 : '');
-        $data_en['desc'] = ($request->desc2 ? $request->desc2 : '');
-        $data_en['content'] = ($request->content2 ? $request->content2 : '');
-        $data_en['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '');
-        $data_en['tags'] = ($request->tags2 ? $request->tags2 : '');
-        $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '');
-        $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '');
-        $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '');
-        DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_product_categories)->update($data_en);
+        // $data_en['name'] = ($request->name2 ? $request->name2 : '');
+        // $data_en['desc'] = ($request->desc2 ? $request->desc2 : '');
+        // $data_en['content'] = ($request->content2 ? $request->content2 : '');
+        // $data_en['seo_name'] = ($request->seo_name2 ? $request->seo_name2 : '');
+        // $data_en['tags'] = ($request->tags2 ? $request->tags2 : '');
+        // $data_en['meta_title'] = ($request->meta_title2 ? $request->meta_title2 : '');
+        // $data_en['meta_desc'] = ($request->meta_desc2 ? $request->meta_title2 : '');
+        // $data_en['meta_keyword'] = ($request->meta_keyword2 ? $request->meta_keyword2 : '');
+        // DB::table('multi_languages')->where('object_id', $id)->where('lang_code', 'en')->where('type', $this->type_product_categories)->update($data_en);
         Toastr::success('Cập nhật danh mục thành công', 'Thành công');
 
         // Session::put('message','Cập nhật danh mục sản phẩm thành công');
-        return Redirect::to('list-product-categories');
+        return Redirect::to('/admin/list-product-categories');
     }
 
     // trang update danh mục
@@ -540,12 +640,13 @@ class ProductController extends Controller
     // xoá danh mục
     public function delete_product_categories($id)
     {
-        DB::table('product_categories')->where('id', $id)->delete();
-        DB::table('multi_languages')->where('object_id', $id)->where('type', $this->type_product_categories)->delete();
+        Product_categories::where('id', $id)->delete();
+        Nodes::where('object_id', $id)->where('type', $this->type_product_categories)->delete();
+        Multi_languages::where('object_id', $id)->where('type', $this->type_product_categories)->delete();
         Toastr::success('Xóa danh mục thành công', 'Thành công');
 
         // Session::put('message','Xóa danh mục sản phẩm thành công');
-        return Redirect::to('list-product-categories');
+        return Redirect::to('/admin/list-product-categories');
     }
 
     // bật tắt tiêu biểu
