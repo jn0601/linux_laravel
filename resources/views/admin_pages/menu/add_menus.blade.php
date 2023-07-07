@@ -96,6 +96,22 @@
 											</div>
 										</div>
 										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Mô tả<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<textarea style="resize: none; width: 100%" id="ckeditor1" rows="8"
+													required="required" name='desc'></textarea>
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Nội dung<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<textarea style="resize: none; width: 100%" id="ckeditor2" rows="10"
+													required="required" name='content'></textarea>
+											</div>
+										</div>
+										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Icon<span
 													class="required">*</span></label>
 											<div class="col-md-10 col-sm-10">
@@ -141,6 +157,23 @@
 											<div class="col-md-10 col-sm-10">
 												<input class="form-control" data-validate-length-range="6"
 													data-validate-words="2" name="meta_keyword" required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn kiểu dữ liệu</label>
+											<div class="col-md-10 col-sm-10 ">
+												<select name="type" class="form-control">
+													<option selected value="0">Trang chủ</option>
+													<option value="10">Giới thiệu</option>
+													<option value="1">Sản phẩm</option>
+													<option value="2">Tin tức</option>
+													<option value="3">Banner</option>
+													<option value="4">Danh mục banner</option>
+													<option value="5">Danh mục tin tức</option>
+													<option value="6">Danh mục sản phẩm</option>
+													<option value="20">Liên hệ</option>
+													<!-- <option value="7">Trang đơn</option> -->
+												</select>
 											</div>
 										</div>
 
@@ -225,7 +258,23 @@
 													placeholder="ex: Homepage Banner" required="required" />
 											</div>
 										</div>
-										
+										<div class="field item form-group">
+											<label
+												class="col-form-label col-md-2 col-sm-2  label-align">Description<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<textarea style="resize: none; width: 100%" id="ckeditor3" rows="8"
+													required="required" name='desc2'></textarea>
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align">Content<span
+													class="required">*</span></label>
+											<div class="col-md-10 col-sm-10">
+												<textarea style="resize: none; width: 100%" id="ckeditor4" rows="10"
+													required="required" name='content2'></textarea>
+											</div>
+										</div>
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align">Seo name<span

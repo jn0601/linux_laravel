@@ -221,13 +221,130 @@
 												</select>
 											</div>
 										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn kiểu dữ liệu</label>
+											<div class="col-md-10 col-sm-10 ">
+												<select name="type" class="form-control">
+													@if($edit_value->type == 0){
+														<option selected value="0">Trang chủ</option>
+														<option value="10">Giới thiệu</option>
+														<option value="1">Sản phẩm</option>
+														<option value="2">Tin tức</option>
+														<option value="3">Banner</option>
+														<option value="4">Danh mục banner</option>
+														<option value="5">Danh mục tin tức</option>
+														<option value="6">Danh mục sản phẩm</option>
+														<option value="20">Liên hệ</option>
+													}
+													@elseif($edit_value->type == 1){
+														<option value="0">Trang chủ</option>
+														<option value="10">Giới thiệu</option>
+														<option selected value="1">Sản phẩm</option>
+														<option value="2">Tin tức</option>
+														<option value="3">Banner</option>
+														<option value="4">Danh mục banner</option>
+														<option value="5">Danh mục tin tức</option>
+														<option value="6">Danh mục sản phẩm</option>
+														<option value="20">Liên hệ</option>
+													}
+													@elseif($edit_value->type == 2){
+														<option value="0">Trang chủ</option>
+														<option value="10">Giới thiệu</option>
+														<option  value="1">Sản phẩm</option>
+														<option selected value="2">Tin tức</option>
+														<option value="3">Banner</option>
+														<option value="4">Danh mục banner</option>
+														<option value="5">Danh mục tin tức</option>
+														<option value="6">Danh mục sản phẩm</option>
+														<option value="20">Liên hệ</option>
+													}
+													@elseif($edit_value->type == 3){
+														<option value="0">Trang chủ</option>
+														<option value="10">Giới thiệu</option>
+														<option  value="1">Sản phẩm</option>
+														<option value="2">Tin tức</option>
+														<option selected value="3">Banner</option>
+														<option value="4">Danh mục banner</option>
+														<option value="5">Danh mục tin tức</option>
+														<option value="6">Danh mục sản phẩm</option>
+														<option value="20">Liên hệ</option>
+													}
+													@elseif($edit_value->type == 4){
+														<option value="0">Trang chủ</option>
+														<option value="10">Giới thiệu</option>
+														<option  value="1">Sản phẩm</option>
+														<option value="2">Tin tức</option>
+														<option value="3">Banner</option>
+														<option selected value="4">Danh mục banner</option>
+														<option value="5">Danh mục tin tức</option>
+														<option value="6">Danh mục sản phẩm</option>
+														<option value="20">Liên hệ</option>
+													}
+													@elseif($edit_value->type == 5){
+														<option value="0">Trang chủ</option>
+														<option value="10">Giới thiệu</option>
+														<option  value="1">Sản phẩm</option>
+														<option value="2">Tin tức</option>
+														<option value="3">Banner</option>
+														<option value="4">Danh mục banner</option>
+														<option selected value="5">Danh mục tin tức</option>
+														<option value="6">Danh mục sản phẩm</option>
+														<option value="20">Liên hệ</option>
+													}
+													@elseif($edit_value->type == 10){
+														<option value="0">Trang chủ</option>
+														<option selected value="10">Giới thiệu</option>
+														<option value="1">Sản phẩm</option>
+														<option value="2">Tin tức</option>
+														<option value="3">Banner</option>
+														<option value="4">Danh mục banner</option>
+														<option value="5">Danh mục tin tức</option>
+														<option value="6">Danh mục sản phẩm</option>
+														<option value="20">Liên hệ</option>
+													}
+													@elseif($edit_value->type == 20){
+														<option value="0">Trang chủ</option>
+														<option selected value="10">Giới thiệu</option>
+														<option value="1">Sản phẩm</option>
+														<option value="2">Tin tức</option>
+														<option value="3">Banner</option>
+														<option value="4">Danh mục banner</option>
+														<option value="5">Danh mục tin tức</option>
+														<option value="6">Danh mục sản phẩm</option>
+														<option selected value="20">Liên hệ</option>
+													}
+													@else
+													{
+														<option value="0">Trang chủ</option>
+														<option value="10">Giới thiệu</option>
+														<option value="1">Sản phẩm</option>
+														<option value="2">Tin tức</option>
+														<option value="3">Banner</option>
+														<option value="4">Danh mục banner</option>
+														<option value="5">Danh mục tin tức</option>
+														<option selected value="6">Danh mục sản phẩm</option>
+														<option value="20">Liên hệ</option>
+													}
+													@endif
+												</select>
+											</div>
+										</div>
 										<div class="field item form-group">
 											<label class="col-form-label col-md-2 col-sm-2  label-align ">Chọn kiểu menu</label>
 											<div class="col-md-10 col-sm-10 ">
 												<select name="is_folder" class="form-control">
-													<option value="0">Menu liên kết</option>
-													<option selected value="1">Menu thư mục</option>
+													@if($edit_value->is_folder == 1){
+														<option value="0">Menu liên kết</option>
+														<option selected value="1">Menu thư mục</option>
+													}
+													@else{
+														<option selected value="0">Menu liên kết</option>
+														<option  value="1">Menu thư mục</option>
+													}
+													@endif
 												</select>
+												
 											</div>
 										</div>
 										<div class="field item form-group">
@@ -235,9 +352,17 @@
 												thị</label>
 											<div class="col-md-10 col-sm-10 ">
 												<select name="is_horizontal" class="form-control">
-													<option selected value="0">Menu bình thường</option>
-													<option value="1">Các menu con hiển thị theo hàng ngang</option>
+													@if($edit_value->is_horizontal == 1){
+													<option  value="0">Menu bình thường</option>
+													<option selected value="1">Các menu con hiển thị theo hàng ngang</option>
+													}
+													@else{
+														<option selected value="0">Menu bình thường</option>
+														<option value="1">Các menu con hiển thị theo hàng ngang</option>
+													}
+													@endif
 												</select>
+												
 											</div>
 										</div>
 										<div class="field item form-group">
@@ -245,8 +370,15 @@
 												động</label>
 											<div class="col-md-10 col-sm-10 ">
 												<select name="status" class="form-control">
+													@if($edit_value->status == 1){
 													<option value="3">Không hoạt động</option>
 													<option selected value="1">Hoạt động</option>
+													}
+													@else{
+													<option selected value="3">Không hoạt động</option>
+													<option value="1">Hoạt động</option>
+													}
+													@endif
 												</select>
 											</div>
 										</div>

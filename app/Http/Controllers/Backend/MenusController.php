@@ -114,7 +114,7 @@ class MenusController extends Controller
 
             $menus->parent_id = $data['parent_id'];
             
-            $menus->type = $this->type_menus;
+            $menus->type = $data['type'];
             $menus->is_folder = $data['is_folder'];
             $menus->is_horizontal = $data['is_horizontal'];
             $menus->status = $data['status'];
@@ -205,6 +205,7 @@ class MenusController extends Controller
             $data['name'] = $request->name;
             $data['is_folder'] = $request->is_folder;
             $data['is_horizontal'] = $request->is_horizontal;
+            $data['type'] = $request->type;
             $data['status'] = $request->status;
             $data['seo_name'] = $request->seo_name;
             $data['tags'] = $request->tags;
