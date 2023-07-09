@@ -17,7 +17,7 @@
                 <span>Rất tiếc, không tìm thấy gì ..</span>
                 <div class="text-lg-left">
                    <!-- button -->
-                   <a href="index.php" class="btn btn-secondary btn-sm mt-4">Quay lại trang chủ</a>
+                   <a href="" class="btn btn-secondary btn-sm mt-4">Quay lại trang chủ</a>
                 </div>
              </div>
              <!-- /col-lg -->

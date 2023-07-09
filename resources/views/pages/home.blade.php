@@ -28,7 +28,7 @@
                 <!--the div below is hidden on small screens  -->
                 <div class="hidden-small">
                    <p class="header-p">Chúng tôi cung cấp Dịch vụ Nhà trẻ chất lượng cao, hãy liên hệ với chúng tôi hoặc truy cập chúng tôi ngay hôm nay để biết thêm thông tin</p>
-                   <a class="btn btn-secondary" href="index.php?page=lienhe">Liên hệ chúng tôi</a>
+                   <a class="btn btn-secondary" href="{{URL::to('/lien-he')}}">Liên hệ chúng tôi</a>
                 </div>
                 <!--/hidden-small -->
              </div>
@@ -60,7 +60,7 @@
                         In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat lorem
                      </p>
                      <!-- button show on mobile only,where flip is disabled -->
-                     <a href="index.php?page=lienhe" class="btn d-lg-none">Liên hệ</a>
+                     <a href="{{URL::to('/lien-he')}}" class="btn d-lg-none">Liên hệ</a>
                   </div>
                   <!-- /p-5 -->
                   <!-- image -->
@@ -76,7 +76,7 @@
                            In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat
                         </p>
                         <!-- button -->
-                        <a href="index.php?page=lienhe" class="btn">Liên hệ</a>
+                        <a href="{{URL::to('/lien-he')}}" class="btn">Liên hệ</a>
                      </div>
                      <!-- /p-4 -->
                   </div>
@@ -98,7 +98,7 @@
                         In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat lorem
                      </p>
                      <!-- button show on mobile only,where flip is disabled -->
-                     <a href="index.php?page=dichvu" class="btn d-lg-none">Dịch vụ</a>
+                     <a href="?page=dichvu" class="btn d-lg-none">Dịch vụ</a>
                   </div>
                   <!-- /p-5 -->
                   <!-- image -->
@@ -114,7 +114,7 @@
                            In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat
                         </p>
                         <!-- button -->
-                        <a href="index.php?page=dichvu" class="btn">Dịch vụ</a>
+                        <a href="?page=dichvu" class="btn">Dịch vụ</a>
                      </div>
                      <!-- /p-4 -->
                   </div>
@@ -136,7 +136,7 @@
                         In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat lorem
                      </p>
                      <!-- button show on mobile only,where flip is disabled -->
-                     <a href="index.php?page=doingu" class="btn d-lg-none">Đội ngũ</a>
+                     <a href="?page=doingu" class="btn d-lg-none">Đội ngũ</a>
                   </div>
                   <!-- /p-5 -->
                   <!-- image -->
@@ -152,7 +152,7 @@
                            In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat
                         </p>
                         <!-- button -->
-                        <a href="index.php?page=doingu" class="btn">Đội ngũ</a>
+                        <a href="?page=doingu" class="btn">Đội ngũ</a>
                      </div>
                      <!-- /p-4 -->
                   </div>
@@ -181,7 +181,7 @@
                <h3>Nhiệm vụ của chúng tôi</h3>
                <p class="mt-4 res-margin">Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecena Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum convall.</p>
                <p>Nec elementum ipsum convall. Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecen Etiam rhoncus leo a dolor placerat, nec elementum ipsum convall Maecenas at arcu risus scelerisque laoree.</p>
-               <a href="index.php?page=lienhe" class="btn btn-secondary ">Liên hệ ngay</a>
+               <a href="{{URL::to('/lien-he')}}" class="btn btn-secondary ">Liên hệ ngay</a>
             </div>
             <!-- /col-lg -->
             <div class="col-lg-5 res-margin">
@@ -392,7 +392,7 @@
                                  <li>Hoạt động kế hoạch hàng ngày của chúng tôi</li>
                               </ul>
                               <!-- Button -->	 
-                              <a href="index.php?page=dichvu-view" class="btn btn-secondary mt-4">Xem chi tiết</a>
+                              <a href="?page=dichvu-view" class="btn btn-secondary mt-4">Xem chi tiết</a>
                            </div>
                            <!-- /col-lg -->
                         </div>
@@ -410,7 +410,7 @@
                                  <li>Hoạt động kế hoạch hàng ngày của chúng tôi</li>
                               </ul>
                               <!-- Button -->	 
-                              <a href="index.php?page=dichvu-view" class="btn btn-secondary mt-4">Xem chi tiết</a>
+                              <a href="?page=dichvu-view" class="btn btn-secondary mt-4">Xem chi tiết</a>
                            </div>
                            <!-- /col-lg -->
                            <div class="col-lg-6 res-margin">
@@ -442,7 +442,7 @@
                                  <li>Hoạt động kế hoạch hàng ngày của chúng tôi</li>
                               </ul>
                               <!-- Button -->	 
-                              <a href="index.php?page=dichvu-view" class="btn btn-secondary mt-4">Xem chi tiết</a>
+                              <a href="?page=dichvu-view" class="btn btn-secondary mt-4">Xem chi tiết</a>
                            </div>
                            <!-- /col-lg -->
                         </div>
@@ -460,7 +460,7 @@
                                  <li>Hoạt động kế hoạch hàng ngày của chúng tôi</li>
                               </ul>
                               <!-- Button -->	 
-                              <a href="index.php?page=dichvu-view" class="btn btn-secondary mt-4">Xem chi tiết</a>
+                              <a href="?page=dichvu-view" class="btn btn-secondary mt-4">Xem chi tiết</a>
                            </div>
                            <!-- /col-lg -->
                            <div class="col-lg-6 res-margin">
@@ -492,7 +492,7 @@
                                  <li>Educational activities in our daily plan</li>
                               </ul>
                               <!-- Button -->	 
-                              <a href="index.php?page=dichvu-view" class="btn btn-secondary mt-4">Xem chi tiết</a>
+                              <a href="?page=dichvu-view" class="btn btn-secondary mt-4">Xem chi tiết</a>
                            </div>
                            <!-- /col-lg -->
                         </div>
@@ -592,7 +592,7 @@
             <!-- Team member 1 -->
             <div class="col-md-12 team-style1 notepad">
                <div class="team_img">
-                  <a href="index.php?page=doingu-view">
+                  <a href="?page=doingu-view">
                      <img src="{{asset('public/frontend/img/team/team1.jpg')}}" class="img-fluid" alt="">
                   </a>
                   <!-- social icons -->
@@ -605,7 +605,7 @@
                </div>
                <!-- /team_img -->
                <div class="team-content">
-                  <a href="index.php?page=doingu-view">
+                  <a href="?page=doingu-view">
                      <h4 class="title">Laura Smith</h4>
                   </a>
                   <span class="post">Giáo viên</span>
@@ -617,7 +617,7 @@
             <!-- Team member 2 -->
             <div class="col-md-12 team-style1 notepad">
                <div class="team_img">
-                  <a href="index.php?page=doingu-view">
+                  <a href="?page=doingu-view">
                      <img src="{{asset('public/frontend/img/team/team2.jpg')}}" class="img-fluid" alt="">
                   </a>
                   <!-- social icons -->
@@ -630,7 +630,7 @@
                </div>
                <!-- /team_img -->
                <div class="team-content">
-                  <a href="index.php?page=doingu-view">
+                  <a href="?page=doingu-view">
                      <h4 class="title">John Doe</h4>
                   </a>
                   <span class="post">Người quản lý</span>
@@ -642,7 +642,7 @@
             <!-- Team member 3 -->
             <div class="col-md-12 team-style1 notepad">
                <div class="team_img">
-                  <a href="index.php?page=doingu-view">
+                  <a href="?page=doingu-view">
                      <img src="{{asset('public/frontend/img/team/team3.jpg')}}" class="img-fluid" alt="">
                   </a>
                   <!-- social icons -->
@@ -655,7 +655,7 @@
                </div>
                <!-- /team_img -->
                <div class="team-content">
-                  <a href="index.php?page=doingu-view">
+                  <a href="?page=doingu-view">
                      <h4 class="title">Meghan Smith</h4>
                   </a>
                   <span class="post">Giáo viên</span>
@@ -667,7 +667,7 @@
             <!-- Team member 4 -->
             <div class="col-md-12 team-style1 notepad">
                <div class="team_img">
-                  <a href="index.php?page=doingu-view">
+                  <a href="?page=doingu-view">
                      <img src="{{asset('public/frontend/img/team/team4.jpg')}}" class="img-fluid" alt="">
                   </a>
                   <!-- social icons -->
@@ -680,7 +680,7 @@
                </div>
                <!-- /team_img -->
                <div class="team-content">
-                  <a href="index.php?page=doingu-view">
+                  <a href="?page=doingu-view">
                      <h4 class="title">Mika Doe</h4>
                   </a>
                   <span class="post">Giáo viên</span>
@@ -692,7 +692,7 @@
             <!-- Team member 5 -->
             <div class="col-md-12 team-style1 notepad">
                <div class="team_img">
-                  <a href="index.php?page=doingu-view">
+                  <a href="?page=doingu-view">
                      <img src="{{asset('public/frontend/img/team/team5.jpg')}}" class="img-fluid" alt="">
                   </a>
                   <!-- social icons -->
@@ -705,7 +705,7 @@
                </div>
                <!-- /team_img -->
                <div class="team-content">
-                  <a href="index.php?page=doingu-view">
+                  <a href="?page=doingu-view">
                      <h4 class="title">Jillian Smith</h4>
                   </a>
                   <span class="post">Giáo viên</span>
@@ -899,14 +899,14 @@
                                           <!-- blog-box -->
                                           <div class="blog-box">
                                              <!-- image -->
-                                             <a href="index.php?page=tintuc-view">
+                                             <a href="?page=tintuc-view">
                                                 <div class="image"><img src="{{asset('public/frontend/img/blog/blogstyle2-1.jpg')}}" alt=""/></div>
                                              </a>
                                              <!-- blog-box-caption -->
                                              <div class="blog-box-caption">
                                                 <!-- date -->
                                                 <div class="date"><span class="day">13</span><span class="month">Tháng 6</span></div>
-                                                <a href="index.php?page=tintuc-view">
+                                                <a href="?page=tintuc-view">
                                                    <h3>Các bài học kỹ năng sống phù hợp với trẻ</h3>
                                                 </a>
                                                 <!-- /link -->
@@ -919,7 +919,7 @@
                                                 <div class="comments"><i class="fas fa-eye"></i>Lượt xem: 2022</div>
                                                 <!-- Button -->    
                                                 <div class="text-center col-md-12">
-                                                   <a href="index.php?page=tintuc-view" class="btn btn-primary">Xem thêm</a>
+                                                   <a href="?page=tintuc-view" class="btn btn-primary">Xem thêm</a>
                                                 </div>
                                              </div>
                                              <!-- /blog-box-footer -->
@@ -928,14 +928,14 @@
                                           <!-- blog-box -->
                                           <div class="blog-box">
                                              <!-- image -->
-                                             <a href="index.php?page=tintuc-view">
+                                             <a href="?page=tintuc-view">
                                                 <div class="image"><img src="{{asset('public/frontend/img/blog/blogstyle2-2.jpg')}}" alt=""/></div>
                                              </a>
                                              <!-- blog-box-caption -->
                                              <div class="blog-box-caption">
                                                 <!-- date -->
                                                 <div class="date"><span class="day">13</span><span class="month">Tháng 6</span></div>
-                                                <a href="index.php?page=tintuc-view">
+                                                <a href="?page=tintuc-view">
                                                    <h3>Đổ lỗi 'con hư, béo phì do học online'</h3>
                                                 </a>
                                                 <!-- /link -->
@@ -948,7 +948,7 @@
                                                 <div class="comments"><i class="fas fa-eye"></i>Lượt xem: 2022</div>
                                                 <!-- Button -->    
                                                 <div class="text-center col-md-12">
-                                                   <a href="index.php?page=tintuc-view" class="btn btn-primary">Xem thêm</a>
+                                                   <a href="?page=tintuc-view" class="btn btn-primary">Xem thêm</a>
                                                 </div>
                                              </div>
                                              <!-- /blog-box-footer -->
@@ -957,14 +957,14 @@
                                           <!-- blog-box -->
                                           <div class="blog-box">
                                              <!-- image -->
-                                             <a href="index.php?page=tintuc-view">
+                                             <a href="?page=tintuc-view">
                                                 <div class="image"><img src="{{asset('public/frontend/img/blog/blogstyle2-3.jpg')}}" alt=""/></div>
                                              </a>
                                              <!-- blog-box-caption -->
                                              <div class="blog-box-caption">
                                                 <!-- date -->
                                                 <div class="date"><span class="day">13</span><span class="month">Tháng 6</span></div>
-                                                <a href="index.php?page=tintuc-view">
+                                                <a href="?page=tintuc-view">
                                                    <h3>Những đứa trẻ mầm non khát học từng ngày</h3>
                                                 </a>
                                                 <!-- /link -->
@@ -977,7 +977,7 @@
                                                 <div class="comments"><i class="fas fa-eye"></i>Lượt xem: 2022</div>
                                                 <!-- Button -->    
                                                 <div class="text-center col-md-12">
-                                                   <a href="index.php?page=tintuc-view" class="btn btn-primary">Xem thêm</a>
+                                                   <a href="?page=tintuc-view" class="btn btn-primary">Xem thêm</a>
                                                 </div>
                                              </div>
                                              <!-- /blog-box-footer -->
@@ -986,14 +986,14 @@
                                           <!-- blog-box -->
                                           <div class="blog-box">
                                              <!-- image -->
-                                             <a href="index.php?page=tintuc-view">
+                                             <a href="?page=tintuc-view">
                                                 <div class="image"><img src="{{asset('public/frontend/img/blog/blogstyle2-4.jpg')}}" alt=""/></div>
                                              </a>
                                              <!-- blog-box-caption -->
                                              <div class="blog-box-caption">
                                                 <!-- date -->
                                                 <div class="date"><span class="day">13</span><span class="month">Tháng 6</span></div>
-                                                <a href="index.php?page=tintuc-view">
+                                                <a href="?page=tintuc-view">
                                                    <h3>Kế hoạch tuyển sinh đầu cấp tại TP HCM</h3>
                                                 </a>
                                                 <!-- /link -->
@@ -1006,7 +1006,7 @@
                                                 <div class="comments"><i class="fas fa-eye"></i>Lượt xem: 2022</div>
                                                 <!-- Button -->    
                                                 <div class="text-center col-md-12">
-                                                   <a href="index.php?page=tintuc-view" class="btn btn-primary">Xem thêm</a>
+                                                   <a href="?page=tintuc-view" class="btn btn-primary">Xem thêm</a>
                                                 </div>
                                              </div>
                                              <!-- /blog-box-footer -->

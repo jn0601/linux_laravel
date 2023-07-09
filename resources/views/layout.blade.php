@@ -66,7 +66,7 @@
        <div class="navbar container-fluid">
           <div class="container ">
              <!-- logo -->
-             <a class="nav-brand" href="index.php">
+             <a class="nav-brand" href="">
                 <img src="{{asset('public/frontend/img/logo.png')}}" alt="" class="img-fluid">
              </a>
              <div class="mobile-menu-area">
@@ -79,40 +79,40 @@
                     <nav id="menu">
                       <a href="#" class="menu-bar" aria-role="button"><i class="fa fa-times"></i></a>
                       <p class="dropdown-btn single">
-                        <a href="index.php">Trang chủ</a> 
+                        <a href="">Trang chủ</a> 
                       </p>
                       <p class="dropdown-btn single">
-                        <a href="index.php?page=gioithieu">Giới thiệu</a> 
+                        <a href="?page=gioithieu">Giới thiệu</a> 
                       </p>
                       <!---->
                       <!-- <p class="dropdown-btn">
-                        <a href="index.php?page=dichvu">Dịch vụ</a>
+                        <a href="?page=dichvu">Dịch vụ</a>
                         <a class="icon"><i class="fa fa-caret-down"></i></a>
                       </p> -->
                       <!-- <div class="dropdown-container">
                         <p class="dropdown-btn">
-                          <a href="index.php?page=dichvu">Dành cho trẻ</a>
+                          <a href="?page=dichvu">Dành cho trẻ</a>
                           <a class="icon"><i class="fa fa-caret-down"></i></a>
                         </p>
                         <div class="dropdown-container">
                           <p class="dropdown-btn single">
-                            <a href="index.php?page=dichvu-view">Nhà trẻ</a>
+                            <a href="?page=dichvu-view">Nhà trẻ</a>
                           </p>
                           <p class="dropdown-btn single">
-                            <a href="index.php?page=dichvu-view">Trại hè</a>
+                            <a href="?page=dichvu-view">Trại hè</a>
                           </p>
                           <p class="dropdown-btn single">
-                            <a href="index.php?page=dichvu-view">Quan tâm trẻ</a>
+                            <a href="?page=dichvu-view">Quan tâm trẻ</a>
                           </p>
                           <p class="dropdown-btn single">
-                            <a href="index.php?page=dichvu-view">Các lớp học</a>
+                            <a href="?page=dichvu-view">Các lớp học</a>
                           </p>
                           <p class="dropdown-btn single">
-                            <a href="index.php?page=dichvu-view">Các hoạt động</a>
+                            <a href="?page=dichvu-view">Các hoạt động</a>
                           </p>
                         </div>
                         <p class="dropdown-btn">
-                          <a href="index.php?page=batdongsan">Dành cho phụ huynh</a>
+                          <a href="?page=batdongsan">Dành cho phụ huynh</a>
                         </p>
                       </div> -->
                       <!---->
@@ -122,15 +122,15 @@
             
                       <!---->
                       <p class="dropdown-btn">
-                        <a href="index.php?page=tintuc">Tin tức</a>
+                        <a href="?page=tintuc">Tin tức</a>
                         <a class="icon"><i class="fa fa-caret-down"></i></a>
                       </p>
                       <div class="dropdown-container">
                         <p class="dropdown-btn single">
-                          <a href="index.php?page=tintuc">Tin tức trường học</a>
+                          <a href="?page=tintuc">Tin tức trường học</a>
                         </p>
                         <p class="dropdown-btn single">
-                          <a href="index.php?page=tintuc">Tin khuyến mãi</a>
+                          <a href="?page=tintuc">Tin khuyến mãi</a>
                         </p>
                       </div>
             
@@ -141,15 +141,15 @@
                       </p> -->
                       <!-- <div class="dropdown-container">
                         <p class="dropdown-btn single">
-                          <a href="index.php?page=hinhanh" title="Thư viện hình ảnh">Thư viện hình ảnh</a>
+                          <a href="?page=hinhanh" title="Thư viện hình ảnh">Thư viện hình ảnh</a>
                         </p>
                         <p class="dropdown-btn single">
-                          <a href="index.php?page=video" title="Thư viện video">Thư viện video</a>
+                          <a href="?page=video" title="Thư viện video">Thư viện video</a>
                         </p>
                       </div> -->
                       <!---->
                       <p class="dropdown-btn single">
-                        <a href="index.php?page=lienhe" title="Liên hệ đặt bàn">Liên hệ</a>
+                        <a href="{{URL::to('/lien-he')}}" title="Liên hệ đặt bàn">Liên hệ</a>
                       </p>
             
             
@@ -159,54 +159,60 @@
               </div>
             </div>
              <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
+               <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{URL::to('/')}}">Trang chủ
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{URL::to('/gioi-thieu')}}">Giới thiệu
+                     </a>
+                  </li>
                   @foreach($menu_tab as $tab)
                    <!-- menu item -->
-                   @if ($tab->parent_id == 0)
-                    @if($tab->is_folder == 0)
-                   <li class="nav-item">
-                      <a class="nav-link" href="index.php">{{$tab->name}}
-                      </a>
-                   </li>
-                    @else
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="gallery-dropdown" 
-                      data-toggle="dropdown" aria-haspopup="true" 
-                      aria-expanded="false">{{$tab->name}}
-                      </a>
-                      @foreach($menu_tab as $tab_sub)
-                        @if($tab_sub->parent_id == $tab->id)
-                          <div class="dropdown-menu dropdown" aria-labelledby="services-dropdown">
-                            <a class="dropdown-item" href="">{{$tab_sub->name}} <i class="fas fa-caret-right"></i></a>
-                            <div class="dropdown-menu dropdown-menu-a" aria-labelledby="about-dropdown">
-                              <a class="dropdown-item" href="index.php?page=dichvu-view">Nhà trẻ</a>
-                            </div>
-                          </div>
-
-                        @endif
-                      @endforeach
-                    @endif
-                    @endif
+                     <!-- menu cấp 1 -->
+                     @if ($tab->parent_id == 0)
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{URL::to('/danh-muc/'.$tab->seo_name)}}" id="services-dropdown">{{$tab->name}}
+                        </a>
+                        <!-- menu cấp 2 -->
+                        <div class="dropdown-menu dropdown" aria-labelledby="services-dropdown">
+                        @foreach($menu_tab as $menu_2)
+                           @if($menu_2->parent_id == $tab->id)
+                                 <a class="dropdown-item" href="{{URL::to('/danh-muc/'.$menu_2->seo_name. '/'. $tab->type)}}">{{$menu_2->name}} <i class="fas fa-caret-right"></i></a>
+                                 <!-- menu cấp 3 -->
+                                 <div class="dropdown-menu dropdown-menu-a" aria-labelledby="about-dropdown">
+                                 @foreach($menu_tab as $menu_3)
+                                    @if($menu_3->parent_id == $menu_2->id)
+                                       <a class="dropdown-item" href="{{URL::to('/danh-muc/'.$menu_3->seo_name. '/'. $tab->type)}}">{{$menu_3->name}}</a>
+                                    @endif
+                                 @endforeach
+                                 </div>
+                           @endif
+                        @endforeach
+                        </div>
+                        </li>
+                     @endif
                    <!-- menu item -->
                    <!-- <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="index.php?page=dichvu" id="services-dropdown">
+                      <a class="nav-link dropdown-toggle" href="?page=dichvu" id="services-dropdown">
                          Dịch vụ
                       </a>
                       <div class="dropdown-menu dropdown" aria-labelledby="services-dropdown">
-                         <a class="dropdown-item" href="index.php?page=dichvu">Dành cho trẻ <i class="fas fa-caret-right"></i></a>
+                         <a class="dropdown-item" href="?page=dichvu">Dành cho trẻ <i class="fas fa-caret-right"></i></a>
                          <div class="dropdown-menu dropdown-menu-a" aria-labelledby="about-dropdown">
-                            <a class="dropdown-item" href="index.php?page=dichvu-view">Nhà trẻ</a>
-                            <a class="dropdown-item" href="index.php?page=dichvu-view">Trại hè</a>
-                            <a class="dropdown-item" href="index.php?page=dichvu-view">Quan tâm trẻ</a>
-                            <a class="dropdown-item" href="index.php?page=dichvu-view">Các lớp học</a>
-                            <a class="dropdown-item" href="index.php?page=dichvu-view">Các hoạt động</a>
+                            <a class="dropdown-item" href="?page=dichvu-view">Nhà trẻ</a>
+                            <a class="dropdown-item" href="?page=dichvu-view">Trại hè</a>
+                            <a class="dropdown-item" href="?page=dichvu-view">Quan tâm trẻ</a>
+                            <a class="dropdown-item" href="?page=dichvu-view">Các lớp học</a>
+                            <a class="dropdown-item" href="?page=dichvu-view">Các hoạt động</a>
                          </div>
-                         <a class="dropdown-item" href="index.php?page=dichvu-view">Dành cho  phụ huynh</a>
+                         <a class="dropdown-item" href="?page=dichvu-view">Dành cho  phụ huynh</a>
                       </div>
                    </li> -->
                    <!-- menu item -->
                    <!-- <li class="nav-item">
-                      <a class="nav-link" href="index.php?page=doingu">Đội ngũ</a>
+                      <a class="nav-link" href="?page=doingu">Đội ngũ</a>
                    </li> -->
                    <!-- menu item -->
                    <!-- <li class="nav-item dropdown">
@@ -215,16 +221,16 @@
                     aria-expanded="false">Danh mục sản phẩm
                     </a>
                     <div class="dropdown-menu" aria-labelledby="gallery-dropdown">
-                       <a class="dropdown-item" href="index.php?page=tintuc">Mainboard</a>
-                       <a class="dropdown-item" href="index.php?page=tintuc">CPU</a>
+                       <a class="dropdown-item" href="?page=tintuc">Mainboard</a>
+                       <a class="dropdown-item" href="?page=tintuc">CPU</a>
                     </div>
                  </li>
                    <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="gallery-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tin tức
                       </a>
                       <div class="dropdown-menu" aria-labelledby="gallery-dropdown">
-                         <a class="dropdown-item" href="index.php?page=tintuc">Tin tức mới</a>
-                         <a class="dropdown-item" href="index.php?page=tintuc">Tin khuyến mãi</a>
+                         <a class="dropdown-item" href="?page=tintuc">Tin tức mới</a>
+                         <a class="dropdown-item" href="?page=tintuc">Tin khuyến mãi</a>
                       </div>
                    </li> -->
                    <!-- menu item -->
@@ -232,15 +238,19 @@
                       <a class="nav-link dropdown-toggle" href="#" id="gallery-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thư viện
                       </a>
                       <div class="dropdown-menu" aria-labelledby="gallery-dropdown">
-                         <a class="dropdown-item" href="index.php?page=hinhanh">Thư viện hình ảnh</a>
-                         <a class="dropdown-item" href="index.php?page=video">Thư viện video</a>
+                         <a class="dropdown-item" href="?page=hinhanh">Thư viện hình ảnh</a>
+                         <a class="dropdown-item" href="?page=video">Thư viện video</a>
                       </div>
                    </li> -->
                    <!-- menu item -->
                    <!-- <li class="nav-item">
-                      <a class="nav-link" href="index.php?page=lienhe">Liên hệ</a>
+                      <a class="nav-link" href="{{URL::to('/lien-he')}}">Liên hệ</a>
                    </li> -->
                   @endforeach
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{URL::to('/lien-he')}}">Liên hệ
+                     </a>
+                  </li>
                 </ul>
                 <!--/ul -->
              </div>
@@ -269,24 +279,8 @@
       </div>
       <!--/container -->
    </div>
-    @if (isset($_GET["page"]))
-      $page=$_GET["page"];
-      $page.=".php";
-      @if($page=="index.php")
-         $page="trangchu.php";
-      @endif
-      $page = str_replace("http","XXX",$page);
-      $page = str_replace("https","XXX",$page);
-      $page = str_replace("ftp","XXX",$page);
-      $page = str_replace("ftps","XXX",$page);
-      @if (is_file($page))
-        @yield('content')
-      @else 
-        @yield('404')
-      @endif
-   @else 
+    
       @yield('content')
-    @endif 
    <div class="clr"></div>
 </div>
 <!--/ page-wrapper -->

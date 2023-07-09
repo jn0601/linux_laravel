@@ -27,7 +27,20 @@ use Illuminate\Support\Facades\Auth;
 //Frontend
 Route::get('/', 'Frontend\HomeController@index'); // vào func index của HomeController
 Route::get('/trang-chu', 'Frontend\HomeController@index');
+Route::get('/gioi-thieu', 'Frontend\HomeController@about_us');
+Route::get('/lien-he', 'Frontend\HomeController@contact');
 
+//Category
+Route::get('/danh-muc/danh-muc-san-pham', 'Frontend\CategoryController@show_all_category_product');
+Route::get('/danh-muc/danh-muc-tin-tuc', 'Frontend\CategoryController@show_all_category_news');
+Route::get('/danh-muc/{seo_name}/6', 'Frontend\CategoryController@show_category_product');
+Route::get('/danh-muc/{seo_name}/5', 'Frontend\CategoryController@show_category_news');
+
+//Product
+Route::get('/san-pham/{seo_name}', 'Frontend\DetailController@detail_product');
+
+//News
+Route::get('/tin-tuc/{seo_name}', 'Frontend\DetailController@detail_news');
 
 //Backend
 // ->middleware('auth') để bảo mật đường dẫn

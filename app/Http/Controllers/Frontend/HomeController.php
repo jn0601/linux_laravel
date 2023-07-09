@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index() {
-        $menu_tab = Menus::where('status', 1)->orderBy('display_order', 'asc')->get();
+        $menu_tab = Menus::where('status', 1)->orderBy('id', 'asc')->get();
         return view('pages.home')->with('menu_tab', $menu_tab); // gọi home.blade trong folder pages
     }
 
@@ -16,5 +16,13 @@ class HomeController extends Controller
         return view('pages.404'); // gọi home.blade trong folder pages
     }
 
-    
+    public function about_us() {
+        $menu_tab = Menus::where('status', 1)->orderBy('id', 'asc')->get();
+        return view('pages.about_us')->with('menu_tab', $menu_tab);
+    }
+
+    public function contact() {
+        $menu_tab = Menus::where('status', 1)->orderBy('id', 'asc')->get();
+        return view('pages.contact')->with('menu_tab', $menu_tab);
+    }
 }

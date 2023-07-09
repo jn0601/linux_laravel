@@ -47,7 +47,7 @@
 					@foreach($edit_news as $key => $edit_value)
 					<div class="x_content">
 						<form class="" enctype="multipart/form-data"
-							action="{{URL::to('/update-news/'.$edit_value->id)}}" method="post" novalidate>
+							action="{{URL::to('/admin/update-news/'.$edit_value->id)}}" method="post" novalidate>
 							<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 								<li class="nav-item">
 									<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
