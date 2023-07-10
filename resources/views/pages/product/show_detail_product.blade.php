@@ -189,7 +189,7 @@
                <div class="serviceBox2">
                   <!-- service icon -->
                   <div class="service-icon">
-                     <a href="">
+                     <a href="{{URL::to('/san-pham/'.$related->seo_name)}}">
                         <img src="{{URL::to('public/backend/uploads/products/'.$related->image)}}" alt="" class="blob2 img-fluid">
                      </a>
                   </div>

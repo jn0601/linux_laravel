@@ -42,6 +42,9 @@ Route::get('/san-pham/{seo_name}', 'Frontend\DetailController@detail_product');
 //News
 Route::get('/tin-tuc/{seo_name}', 'Frontend\DetailController@detail_news');
 
+//Contact
+Route::post('/save-contact', 'Backend\FormContactsController@save_contact');
+
 //Backend
 // ->middleware('auth') để bảo mật đường dẫn
 // ->name('login') để redirect về trang login

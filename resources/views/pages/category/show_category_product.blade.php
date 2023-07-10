@@ -85,9 +85,9 @@
                         <!-- image -->
                         <a href="">
                            @if($seo_name == 'danh-muc-san-pham')
-                           <div class="image"><img style="height: 400px;" src="{{URL::to('public/backend/uploads/product_categories/'.$product->image)}}" alt=""/></div>
+                           <div class="image"><img style="height: 400px; width: 100%;" src="{{URL::to('public/backend/uploads/product_categories/'.$product->image)}}" alt=""/></div>
                            @else
-                           <div class="image"><img style="height: 400px;" src="{{URL::to('public/backend/uploads/products/'.$product->image)}}" alt=""/></div>
+                           <div class="image"><img style="height: 400px; width: 100%;" src="{{URL::to('public/backend/uploads/products/'.$product->image)}}" alt=""/></div>
                            @endif
                         </a>
                         <!-- blog-box-caption -->

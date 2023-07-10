@@ -172,25 +172,29 @@
                    <!-- menu item -->
                      <!-- menu cấp 1 -->
                      @if ($tab->parent_id == 0)
+
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{URL::to('/danh-muc/'.$tab->seo_name)}}" id="services-dropdown">{{$tab->name}}
-                        </a>
-                        <!-- menu cấp 2 -->
-                        <div class="dropdown-menu dropdown" aria-labelledby="services-dropdown">
-                        @foreach($menu_tab as $menu_2)
-                           @if($menu_2->parent_id == $tab->id)
-                                 <a class="dropdown-item" href="{{URL::to('/danh-muc/'.$menu_2->seo_name. '/'. $tab->type)}}">{{$menu_2->name}} <i class="fas fa-caret-right"></i></a>
-                                 <!-- menu cấp 3 -->
-                                 <div class="dropdown-menu dropdown-menu-a" aria-labelledby="about-dropdown">
-                                 @foreach($menu_tab as $menu_3)
-                                    @if($menu_3->parent_id == $menu_2->id)
-                                       <a class="dropdown-item" href="{{URL::to('/danh-muc/'.$menu_3->seo_name. '/'. $tab->type)}}">{{$menu_3->name}}</a>
-                                    @endif
-                                 @endforeach
-                                 </div>
-                           @endif
-                        @endforeach
-                        </div>
+                           <a class="nav-link dropdown-toggle" href="{{URL::to('/danh-muc/'.$tab->seo_name)}}" id="services-dropdown">
+                              {{$tab->name}}
+                           </a>
+                           <div class="dropdown-menu dropdown" aria-labelledby="services-dropdown">
+                              @foreach($menu_tab as $menu_2)
+                                 @if($menu_2->parent_id == $tab->id)
+                              <div class="menuhover">
+                                       <a class="dropdown-item" href="{{URL::to('/danh-muc/'.$menu_2->seo_name. '/'. $tab->type)}}">
+                                       {{$menu_2->name}} <i class="fas fa-caret-right"></i></a>
+                                       <!-- menu cấp 3 -->
+                                       <div class="dropdown-menu dropdown-menu-a" aria-labelledby="about-dropdown">
+                                          @foreach($menu_tab as $menu_3)
+                                             @if($menu_3->parent_id == $menu_2->id)
+                                                <a class="dropdown-item" href="{{URL::to('/danh-muc/'.$menu_3->seo_name. '/'. $tab->type)}}">{{$menu_3->name}}</a>
+                                             @endif
+                                          @endforeach
+                                       </div>
+                              </div>
+                              @endif
+                           @endforeach
+                           </div>
                         </li>
                      @endif
                    <!-- menu item -->

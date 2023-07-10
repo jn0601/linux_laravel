@@ -1848,6 +1848,12 @@ ul.slider-pagi {
 
 .blog-box p {
 	margin-bottom: 20px;
+	display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
 }
 
 .blog-box .blog-box-footer {
@@ -4132,5 +4138,28 @@ ul.checkmark li:before {
 	}
 	.slider-divider {
 		margin-top: -100px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.navbar-expand-xl .navbar-nav .dropdown-menu {
+	  position: absolute;
+	  margin-top: 0px;
+	}
+	.navbar-expand-xl .navbar-nav .dropdown-menu.dropdown-menu-a {
+		padding: 0px;
+		opacity: 0;
+		visibility: visible;
+	}
+	.navbar-expand-xl .navbar-nav .menuhover:hover .dropdown-menu.dropdown-menu-a {
+		opacity: 1;
+		visibility: visible;
+		transform: none;
+		-webkit-transform: none;
+		-moz-transform: none;
+		display: block;
+	}
+	.navbar-expand-xl .navbar-nav .menuhover {
+		position: relative;
 	}
 }

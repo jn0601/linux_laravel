@@ -38,4 +38,25 @@ class FormContactsController extends Controller
         Toastr::success('Xóa liên hệ thành công', 'Thành công');
         return Redirect::to('/admin/list-contacts');
     }
+
+    // thêm liên hệ
+    public function save_contact(Request $request) {
+        $data = $request->all();
+
+        $contact = new Form_contacts();
+
+        // save vào bảng chính
+        $contact->fullname = $data['name'];
+        $contact->title = $data['title'];
+        $contact->address = $data['address'];
+        $contact->phone = $data['phone'];
+        $contact->email = $data['email'];
+        $contact->content = $data['content'];
+        $contact->note = $data['note'];
+        $contact->date_created = date("Ymd");
+        $contact->save();
+
+        Toastr::success('Gửi thông tin thành công', 'Thành công');
+        return Redirect::to('/lien-he');
+    }
 }

@@ -85,9 +85,9 @@
                         <!-- image -->
                         <a href="" >
                            @if($seo_name == 'danh-muc-tin-tuc')
-                           <div class="image"><img style="height: 400px;" src="{{URL::to('public/backend/uploads/news_categories/'.$news->image)}}" alt=""/></div>
+                           <div class="image"><img style="height: 400px; width: 100%;" src="{{URL::to('public/backend/uploads/news_categories/'.$news->image)}}" alt=""/></div>
                            @else
-                           <div class="image"><img style="height: 400px;" src="{{URL::to('public/backend/uploads/news/'.$news->image)}}" alt=""/></div>
+                           <div class="image"><img style="height: 400px; width: 100%;" src="{{URL::to('public/backend/uploads/news/'.$news->image)}}" alt=""/></div>
                            @endif
                         </a>
                         <!-- blog-box-caption -->

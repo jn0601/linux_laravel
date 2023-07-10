@@ -199,14 +199,14 @@
                @foreach($related_news as $key => $related)
                <div class="blog-box">
                   <!-- image -->
-                  <a href="index.php?page=tintuc-view">
-                     <div class="image"><img src="{{URL::to('public/backend/uploads/news/'.$related->image)}}" alt="" /></div>
+                  <a href="{{URL::to('/tin-tuc/'.$related->seo_name)}}">
+                     <div class="image"><img style="height: 350px;" src="{{URL::to('public/backend/uploads/news/'.$related->image)}}" alt="" /></div>
                   </a>
                   <!-- blog-box-caption -->
                   <div class="blog-box-caption">
                      <!-- date -->
-                     <div class="date"><span class="day">{{substr($news->date_created, -2)}}</span><span class="month">Tháng {{substr($news->date_created, 4, -2)}}</span></div>
-                     <a href="index.php?page=tintuc-view">
+                     <div class="date"><span class="day">{{substr($related->date_created, -2)}}</span><span class="month">Tháng {{substr($news->date_created, 4, -2)}}</span></div>
+                     <a href="{{URL::to('/tin-tuc/'.$related->seo_name)}}">
                         <h3>{{$related->name}}</h3>
                      </a>
                      <!-- /link -->
@@ -219,7 +219,7 @@
                      <div class="comments"><i class="fas fa-eye"></i>Lượt xem: {{$related->count_view}}</div>
                      <!-- Button -->
                      <div class="text-center col-md-12">
-                        <a href="index.php?page=tintuc-view" class="btn btn-primary">Xem thêm</a>
+                        <a href="{{URL::to('/tin-tuc/'.$related->seo_name)}}" class="btn btn-primary">Xem thêm</a>
                      </div>
                   </div>
                   <!-- /blog-box-footer -->
